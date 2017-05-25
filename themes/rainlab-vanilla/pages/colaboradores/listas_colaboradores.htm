@@ -1,0 +1,35 @@
+title = "listas_colaboradores"
+url = "/listas_colaboradores"
+layout = "formularios"
+description = "consulta de colaboradores"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+	    $this['colaboradores'] = Db::table('colaboradores')->paginate(20);
+	}
+?>
+==
+{% if can('parametros') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">CONSULTAR COLABORADOR</h3>
+	    </div> 
+	    <div class="panel-body">
+			<table class="table table-hover ">
+			    <thead> <tr> <th>Cédula</th> <th>Nombres</th> <th>Empresa</th> <th>Acción</th>  </tr> </thead>
+			    <tbody>
+			        {% for colaborador in colaboradores %}
+			            <tr><td>{{ colaborador.cedula }}</td><td>{{ colaborador.nombres }} {{ colaborador.apellidos }}</td><td>{{ colaborador.empresa }}</td><td><a href="editar_colaborador/{{ colaborador.id }}">Ver</a></td></tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+
+			{{ colaboradores.render|raw }}
+		</div>
+	</div>
+{% else %}
+
+    {% partial 'acceso' %}
+
+{% endif %}

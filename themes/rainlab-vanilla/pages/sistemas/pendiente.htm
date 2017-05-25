@@ -1,0 +1,38 @@
+title = "pendiente"
+url = "/pendiente"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+		$pendientes = Db::table('help_desk')
+	    ->where('estado','=','Pendiente')
+	    ->orderby('creacion','asc')->paginate(20);
+	    $this['pendientes'] = $pendientes;
+		$this['cont_pendientes'] = count($pendientes);
+	}	
+?>
+==
+{% if can('helpdesk') %}
+{% partial 'menu_casos' %}
+    {% if cont_pendientes > 0 %}
+        <div class="panel panel-danger"> 
+            <div class="panel-heading"> 
+                <h3 class="panel-title">Solicitudes Pendientes</h3>
+            </div> 
+            <div class="panel-body">
+                <table class="table table-hover ">
+                    <thead><tr><th>creación</th><th>Asunto</th><th>Prioridad</th><th>Usuario</th><th>Acción</th></tr></thead>
+                    <tbody>
+                        {% for pendiente in pendientes %}
+                            <tr><td>{{ pendiente.creacion }}</td><td>{{ pendiente.asunto }}</td><td> {{ pendiente.prioridad }}</td><td>{{ pendiente.reportado_por }}</td><td><a href="consultar_solicitud/{{ pendiente.id }}">Ver</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ pendientes.render|raw }}
+            </div>
+        </div>
+    {%else%}
+        <label>No hay solicitudes en estado 'PENDIENTE'.</label>
+    {% endif %}
+{% endif %}

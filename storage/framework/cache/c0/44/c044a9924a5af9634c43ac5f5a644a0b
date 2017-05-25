@@ -1,0 +1,3176 @@
+1494620401a:1:{s:22:"guias/crear_perfil.htm";a:9:{s:8:"fileName";s:22:"guias/crear_perfil.htm";s:7:"content";s:79798:"title = "crear_perfil"
+url = "/crear_perfil/:id?"
+layout = "perfil_cargo"
+is_hidden = 0
+==
+<?php
+    function onRedirect(){
+        return Redirect::to('ver_perfiles/'.$this->param('id'));
+    }
+	function onStart(){
+		$empresa = Db::table('portada_perfiles')
+		    ->join('guia_cliente', 'portada_perfiles.id_guia', '=', 'guia_cliente.id')
+		    ->select('guia_cliente.empresa')
+		    ->where('portada_perfiles.id','=',$this->param('id'))
+		    ->first();
+	    $this['empresa'] = $empresa;  
+	     
+		$this['id_portada'] = $this->param('id');
+	}
+
+function onSave()
+{
+    $validator = false;
+    if (input('cargo') == ""){
+        $this['error'] = "Debe ingresar el nombre del cargo.";
+    }elseif(input('salario')==""){   
+        $this['error'] = "Debe ingresar el salario.";
+    }elseif(input('horario')==""){
+        $this['error'] = "Debe ingresar el horario.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('perfil')->insertGetId(
+            [
+            'id_portada' => $this->param('id'),
+            'fecha_creacion' => date('Y-m-d'),
+            'fecha_actualizacion' => date('Y-m-d'),
+            'cargo' => input('cargo'),
+            'rango_edad' => input('rango_edad'),
+            'sexo' => input('sexo'),
+            'salario' => input('salario'),
+            'riesgo' => input('riesgo'),
+            'horario' => input('horario'),
+            'restricciones' => input('restricciones'),
+            'cual_restriccion' => input('cual_restriccion'),
+            'observaciones_adicionales' => input('observaciones_adicionales'),
+            'formacion' => input('formacion'),
+            'formacion_adicional' => input('formacion_adicional'),
+            'observaciones_formacion' => input('observaciones_formacion'),
+            'experiencia' => input('experiencia'),
+            'observaciones_experiencia' => input('observaciones_experiencia'),
+            'funciones' => input('funciones'),
+            'trabajo_equipo' => input('trabajo_equipo'),
+            'atencion_detalle' => input('atencion_detalle'),
+            'retroalimentacion' => input('retroalimentacion'),
+            'comunicacion_abierta' => input('comunicacion_abierta'),
+            'comunicacion_escrita' => input('comunicacion_escrita'),
+            'planeacion' => input('planeacion'),
+            'actitud_normas' => input('actitud_normas'),
+            'adaptabilidad' => input('adaptabilidad'),
+            'compromiso_laboral' => input('compromiso_laboral'),
+            'orientacion_resultado' => input('orientacion_resultado'),
+            'disciplina' => input('disciplina'),
+            'habilidad_social' => input('habilidad_social'),
+            'sentido_urgencia' => input('sentido_urgencia'),
+            'autocontrol' => input('autocontrol'),
+            'analisis_numerico' => input('analisis_numerico'),
+            'hojavida_cant' => input('hojavida_cant'),
+            'hojavida_obl' => input('hojavida_obl'),
+            'hojavida_aut' => input('hojavida_aut'),
+            'hojavida_val' => input('hojavida_val'),
+            'hojavida_analisis' => input('hojavida_analisis'),
+            'entrevista_cant' => input('entrevista_cant'),
+            'entrevista_obl' => input('entrevista_obl'),
+            'entrevista_aut' => input('entrevista_aut'),
+            'entrevista_val' => input('entrevista_val'),
+            'entrevista_analisis' => input('entrevista_analisis'),
+            'prb_conocimiento_cant' => input('prb_conocimiento_cant'),
+            'prb_conocimiento_obl' => input('prb_conocimiento_obl'),
+            'prb_conocimiento_aut' => input('prb_conocimiento_aut'),
+            'prb_conocimiento_val' => input('prb_conocimiento_val'),
+            'prb_conocimiento_analisis' => input('prb_conocimiento_analisis'),
+            'formato_usuaria_cant' => input('formato_usuaria_cant'),
+            'formato_usuaria_obl' => input('formato_usuaria_obl'),
+            'formato_usuaria_aut' => input('formato_usuaria_aut'),
+            'formato_usuaria_val' => input('formato_usuaria_val'),
+            'formato_usuaria_analisis' => input('formato_usuaria_analisis'),
+            'referencias_cant' => input('referencias_cant'),
+            'referencias_obl' => input('referencias_obl'),
+            'referencias_aut' => input('referencias_aut'),
+            'referencias_val' => input('referencias_val'),
+            'referencias_analisis' => input('referencias_analisis'),
+            'visita_cant' => input('visita_cant'),
+            'visita_obl' => input('visita_obl'),
+            'visita_aut' => input('visita_aut'),
+            'visita_val' => input('visita_val'),
+            'visita_analisis' => input('visita_analisis'),
+            'fotocopia_cant' => input('fotocopia_cant'),
+            'fotocopia_obl' => input('fotocopia_obl'),
+            'fotocopia_aut' => input('fotocopia_aut'),
+            'fotocopia_val' => input('fotocopia_val'),
+            'fotocopia_analisis' => input('fotocopia_analisis'),
+            'ant_policia_cant' => input('ant_policia_cant'),
+            'ant_policia_obl' => input('ant_policia_obl'),
+            'ant_policia_aut' => input('ant_policia_aut'),
+            'ant_policia_val' => input('ant_policia_val'),
+            'ant_policia_analisis' => input('ant_policia_analisis'),
+            'ant_procuraduria_cant' => input('ant_procuraduria_cant'),
+            'ant_procuraduria_obl' => input('ant_procuraduria_obl'),
+            'ant_procuraduria_aut' => input('ant_procuraduria_aut'),
+            'ant_procuraduria_val' => input('ant_procuraduria_val'),
+            'ant_procuraduria_analisis' => input('ant_procuraduria_analisis'),
+            'alimentos_cant' => input('alimentos_cant'),
+            'alimentos_obl' => input('alimentos_obl'),
+            'alimentos_aut' => input('alimentos_aut'),
+            'alimentos_val' => input('alimentos_val'),
+            'alimentos_analisis' => input('alimentos_analisis'),
+            'ref_personales_cant' => input('ref_personales_cant'),
+            'ref_personales_obl' => input('ref_personales_obl'),
+            'ref_personales_aut' => input('ref_personales_aut'),
+            'ref_personales_val' => input('ref_personales_val'),
+            'ref_personales_analisis' => input('ref_personales_analisis'),
+            'cert_laboral_cant' => input('cert_laboral_cant'),
+            'cert_laboral_obl' => input('cert_laboral_obl'),
+            'cert_laboral_aut' => input('cert_laboral_aut'),
+            'cert_laboral_val' => input('cert_laboral_val'),
+            'cert_laboral_analisis' => input('cert_laboral_analisis'),
+            'cert_bachiller_cant' => input('cert_bachiller_cant'),
+            'cert_bachiller_obl' => input('cert_bachiller_obl'),
+            'cert_bachiller_aut' => input('cert_bachiller_aut'),
+            'cert_bachiller_val' => input('cert_bachiller_val'),
+            'cert_bachiller_analisis' => input('cert_bachiller_analisis'),
+            'cert_superior_cant' => input('cert_superior_cant'),
+            'cert_superior_obl' => input('cert_superior_obl'),
+            'cert_superior_aut' => input('cert_superior_aut'),
+            'cert_superior_val' => input('cert_superior_val'),
+            'cert_superior_analisis' => input('cert_superior_analisis'),
+            'tj_profesional_cant' => input('tj_profesional_cant'),
+            'tj_profesional_obl' => input('tj_profesional_obl'),
+            'tj_profesional_aut' => input('tj_profesional_aut'),
+            'tj_profesional_val' => input('tj_profesional_val'),
+            'tj_profesional_analisis' => input('tj_profesional_analisis'),
+            'prb_psico_cant' => input('prb_psico_cant'),
+            'prb_psico_obl' => input('prb_psico_obl'),
+            'prb_psico_aut' => input('prb_psico_aut'),
+            'prb_psico_val' => input('prb_psico_val'),
+            'prb_psico_analisis' => input('prb_psico_analisis'),
+            'examen_ingreso_cant' => input('examen_ingreso_cant'),
+            'examen_ingreso_obl' => input('examen_ingreso_obl'),
+            'examen_ingreso_aut' => input('examen_ingreso_aut'),
+            'examen_ingreso_val' => input('examen_ingreso_val'),
+            'examen_ingreso_analisis' => input('examen_ingreso_analisis'),
+            'clinton_cant' => input('clinton_cant'),
+            'clinton_obl' => input('clinton_obl'),
+            'clinton_aut' => input('clinton_aut'),
+            'clinton_val' => input('clinton_val'),
+            'clinton_analisis' => input('clinton_analisis'),
+            'contraloria_cant' => input('contraloria_cant'),
+            'contraloria_obl' => input('contraloria_obl'),
+            'contraloria_aut' => input('contraloria_aut'),
+            'contraloria_val' => input('contraloria_val'),
+            'contraloria_analisis' => input('contraloria_analisis'),
+            'simit_cant' => input('simit_cant'),
+            'simit_obl' => input('simit_obl'),
+            'simit_aut' => input('simit_aut'),
+            'simit_val' => input('simit_val'),
+            'simit_analisis' => input('simit_analisis'),
+            'licencia_cant' => input('licencia_cant'),
+            'licencia_obl' => input('licencia_obl'),
+            'licencia_aut' => input('licencia_aut'),
+            'licencia_val' => input('licencia_val'),
+            'licencia_analisis' => input('licencia_analisis'),
+            'alturas_cant' => input('alturas_cant'),
+            'alturas_obl' => input('alturas_obl'),
+            'alturas_aut' => input('alturas_aut'),
+            'alturas_val' => input('alturas_val'),
+            'alturas_analisis' => input('alturas_analisis'),
+            'montacarga_cant' => input('montacarga_cant'),
+            'montacarga_obl' => input('montacarga_obl'),
+            'montacarga_aut' => input('montacarga_aut'),
+            'montacarga_val' => input('montacarga_val'),
+            'montacarga_analisis' => input('montacarga_analisis'),
+            'resolucion_cant' => input('resolucion_cant'),
+            'resolucion_obl' => input('resolucion_obl'),
+            'resolucion_aut' => input('resolucion_aut'),
+            'resolucion_val' => input('resolucion_val'),
+            'resolucion_analisis' => input('resolucion_analisis'),
+            'soporte_vital_cant' => input('soporte_vital_cant'),
+            'soporte_vital_obl' => input('soporte_vital_obl'),
+            'soporte_vital_aut' => input('soporte_vital_aut'),
+            'soporte_vital_val' => input('soporte_vital_val'),
+            'soporte_vital_analisis' => input('soporte_vital_analisis'),
+            'otros_cant' => input('otros_cant'),
+            'otros_obl' => input('otros_obl'),
+            'otros_aut' => input('otros_aut'),
+            'otros_val' => input('otros_val'),
+            'otros_analisis' => input('otros_analisis'),
+            'descripcion_otros' => input('descripcion_otros'),
+            'txt_prb_psico' => input('txt_prb_psico'),
+            'txt_prb_conocimiento' => input('txt_prb_conocimiento'),
+            'txt_formatos_empresa' => input('txt_formatos_empresa'),
+            'opciones' => input('opciones'),
+            'opciones' => input('opciones'),
+            'examenes_aplicar' => input('examenes_aplicar'),
+            'carga_fisica' => input('carga_fisica'),
+            'posicion_sedente' => input('posicion_sedente'),
+            'posicion_bipeda' => input('posicion_bipeda'),
+            'posturas_mantenidas' => input('posturas_mantenidas'),
+            'alternar_posic' => input('alternar_posic'),
+            'motricidad_gruesa' => input('motricidad_gruesa'),
+            'motricidad_fina' => input('motricidad_fina'),
+            'destreza_manual' => input('destreza_manual'),
+            'manejo_cargas' => input('manejo_cargas'),
+            'velocidad_reaccion' => input('velocidad_reaccion'),
+            'observacion_inicial' => input('observacion_inicial')
+            ]
+        );  
+        $this['id'] = $id;        
+        $this['mensaje'] = "El registro fúe creado con el id: " . $id;      
+        $this['redirect'] = "si";  
+    }
+}
+?>
+==
+
+<div class="panel panel-primary"> 
+    <div class="panel-heading">         
+    	<h3 class="panel-title" style="text-align:center"><b>CREAR PERFIL DE CARGO</b></h3>
+    </div> 
+    <div class="panel-body">
+    <!--div class="alert alert-info" role="alert"><p>COMERCIAL</p></div-->
+        <form data-request="onSave" data-request-update="resultados: '#resultado'">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="../ver_perfiles/{{ id_portada }}">Regresar a la portada</a>
+                </div>                
+            </div>            
+            <div class="row">
+            	<div class="col-md-6">
+            		<span>Empresa Usuaria</span>
+            		<input type="text" id="empresa" name="empresa" readonly class="form-control" value="{{ empresa.empresa }}"/>
+            	</div>
+            	<!--div class="col-md-2">
+            		<span>Fecha Actualización</span>            		
+            		<input type="text" id="fecha_actualizacion" name="fecha_actualizacion" class="form-control"/>
+            	</div-->
+            	<div class="col-md-4">
+            		<span>Cargo:</span>
+            		<input type="text" id="cargo" name="cargo" class="form-control" />
+            	</div>
+            	<div class="col-md-2">
+            		<span>Rango edad:</span>            		
+            		<input type="text" id="rango_edad" name="rango_edad" class="form-control"/>
+            	</div>
+            	<div class="col-md-2">
+            		<span>Sexo:</span>            		
+            		<select id="sexo" name="sexo" class="form-control">
+            			<option value="Femenino">Femenino</option>
+            			<option value="Masculino">Masculino</option>
+            			<option value="Indiferente">Indiferente</option>
+            		</select>
+            	</div>
+            	<div class="col-md-3">
+            		<span>Salario:</span>
+            		<input type="text" id="salario" name="salario" class="form-control" />
+            	</div>
+            	<div class="col-md-3">
+            		<span>Riesgo:</span>            		
+            		<input type="text" id="riesgo" name="riesgo" class="form-control" />
+            	</div>
+            	<div class="col-md-3">
+            		<span>Horario:</span>            		
+            		<input type="text" id="horario" name="horario" class="form-control" />
+            	</div>           	
+            	<div class="col-md-2">
+            		<span>Restricciones:</span>            		
+            		<select id="restricciones" name="restricciones" class="form-control">
+            			<option value="No">No</option>
+            			<option value="Si">Si</option>            			
+            		</select>
+            	</div>
+            	<div class="col-md-10">
+            		<span>Cúal?:</span>
+            		<input type="text" id="cual_restriccion" name="cual_restriccion" class="form-control" disabled />
+            	</div>
+            	<div class="col-md-12">
+            		<span>Observaciones Adicionales al perfil:</span>            		
+            		<textarea id="observaciones_adicionales" name="observaciones_adicionales" class="form-control"></textarea>
+            		<span>* Deben registrarse los aspectos adicionales y específicos que no estén contemplados en este documento</span>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-3">
+            		<label>Formación Académica:</label>            		
+            		<select id="formacion" name="formacion" class="form-control">
+            			<option value="Ninguna">Ninguna</option>
+            			<option value="Primaria">Primaria</option>
+            			<option value="Bachiller">Bachiller</option>
+            			<option value="Técnico">Técnico</option>
+            			<option value="Tecnólogo">Tecnólogo</option>
+            			<option value="Estudiante">Estudiante</option>
+            			<option value="Profesional">Profesional</option>
+            			<option value="Especialista">Especialista</option>
+            			<option value="Doctorado">Doctorado</option>
+            		</select>
+            	</div>
+            	<div class="col-md-9">
+            		<span>Formación especifica o adicional:</span>            		
+            		<textarea id="formacion_adicional" name="formacion_adicional" class="form-control"></textarea>
+            	</div>
+            	<div class="col-md-12">
+            		<span>Observaciones:</span>            		
+            		<textarea id="observaciones_formacion" name="observaciones_formacion" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-3">
+            		<label>Experiencia laboral:</label>            		
+            		<select id="experiencia" name="experiencia" class="form-control">
+            			<option value="Ninguna">Ninguna</option>
+						<option value="1 a 6 meses">1 a 6 meses</option>
+						<option value="1 año">1 año</option>
+						<option value="2 años">2 años</option>
+						<option value="3 años">3 años</option>
+						<option value="4 años">4 años</option>
+						<option value="5 años">5 años</option>
+						<option value="6 o más">6 o más</option>
+            		</select>
+            	</div>
+            	<div class="col-md-9">
+            		<span>Observaciones:</span>            		
+            		<textarea id="observaciones_experiencia" name="observaciones_experiencia" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-12">
+            		<label>Funciones - Responsabilidades:</label>            		
+            		<textarea id="funciones" name="funciones" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>COMPETENCIAS</p></div>
+        		<div class="col-md-6">
+	        		<div class="col-md-6">
+	        			<span>1. Trabajo en equipo:</span>
+	        		</div>	            	
+	        		<div class="col-md-6">
+	        			<select id="trabajo_equipo" name="trabajo_equipo" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	    			<div class="col-md-6">
+	        			<span>2. Atención al detalle:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="atencion_detalle" name="atencion_detalle" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>3. Retroalimentación:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="retroalimentacion" name="retroalimentacion" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>4. Comunicación abierta:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="comunicacion_abierta" name="comunicacion_abierta" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>	            		
+	        		<div class="col-md-6">
+	        			<span>5. Comunicación escrita:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="comunicacion_escrita" name="comunicacion_escrita" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>6. Planeación:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="planeacion" name="planeacion" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>7. Actitud hacia las normas:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="actitud_normas" name="actitud_normas" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>8. Adaptabilidad:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="adaptabilidad" name="adaptabilidad" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+        		</div>
+        		<div class="col-md-6">
+	        		<div class="col-md-6">
+	        			<span>9. Compromiso laboral:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="compromiso_laboral" name="compromiso_laboral" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>10. Orientación al resultado:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="orientacion_resultado" name="orientacion_resultado" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>11. Disciplina:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="disciplina" name="disciplina" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>12. Habilidad social:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="habilidad_social" name="habilidad_social" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>13. Sentido de urgencia:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="sentido_urgencia" name="sentido_urgencia" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>14. Autocontrol:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="autocontrol" name="autocontrol" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>15. Análisis numérico:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="analisis_numerico" name="analisis_numerico" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        	</div>
+            </div>
+            <hr>
+            <div class="row">
+            	<div class="alert alert-info" role="alert"><p>DOCUMENTACION REQUERIDA</p></div>
+            	<div class="col-md-6">
+            		<div class="row">
+            			<div class="col-md-6">
+	            			<label>Documentación requerida:</label>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Cant</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Obl</label>
+	            		</div></div> 		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>C/Aut</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Valid</label>
+	            		</div></div>  		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Análisis</label>
+	            		</div></div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Hoja de Vida</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="hojavida_cant" id="hojavida_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_obl" id="hojavida_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_aut" id="hojavida_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_val" id="hojavida_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_analisis" id="hojavida_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>    
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Formato entrevista</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="entrevista_cant" id="entrevista_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_obl" id="entrevista_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_aut" id="entrevista_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_val" id="entrevista_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_analisis" id="entrevista_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Pruebas de conocimiento</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="prb_conocimiento_cant" id="prb_conocimiento_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_obl" id="prb_conocimiento_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_aut" id="prb_conocimiento_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_val" id="prb_conocimiento_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_analisis" id="prb_conocimiento_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Formato usuaria</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="formato_usuaria_cant" id="formato_usuaria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_obl" id="formato_usuaria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_aut" id="formato_usuaria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_val" id="formato_usuaria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_analisis" id="formato_usuaria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Verificación Referencias</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="referencias_cant" id="referencias_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_obl" id="referencias_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_aut" id="referencias_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_val" id="referencias_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_analisis" id="referencias_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Visita Domiciliaria</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="visita_cant" id="visita_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_obl" id="visita_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_aut" id="visita_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_val" id="	" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_analisis" id="visita_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Fotocopia Cédula</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="fotocopia_cant" id="fotocopia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_obl" id="fotocopia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_aut" id="fotocopia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_val" id="fotocopia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_analisis" id="fotocopia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Antecedentes Policía</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ant_policia_cant" id="ant_policia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_obl" id="ant_policia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_aut" id="ant_policia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_val" id="ant_policia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_analisis" id="ant_policia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Antecedentes Procuraduría</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ant_procuraduria_cant" id="ant_procuraduria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_obl" id="ant_procuraduria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_aut" id="ant_procuraduria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_val" id="ant_procuraduria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_analisis" id="ant_procuraduria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Carné manipulación alimentos (si aplica)</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="alimentos_cant" id="alimentos_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_obl" id="alimentos_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_aut" id="alimentos_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_val" id="alimentos_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_analisis" id="alimentos_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Referencias Personales</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ref_personales_cant" id="ref_personales_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_obl" id="ref_personales_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_aut" id="ref_personales_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_val" id="ref_personales_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_analisis" id="ref_personales_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificaciones Laborales</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_laboral_cant" id="cert_laboral_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_obl" id="cert_laboral_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_aut" id="cert_laboral_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_val" id="cert_laboral_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_analisis" id="cert_laboral_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificado Estudios bachiller</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_bachiller_cant" id="cert_bachiller_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_obl" id="cert_bachiller_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_aut" id="cert_bachiller_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_val" id="cert_bachiller_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_analisis" id="cert_bachiller_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+            			<div class="col-md-6">
+	            			<label>Documentación requerida:</label>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Cant</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Obl</label>
+	            		</div></div> 		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>C/Aut</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Valid</label>
+	            		</div></div>  		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Análisis</label>
+	            		</div></div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificado Estudios superiores</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_superior_cant" id="cert_superior_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_obl" id="cert_superior_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_aut" id="cert_superior_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_val" id="cert_superior_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_analisis" id="cert_superior_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Resolución y/o tarjeta profesional</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="tj_profesional_cant" id="tj_profesional_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="	form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_obl" id="tj_profesional_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_aut" id="tj_profesional_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_val" id="tj_profesional_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_analisis" id="tj_profesional_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Pruebas psicotécnicas</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="prb_psico_cant" id="prb_psico_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_obl" id="prb_psico_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_aut" id="prb_psico_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_val" id="prb_psico_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_analisis" id="prb_psico_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Exámen de ingreso</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="examen_ingreso_cant" id="examen_ingreso_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_obl" id="examen_ingreso_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_aut" id="examen_ingreso_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_val" id="examen_ingreso_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_analisis" id="examen_ingreso_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Lista clinton</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="clinton_cant" id="clinton_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_obl" id="clinton_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_aut" id="clinton_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_val" id="clinton_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_analisis" id="clinton_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Contraloría</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="contraloria_cant" id="contraloria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_obl" id="contraloria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_aut" id="contraloria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_val" id="contraloria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_analisis" id="contraloria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Simit</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="simit_cant" id="simit_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_obl" id="simit_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_aut" id="simit_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_val" id="simit_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_analisis" id="simit_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Licencia conducción</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">	
+	            			<input type="text" name="licencia_cant" id="licencia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_obl" id="licencia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_aut" id="licencia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_val" id="licencia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_analisis" id="licencia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso de alturas</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="alturas_cant" id="alturas_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_obl" id="alturas_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_aut" id="alturas_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_val" id="alturas_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_analisis" id="alturas_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso de montacarguista</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="montacarga_cant" id="montacarga_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_obl" id="montacarga_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_aut" id="montacarga_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_val" id="montacarga_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_analisis" id="montacarga_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Resolución</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="resolucion_cant" id="resolucion_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_obl" id="resolucion_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_aut" id="resolucion_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_val" id="resolucion_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_analisis" id="resolucion_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso soporte vital básico</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="soporte_vital_cant" id="soporte_vital_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_obl" id="soporte_vital_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_aut" id="soporte_vital_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_val" id="soporte_vital_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_analisis" id="soporte_vital_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Otros</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="otros_cant" id="otros_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_obl" id="otros_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_aut" id="otros_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_val" id="otros_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_analisis" id="otros_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>   
+	            	<div class="row">
+	            		<div class="col-md-12">
+	            			<span>Descripción</span>
+	  						<textarea id="descripcion_otros" name="descripcion_otros" class="form-control"></textarea>
+	            		</div>  
+	            	</div>
+
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>APLICACION DE LA DOCUMENTACION</p></div>
+        		<div class="col-md-6">
+      	  			<span>Pruebas psicotécnicas:</span>            		
+            		<textarea id="txt_prb_psico" name="txt_prb_psico" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Pruebas de conocimiento:</span>            		
+            		<textarea id="txt_prb_conocimiento" name="txt_prb_conocimiento" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Formatos de la Empresa Usuaria:</span>            		
+            		<textarea id="txt_formatos_empresa" name="txt_formatos_empresa" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Examenes a aplicar: (Enfasis)</span>	
+        			<input type="radio" name="opciones" value="Si" checked> Si
+        			<input type="radio" name="opciones" value="No" > No
+            		<textarea id="examenes_aplicar" name="examenes_aplicar" class="form-control" placeholder="Cuales?"></textarea>
+        		</div>	
+        	</div>
+        	<hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>ANOTACIONES ADICIONALES</p></div>
+    			<div class="col-md-12">
+	    			<div class="row">
+		        		<div class="col-md-2">
+		        			<label>Carga física:</label>
+		        		</div>
+		        		<div class="col-md-2">
+		        			<select name="carga_fisica" id="carga_fisica" class="form-control">
+		        				<option value="No">No</option>
+		        				<option value="Si">Si</option>
+		        			</select>
+		        		</div>
+		        	</div>
+	        		<div id="div_carga_fisica" class="row" style="display:none">
+		        		<div class="col-md-2">
+		      	  			<span>a. Posición Sedente</span>            		
+		            		<select name="posicion_sedente" id="posicion_sedente" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>b. Posición Bípeda</span>            		
+		            		<select name="posicion_bipeda" id="posicion_bipeda" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>c. Posturas mantenidas</span>  		
+		            		<select name="posturas_mantenidas" id="posturas_mantenidas" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>d. Alternar posiciones</span>	
+		            		<select name="alternar_posic" id="alternar_posic" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>e. Motricidad Gruesa</span>	
+		            		<select name="motricidad_gruesa" id="motricidad_gruesa" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>f. Motricidad Fina</span>		
+		            		<select name="motricidad_fina" id="motricidad_fina" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>g. Destreza Manual</span>
+		            		<select name="destreza_manual" id="destreza_manual" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-3">
+		      	  			<span>h. Levantamiento y Manejo de Cargas</span>
+		            		<select name="manejo_cargas" id="manejo_cargas" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>i. Velocidad de Reacción</span>
+		            		<select name="velocidad_reaccion" id="velocidad_reaccion" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>
+		        	</div>	
+		        </div>	
+        	</div>
+        	<hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>OBSERVACIONES</p></div>
+        		<div class="col-md-12">
+        			<span>Observacion Inicial</span>
+        			<textarea name="observacion_inicial" id="observacion_inicial" class="form-control"></textarea>
+        		</div>
+        	</div>
+            <hr>
+            <div class="row">                
+                <div class="col-md-12" id="resultado">
+                    {% partial 'resultados' %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+";s:5:"mtime";i:1490971142;s:6:"markup";s:67561:"<div class="panel panel-primary"> 
+    <div class="panel-heading">         
+    	<h3 class="panel-title" style="text-align:center"><b>CREAR PERFIL DE CARGO</b></h3>
+    </div> 
+    <div class="panel-body">
+    <!--div class="alert alert-info" role="alert"><p>COMERCIAL</p></div-->
+        <form data-request="onSave" data-request-update="resultados: '#resultado'">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="../ver_perfiles/{{ id_portada }}">Regresar a la portada</a>
+                </div>                
+            </div>            
+            <div class="row">
+            	<div class="col-md-6">
+            		<span>Empresa Usuaria</span>
+            		<input type="text" id="empresa" name="empresa" readonly class="form-control" value="{{ empresa.empresa }}"/>
+            	</div>
+            	<!--div class="col-md-2">
+            		<span>Fecha Actualización</span>            		
+            		<input type="text" id="fecha_actualizacion" name="fecha_actualizacion" class="form-control"/>
+            	</div-->
+            	<div class="col-md-4">
+            		<span>Cargo:</span>
+            		<input type="text" id="cargo" name="cargo" class="form-control" />
+            	</div>
+            	<div class="col-md-2">
+            		<span>Rango edad:</span>            		
+            		<input type="text" id="rango_edad" name="rango_edad" class="form-control"/>
+            	</div>
+            	<div class="col-md-2">
+            		<span>Sexo:</span>            		
+            		<select id="sexo" name="sexo" class="form-control">
+            			<option value="Femenino">Femenino</option>
+            			<option value="Masculino">Masculino</option>
+            			<option value="Indiferente">Indiferente</option>
+            		</select>
+            	</div>
+            	<div class="col-md-3">
+            		<span>Salario:</span>
+            		<input type="text" id="salario" name="salario" class="form-control" />
+            	</div>
+            	<div class="col-md-3">
+            		<span>Riesgo:</span>            		
+            		<input type="text" id="riesgo" name="riesgo" class="form-control" />
+            	</div>
+            	<div class="col-md-3">
+            		<span>Horario:</span>            		
+            		<input type="text" id="horario" name="horario" class="form-control" />
+            	</div>           	
+            	<div class="col-md-2">
+            		<span>Restricciones:</span>            		
+            		<select id="restricciones" name="restricciones" class="form-control">
+            			<option value="No">No</option>
+            			<option value="Si">Si</option>            			
+            		</select>
+            	</div>
+            	<div class="col-md-10">
+            		<span>Cúal?:</span>
+            		<input type="text" id="cual_restriccion" name="cual_restriccion" class="form-control" disabled />
+            	</div>
+            	<div class="col-md-12">
+            		<span>Observaciones Adicionales al perfil:</span>            		
+            		<textarea id="observaciones_adicionales" name="observaciones_adicionales" class="form-control"></textarea>
+            		<span>* Deben registrarse los aspectos adicionales y específicos que no estén contemplados en este documento</span>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-3">
+            		<label>Formación Académica:</label>            		
+            		<select id="formacion" name="formacion" class="form-control">
+            			<option value="Ninguna">Ninguna</option>
+            			<option value="Primaria">Primaria</option>
+            			<option value="Bachiller">Bachiller</option>
+            			<option value="Técnico">Técnico</option>
+            			<option value="Tecnólogo">Tecnólogo</option>
+            			<option value="Estudiante">Estudiante</option>
+            			<option value="Profesional">Profesional</option>
+            			<option value="Especialista">Especialista</option>
+            			<option value="Doctorado">Doctorado</option>
+            		</select>
+            	</div>
+            	<div class="col-md-9">
+            		<span>Formación especifica o adicional:</span>            		
+            		<textarea id="formacion_adicional" name="formacion_adicional" class="form-control"></textarea>
+            	</div>
+            	<div class="col-md-12">
+            		<span>Observaciones:</span>            		
+            		<textarea id="observaciones_formacion" name="observaciones_formacion" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-3">
+            		<label>Experiencia laboral:</label>            		
+            		<select id="experiencia" name="experiencia" class="form-control">
+            			<option value="Ninguna">Ninguna</option>
+						<option value="1 a 6 meses">1 a 6 meses</option>
+						<option value="1 año">1 año</option>
+						<option value="2 años">2 años</option>
+						<option value="3 años">3 años</option>
+						<option value="4 años">4 años</option>
+						<option value="5 años">5 años</option>
+						<option value="6 o más">6 o más</option>
+            		</select>
+            	</div>
+            	<div class="col-md-9">
+            		<span>Observaciones:</span>            		
+            		<textarea id="observaciones_experiencia" name="observaciones_experiencia" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+            	<div class="col-md-12">
+            		<label>Funciones - Responsabilidades:</label>            		
+            		<textarea id="funciones" name="funciones" class="form-control"></textarea>
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>COMPETENCIAS</p></div>
+        		<div class="col-md-6">
+	        		<div class="col-md-6">
+	        			<span>1. Trabajo en equipo:</span>
+	        		</div>	            	
+	        		<div class="col-md-6">
+	        			<select id="trabajo_equipo" name="trabajo_equipo" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	    			<div class="col-md-6">
+	        			<span>2. Atención al detalle:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="atencion_detalle" name="atencion_detalle" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>3. Retroalimentación:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="retroalimentacion" name="retroalimentacion" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>4. Comunicación abierta:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="comunicacion_abierta" name="comunicacion_abierta" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>	            		
+	        		<div class="col-md-6">
+	        			<span>5. Comunicación escrita:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="comunicacion_escrita" name="comunicacion_escrita" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>6. Planeación:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="planeacion" name="planeacion" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>7. Actitud hacia las normas:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="actitud_normas" name="actitud_normas" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>8. Adaptabilidad:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="adaptabilidad" name="adaptabilidad" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+        		</div>
+        		<div class="col-md-6">
+	        		<div class="col-md-6">
+	        			<span>9. Compromiso laboral:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="compromiso_laboral" name="compromiso_laboral" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>10. Orientación al resultado:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="orientacion_resultado" name="orientacion_resultado" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>11. Disciplina:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="disciplina" name="disciplina" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>12. Habilidad social:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="habilidad_social" name="habilidad_social" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>13. Sentido de urgencia:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="sentido_urgencia" name="sentido_urgencia" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>14. Autocontrol:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="autocontrol" name="autocontrol" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<span>15. Análisis numérico:</span>
+	        		</div>
+	        		<div class="col-md-6">
+	        			<select id="analisis_numerico" name="analisis_numerico" class="form-control">
+	            			<option value="No aplica">No aplica</option>
+	            			<option value="Alto (>60)">Alto (>60)</option>
+							<option value="1 a 6 meses">1 a 6 meses</option>
+							<option value="Medio (30 a 60)">Medio (30 a 60)</option>
+							<option value="Bajo (<30)">Bajo (<30)</option>								
+	            		</select>
+	        		</div>
+	        	</div>
+            </div>
+            <hr>
+            <div class="row">
+            	<div class="alert alert-info" role="alert"><p>DOCUMENTACION REQUERIDA</p></div>
+            	<div class="col-md-6">
+            		<div class="row">
+            			<div class="col-md-6">
+	            			<label>Documentación requerida:</label>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Cant</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Obl</label>
+	            		</div></div> 		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>C/Aut</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Valid</label>
+	            		</div></div>  		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Análisis</label>
+	            		</div></div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Hoja de Vida</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="hojavida_cant" id="hojavida_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_obl" id="hojavida_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_aut" id="hojavida_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_val" id="hojavida_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="hojavida_analisis" id="hojavida_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>    
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Formato entrevista</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="entrevista_cant" id="entrevista_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_obl" id="entrevista_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_aut" id="entrevista_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_val" id="entrevista_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="entrevista_analisis" id="entrevista_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Pruebas de conocimiento</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="prb_conocimiento_cant" id="prb_conocimiento_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_obl" id="prb_conocimiento_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_aut" id="prb_conocimiento_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_val" id="prb_conocimiento_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_conocimiento_analisis" id="prb_conocimiento_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Formato usuaria</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="formato_usuaria_cant" id="formato_usuaria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_obl" id="formato_usuaria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_aut" id="formato_usuaria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_val" id="formato_usuaria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="formato_usuaria_analisis" id="formato_usuaria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Verificación Referencias</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="referencias_cant" id="referencias_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_obl" id="referencias_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_aut" id="referencias_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_val" id="referencias_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="referencias_analisis" id="referencias_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Visita Domiciliaria</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="visita_cant" id="visita_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_obl" id="visita_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_aut" id="visita_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_val" id="	" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="visita_analisis" id="visita_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Fotocopia Cédula</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="fotocopia_cant" id="fotocopia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_obl" id="fotocopia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_aut" id="fotocopia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_val" id="fotocopia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="fotocopia_analisis" id="fotocopia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Antecedentes Policía</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ant_policia_cant" id="ant_policia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_obl" id="ant_policia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_aut" id="ant_policia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_val" id="ant_policia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_policia_analisis" id="ant_policia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Antecedentes Procuraduría</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ant_procuraduria_cant" id="ant_procuraduria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_obl" id="ant_procuraduria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_aut" id="ant_procuraduria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_val" id="ant_procuraduria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ant_procuraduria_analisis" id="ant_procuraduria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Carné manipulación alimentos (si aplica)</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="alimentos_cant" id="alimentos_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_obl" id="alimentos_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_aut" id="alimentos_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_val" id="alimentos_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alimentos_analisis" id="alimentos_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Referencias Personales</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="ref_personales_cant" id="ref_personales_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_obl" id="ref_personales_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_aut" id="ref_personales_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_val" id="ref_personales_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="ref_personales_analisis" id="ref_personales_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificaciones Laborales</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_laboral_cant" id="cert_laboral_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_obl" id="cert_laboral_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_aut" id="cert_laboral_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_val" id="cert_laboral_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_laboral_analisis" id="cert_laboral_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificado Estudios bachiller</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_bachiller_cant" id="cert_bachiller_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_obl" id="cert_bachiller_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_aut" id="cert_bachiller_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_val" id="cert_bachiller_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_bachiller_analisis" id="cert_bachiller_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+            			<div class="col-md-6">
+	            			<label>Documentación requerida:</label>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Cant</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Obl</label>
+	            		</div></div> 		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>C/Aut</label>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Valid</label>
+	            		</div></div>  		
+	            		<div class="col-md-1"><div class="row">
+	            			<label>Análisis</label>
+	            		</div></div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Certificado Estudios superiores</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="cert_superior_cant" id="cert_superior_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_obl" id="cert_superior_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_aut" id="cert_superior_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_val" id="cert_superior_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="cert_superior_analisis" id="cert_superior_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Resolución y/o tarjeta profesional</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="tj_profesional_cant" id="tj_profesional_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="	form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_obl" id="tj_profesional_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_aut" id="tj_profesional_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_val" id="tj_profesional_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="tj_profesional_analisis" id="tj_profesional_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div> 
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Pruebas psicotécnicas</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="prb_psico_cant" id="prb_psico_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_obl" id="prb_psico_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_aut" id="prb_psico_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_val" id="prb_psico_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="prb_psico_analisis" id="prb_psico_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>
+
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Exámen de ingreso</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="examen_ingreso_cant" id="examen_ingreso_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_obl" id="examen_ingreso_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_aut" id="examen_ingreso_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_val" id="examen_ingreso_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="examen_ingreso_analisis" id="examen_ingreso_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Lista clinton</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="clinton_cant" id="clinton_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_obl" id="clinton_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_aut" id="clinton_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_val" id="clinton_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="clinton_analisis" id="clinton_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Contraloría</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="contraloria_cant" id="contraloria_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_obl" id="contraloria_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_aut" id="contraloria_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_val" id="contraloria_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="contraloria_analisis" id="contraloria_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Simit</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="simit_cant" id="simit_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_obl" id="simit_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_aut" id="simit_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_val" id="simit_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="simit_analisis" id="simit_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Licencia conducción</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">	
+	            			<input type="text" name="licencia_cant" id="licencia_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_obl" id="licencia_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_aut" id="licencia_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_val" id="licencia_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="licencia_analisis" id="licencia_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso de alturas</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="alturas_cant" id="alturas_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_obl" id="alturas_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_aut" id="alturas_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_val" id="alturas_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="alturas_analisis" id="alturas_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso de montacarguista</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="montacarga_cant" id="montacarga_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_obl" id="montacarga_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_aut" id="montacarga_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_val" id="montacarga_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="montacarga_analisis" id="montacarga_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Resolución</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="resolucion_cant" id="resolucion_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_obl" id="resolucion_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_aut" id="resolucion_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_val" id="resolucion_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="resolucion_analisis" id="resolucion_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Curso soporte vital básico</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="soporte_vital_cant" id="soporte_vital_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_obl" id="soporte_vital_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_aut" id="soporte_vital_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_val" id="soporte_vital_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="soporte_vital_analisis" id="soporte_vital_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>     
+
+	            	<div class="row">
+	            		<div class="col-md-6">
+	            			<span>Otros</span>
+	            		</div>
+	            		<div class="col-md-1"><div class="row">
+	            			<input type="text" name="otros_cant" id="otros_cant" maxlength="2" onKeyPress="return soloNumeros(event, true)" class="form-control"/>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_obl" id="otros_obl" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_aut" id="otros_aut" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_val" id="otros_val" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            		<div class="col-md-1"><div class="row">
+	            			<select name="otros_analisis" id="otros_analisis" class="form-control sin_padding">
+	            				<option value="No">No</option>
+	            				<option value="Si">Si</option>
+	            			</select>
+	            		</div></div>
+	            	</div>   
+	            	<div class="row">
+	            		<div class="col-md-12">
+	            			<span>Descripción</span>
+	  						<textarea id="descripcion_otros" name="descripcion_otros" class="form-control"></textarea>
+	            		</div>  
+	            	</div>
+
+            	</div>
+            </div>
+            <hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>APLICACION DE LA DOCUMENTACION</p></div>
+        		<div class="col-md-6">
+      	  			<span>Pruebas psicotécnicas:</span>            		
+            		<textarea id="txt_prb_psico" name="txt_prb_psico" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Pruebas de conocimiento:</span>            		
+            		<textarea id="txt_prb_conocimiento" name="txt_prb_conocimiento" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Formatos de la Empresa Usuaria:</span>            		
+            		<textarea id="txt_formatos_empresa" name="txt_formatos_empresa" class="form-control"></textarea>
+        		</div>	
+        		<div class="col-md-6">
+        			<span>Examenes a aplicar: (Enfasis)</span>	
+        			<input type="radio" name="opciones" value="Si" checked> Si
+        			<input type="radio" name="opciones" value="No" > No
+            		<textarea id="examenes_aplicar" name="examenes_aplicar" class="form-control" placeholder="Cuales?"></textarea>
+        		</div>	
+        	</div>
+        	<hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>ANOTACIONES ADICIONALES</p></div>
+    			<div class="col-md-12">
+	    			<div class="row">
+		        		<div class="col-md-2">
+		        			<label>Carga física:</label>
+		        		</div>
+		        		<div class="col-md-2">
+		        			<select name="carga_fisica" id="carga_fisica" class="form-control">
+		        				<option value="No">No</option>
+		        				<option value="Si">Si</option>
+		        			</select>
+		        		</div>
+		        	</div>
+	        		<div id="div_carga_fisica" class="row" style="display:none">
+		        		<div class="col-md-2">
+		      	  			<span>a. Posición Sedente</span>            		
+		            		<select name="posicion_sedente" id="posicion_sedente" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>b. Posición Bípeda</span>            		
+		            		<select name="posicion_bipeda" id="posicion_bipeda" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>c. Posturas mantenidas</span>  		
+		            		<select name="posturas_mantenidas" id="posturas_mantenidas" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>d. Alternar posiciones</span>	
+		            		<select name="alternar_posic" id="alternar_posic" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>e. Motricidad Gruesa</span>	
+		            		<select name="motricidad_gruesa" id="motricidad_gruesa" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>f. Motricidad Fina</span>		
+		            		<select name="motricidad_fina" id="motricidad_fina" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>g. Destreza Manual</span>
+		            		<select name="destreza_manual" id="destreza_manual" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-3">
+		      	  			<span>h. Levantamiento y Manejo de Cargas</span>
+		            		<select name="manejo_cargas" id="manejo_cargas" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>	
+		        		<div class="col-md-2">
+		      	  			<span>i. Velocidad de Reacción</span>
+		            		<select name="velocidad_reaccion" id="velocidad_reaccion" class="form-control">
+		            			<option value="0 - 25%">0 - 25%</option>
+		            			<option value="26 - 50%">26 - 50%</option>
+		            			<option value="51 - 75%">51 - 75%</option>
+		            			<option value="76 - 100%">76 - 100%</option>
+		            		</select>
+		        		</div>
+		        	</div>	
+		        </div>	
+        	</div>
+        	<hr>
+        	<div class="row">
+    			<div class="alert alert-info" role="alert"><p>OBSERVACIONES</p></div>
+        		<div class="col-md-12">
+        			<span>Observacion Inicial</span>
+        			<textarea name="observacion_inicial" id="observacion_inicial" class="form-control"></textarea>
+        		</div>
+        	</div>
+            <hr>
+            <div class="row">                
+                <div class="col-md-12" id="resultado">
+                    {% partial 'resultados' %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>";s:4:"code";s:12120:"    function onRedirect(){
+        return Redirect::to('ver_perfiles/'.$this->param('id'));
+    }
+	function onStart(){
+		$empresa = Db::table('portada_perfiles')
+		    ->join('guia_cliente', 'portada_perfiles.id_guia', '=', 'guia_cliente.id')
+		    ->select('guia_cliente.empresa')
+		    ->where('portada_perfiles.id','=',$this->param('id'))
+		    ->first();
+	    $this['empresa'] = $empresa;  
+	     
+		$this['id_portada'] = $this->param('id');
+	}
+
+function onSave()
+{
+    $validator = false;
+    if (input('cargo') == ""){
+        $this['error'] = "Debe ingresar el nombre del cargo.";
+    }elseif(input('salario')==""){   
+        $this['error'] = "Debe ingresar el salario.";
+    }elseif(input('horario')==""){
+        $this['error'] = "Debe ingresar el horario.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('perfil')->insertGetId(
+            [
+            'id_portada' => $this->param('id'),
+            'fecha_creacion' => date('Y-m-d'),
+            'fecha_actualizacion' => date('Y-m-d'),
+            'cargo' => input('cargo'),
+            'rango_edad' => input('rango_edad'),
+            'sexo' => input('sexo'),
+            'salario' => input('salario'),
+            'riesgo' => input('riesgo'),
+            'horario' => input('horario'),
+            'restricciones' => input('restricciones'),
+            'cual_restriccion' => input('cual_restriccion'),
+            'observaciones_adicionales' => input('observaciones_adicionales'),
+            'formacion' => input('formacion'),
+            'formacion_adicional' => input('formacion_adicional'),
+            'observaciones_formacion' => input('observaciones_formacion'),
+            'experiencia' => input('experiencia'),
+            'observaciones_experiencia' => input('observaciones_experiencia'),
+            'funciones' => input('funciones'),
+            'trabajo_equipo' => input('trabajo_equipo'),
+            'atencion_detalle' => input('atencion_detalle'),
+            'retroalimentacion' => input('retroalimentacion'),
+            'comunicacion_abierta' => input('comunicacion_abierta'),
+            'comunicacion_escrita' => input('comunicacion_escrita'),
+            'planeacion' => input('planeacion'),
+            'actitud_normas' => input('actitud_normas'),
+            'adaptabilidad' => input('adaptabilidad'),
+            'compromiso_laboral' => input('compromiso_laboral'),
+            'orientacion_resultado' => input('orientacion_resultado'),
+            'disciplina' => input('disciplina'),
+            'habilidad_social' => input('habilidad_social'),
+            'sentido_urgencia' => input('sentido_urgencia'),
+            'autocontrol' => input('autocontrol'),
+            'analisis_numerico' => input('analisis_numerico'),
+            'hojavida_cant' => input('hojavida_cant'),
+            'hojavida_obl' => input('hojavida_obl'),
+            'hojavida_aut' => input('hojavida_aut'),
+            'hojavida_val' => input('hojavida_val'),
+            'hojavida_analisis' => input('hojavida_analisis'),
+            'entrevista_cant' => input('entrevista_cant'),
+            'entrevista_obl' => input('entrevista_obl'),
+            'entrevista_aut' => input('entrevista_aut'),
+            'entrevista_val' => input('entrevista_val'),
+            'entrevista_analisis' => input('entrevista_analisis'),
+            'prb_conocimiento_cant' => input('prb_conocimiento_cant'),
+            'prb_conocimiento_obl' => input('prb_conocimiento_obl'),
+            'prb_conocimiento_aut' => input('prb_conocimiento_aut'),
+            'prb_conocimiento_val' => input('prb_conocimiento_val'),
+            'prb_conocimiento_analisis' => input('prb_conocimiento_analisis'),
+            'formato_usuaria_cant' => input('formato_usuaria_cant'),
+            'formato_usuaria_obl' => input('formato_usuaria_obl'),
+            'formato_usuaria_aut' => input('formato_usuaria_aut'),
+            'formato_usuaria_val' => input('formato_usuaria_val'),
+            'formato_usuaria_analisis' => input('formato_usuaria_analisis'),
+            'referencias_cant' => input('referencias_cant'),
+            'referencias_obl' => input('referencias_obl'),
+            'referencias_aut' => input('referencias_aut'),
+            'referencias_val' => input('referencias_val'),
+            'referencias_analisis' => input('referencias_analisis'),
+            'visita_cant' => input('visita_cant'),
+            'visita_obl' => input('visita_obl'),
+            'visita_aut' => input('visita_aut'),
+            'visita_val' => input('visita_val'),
+            'visita_analisis' => input('visita_analisis'),
+            'fotocopia_cant' => input('fotocopia_cant'),
+            'fotocopia_obl' => input('fotocopia_obl'),
+            'fotocopia_aut' => input('fotocopia_aut'),
+            'fotocopia_val' => input('fotocopia_val'),
+            'fotocopia_analisis' => input('fotocopia_analisis'),
+            'ant_policia_cant' => input('ant_policia_cant'),
+            'ant_policia_obl' => input('ant_policia_obl'),
+            'ant_policia_aut' => input('ant_policia_aut'),
+            'ant_policia_val' => input('ant_policia_val'),
+            'ant_policia_analisis' => input('ant_policia_analisis'),
+            'ant_procuraduria_cant' => input('ant_procuraduria_cant'),
+            'ant_procuraduria_obl' => input('ant_procuraduria_obl'),
+            'ant_procuraduria_aut' => input('ant_procuraduria_aut'),
+            'ant_procuraduria_val' => input('ant_procuraduria_val'),
+            'ant_procuraduria_analisis' => input('ant_procuraduria_analisis'),
+            'alimentos_cant' => input('alimentos_cant'),
+            'alimentos_obl' => input('alimentos_obl'),
+            'alimentos_aut' => input('alimentos_aut'),
+            'alimentos_val' => input('alimentos_val'),
+            'alimentos_analisis' => input('alimentos_analisis'),
+            'ref_personales_cant' => input('ref_personales_cant'),
+            'ref_personales_obl' => input('ref_personales_obl'),
+            'ref_personales_aut' => input('ref_personales_aut'),
+            'ref_personales_val' => input('ref_personales_val'),
+            'ref_personales_analisis' => input('ref_personales_analisis'),
+            'cert_laboral_cant' => input('cert_laboral_cant'),
+            'cert_laboral_obl' => input('cert_laboral_obl'),
+            'cert_laboral_aut' => input('cert_laboral_aut'),
+            'cert_laboral_val' => input('cert_laboral_val'),
+            'cert_laboral_analisis' => input('cert_laboral_analisis'),
+            'cert_bachiller_cant' => input('cert_bachiller_cant'),
+            'cert_bachiller_obl' => input('cert_bachiller_obl'),
+            'cert_bachiller_aut' => input('cert_bachiller_aut'),
+            'cert_bachiller_val' => input('cert_bachiller_val'),
+            'cert_bachiller_analisis' => input('cert_bachiller_analisis'),
+            'cert_superior_cant' => input('cert_superior_cant'),
+            'cert_superior_obl' => input('cert_superior_obl'),
+            'cert_superior_aut' => input('cert_superior_aut'),
+            'cert_superior_val' => input('cert_superior_val'),
+            'cert_superior_analisis' => input('cert_superior_analisis'),
+            'tj_profesional_cant' => input('tj_profesional_cant'),
+            'tj_profesional_obl' => input('tj_profesional_obl'),
+            'tj_profesional_aut' => input('tj_profesional_aut'),
+            'tj_profesional_val' => input('tj_profesional_val'),
+            'tj_profesional_analisis' => input('tj_profesional_analisis'),
+            'prb_psico_cant' => input('prb_psico_cant'),
+            'prb_psico_obl' => input('prb_psico_obl'),
+            'prb_psico_aut' => input('prb_psico_aut'),
+            'prb_psico_val' => input('prb_psico_val'),
+            'prb_psico_analisis' => input('prb_psico_analisis'),
+            'examen_ingreso_cant' => input('examen_ingreso_cant'),
+            'examen_ingreso_obl' => input('examen_ingreso_obl'),
+            'examen_ingreso_aut' => input('examen_ingreso_aut'),
+            'examen_ingreso_val' => input('examen_ingreso_val'),
+            'examen_ingreso_analisis' => input('examen_ingreso_analisis'),
+            'clinton_cant' => input('clinton_cant'),
+            'clinton_obl' => input('clinton_obl'),
+            'clinton_aut' => input('clinton_aut'),
+            'clinton_val' => input('clinton_val'),
+            'clinton_analisis' => input('clinton_analisis'),
+            'contraloria_cant' => input('contraloria_cant'),
+            'contraloria_obl' => input('contraloria_obl'),
+            'contraloria_aut' => input('contraloria_aut'),
+            'contraloria_val' => input('contraloria_val'),
+            'contraloria_analisis' => input('contraloria_analisis'),
+            'simit_cant' => input('simit_cant'),
+            'simit_obl' => input('simit_obl'),
+            'simit_aut' => input('simit_aut'),
+            'simit_val' => input('simit_val'),
+            'simit_analisis' => input('simit_analisis'),
+            'licencia_cant' => input('licencia_cant'),
+            'licencia_obl' => input('licencia_obl'),
+            'licencia_aut' => input('licencia_aut'),
+            'licencia_val' => input('licencia_val'),
+            'licencia_analisis' => input('licencia_analisis'),
+            'alturas_cant' => input('alturas_cant'),
+            'alturas_obl' => input('alturas_obl'),
+            'alturas_aut' => input('alturas_aut'),
+            'alturas_val' => input('alturas_val'),
+            'alturas_analisis' => input('alturas_analisis'),
+            'montacarga_cant' => input('montacarga_cant'),
+            'montacarga_obl' => input('montacarga_obl'),
+            'montacarga_aut' => input('montacarga_aut'),
+            'montacarga_val' => input('montacarga_val'),
+            'montacarga_analisis' => input('montacarga_analisis'),
+            'resolucion_cant' => input('resolucion_cant'),
+            'resolucion_obl' => input('resolucion_obl'),
+            'resolucion_aut' => input('resolucion_aut'),
+            'resolucion_val' => input('resolucion_val'),
+            'resolucion_analisis' => input('resolucion_analisis'),
+            'soporte_vital_cant' => input('soporte_vital_cant'),
+            'soporte_vital_obl' => input('soporte_vital_obl'),
+            'soporte_vital_aut' => input('soporte_vital_aut'),
+            'soporte_vital_val' => input('soporte_vital_val'),
+            'soporte_vital_analisis' => input('soporte_vital_analisis'),
+            'otros_cant' => input('otros_cant'),
+            'otros_obl' => input('otros_obl'),
+            'otros_aut' => input('otros_aut'),
+            'otros_val' => input('otros_val'),
+            'otros_analisis' => input('otros_analisis'),
+            'descripcion_otros' => input('descripcion_otros'),
+            'txt_prb_psico' => input('txt_prb_psico'),
+            'txt_prb_conocimiento' => input('txt_prb_conocimiento'),
+            'txt_formatos_empresa' => input('txt_formatos_empresa'),
+            'opciones' => input('opciones'),
+            'opciones' => input('opciones'),
+            'examenes_aplicar' => input('examenes_aplicar'),
+            'carga_fisica' => input('carga_fisica'),
+            'posicion_sedente' => input('posicion_sedente'),
+            'posicion_bipeda' => input('posicion_bipeda'),
+            'posturas_mantenidas' => input('posturas_mantenidas'),
+            'alternar_posic' => input('alternar_posic'),
+            'motricidad_gruesa' => input('motricidad_gruesa'),
+            'motricidad_fina' => input('motricidad_fina'),
+            'destreza_manual' => input('destreza_manual'),
+            'manejo_cargas' => input('manejo_cargas'),
+            'velocidad_reaccion' => input('velocidad_reaccion'),
+            'observacion_inicial' => input('observacion_inicial')
+            ]
+        );  
+        $this['id'] = $id;        
+        $this['mensaje'] = "El registro fúe creado con el id: " . $id;      
+        $this['redirect'] = "si";  
+    }
+}";s:5:"title";s:12:"crear_perfil";s:3:"url";s:18:"/crear_perfil/:id?";s:6:"layout";s:12:"perfil_cargo";s:9:"is_hidden";s:1:"0";}}

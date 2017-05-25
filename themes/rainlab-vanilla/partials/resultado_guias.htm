@@ -1,0 +1,11 @@
+[viewBag]
+==
+
+<table class="table table-hover ">
+    <thead> <tr> <th>Nit</th> <th>Empresa</th> <th>Ciudad</th> <th>Telefono</th> <th>Creación</th> <th>Acción</th>  </tr> </thead>
+    <tbody>
+        {% for guia in guias %}
+            <tr><td>{{ guia.nit }}</td><td>{{ guia.empresa }}</td><td>{{ guia.ciudad }}</td><td>{{ guia.telefono }}</td><td>{{ guia.created_at|date('d/m/Y') }}</td><td><a href="guia_detalle/{{ guia.id }}">Ver</a></td></tr>
+        {% endfor %}
+    </tbody>
+</table>

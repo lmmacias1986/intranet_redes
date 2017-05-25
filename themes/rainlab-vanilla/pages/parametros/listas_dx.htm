@@ -1,0 +1,33 @@
+title = "listas_dx"
+url = "/listas_dx"
+layout = "formularios"
+description = "lista de diagnósticos creados en el sistema"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+	    $this['diagnosticos'] = Db::table('registro_diagnostico')->paginate(30);
+	}
+?>
+==
+{% if can('parametros') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">DIAGNOSTICOS</h3>
+	    </div> 
+	    <div class="panel-body">
+			<table class="table table-hover ">
+			    <thead> <tr> <th>Código</th> <th>Descripción</th> <th>Acción</th>  </tr> </thead>
+			    <tbody>
+			        {% for dx in diagnosticos %}
+			            <tr><td>{{ dx.codigo }}</td><td>{{ dx.descripcion }}</td><td><a href="editar_dx/{{ dx.id }}">Ver</a></td></tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+
+			{{ diagnosticos.render|raw }}
+		</div>
+	</div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}

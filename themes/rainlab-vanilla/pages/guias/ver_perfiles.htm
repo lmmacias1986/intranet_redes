@@ -1,0 +1,304 @@
+title = "ver_perfiles"
+url = "/ver_perfiles/:id?"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+function onStart()
+{
+	$portada = Db::table('portada_perfiles')->where('id','=',$this->param('id'))->first(); 
+    $this['portada'] = $portada;
+
+    $perfiles = DB::table('perfil')->where('id_portada','=', $this->param('id'))->orderBy('id', 'desc')->paginate(10);
+	if(count($perfiles)==0){
+		$this['error'] = "No hay registros";
+	}else{
+		$this['perfiles'] = $perfiles;
+	}
+	
+}
+function onPerfiles(){
+	return Redirect::to('crear_perfil/'.$this->param('id'));
+}
+
+function onDelete()
+{
+	Db::table('perfil')->where('id_portada', '=', $this->param('id'))->delete();
+    Db::table('portada_perfiles')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro de guia cliente eliminado correctamente";
+    return Redirect::to('guia_detalle/'.input('id_guia'));
+}
+function onSave()
+{
+    $validator = false;
+    if (input('mision') == ""){
+        $this['error'] = "Debe ingresar un texto de misión empresarial.";
+    }elseif(input('vision')==""){   
+        $this['error'] = "Debe ingresar un texto de visión empresarial.";
+    }elseif(input('ubicacion')==""){
+        $this['error'] = "Debe ingresar la dirección de la empresa.";
+    }else{
+        $validator= true;
+    }
+
+    if ($validator) {
+    	Db::table('portada_perfiles')->where('id', $this->param('id'))->update(
+            ['mision' => input('mision'),
+			 'vision' => input('vision'),
+			 'valores' => input('valores'),
+			 'cultura' => input('cultura'),
+			 'clima_laboral' => input('clima_laboral'),
+			 'ubicacion' => input('ubicacion'),
+			 'como_llegar' => input('como_llegar'),
+			 'bienestar' => input('bienestar'),
+			 'turnos' => input('turnos'),
+			 'descansos' => input('descansos'),
+			 'horas_extras' => input('horas_extras'),
+			 'uniformes' => input('uniformes'),
+			 'manejo_celular' => input('manejo_celular'),
+			 'cabello' => input('cabello'),
+			 'maquillaje' => input('maquillaje'),
+			 'atuendo' => input('atuendo'),
+			 'otros' => input('otros'),
+			 'parqueadero' => input('parqueadero'),
+			 'casino' => input('casino'),
+			 'ruta' => input('ruta'),
+			 'ruido' => input('ruido'),
+			 'ventilacion' => input('ventilacion'),
+			 'iluminacion' => input('iluminacion'),
+			 'orden' => input('orden'),
+			 'fortalezas' => input('fortalezas')
+			 ]);  
+        $this['mensaje'] = "El registro fúe actualizado correctamente.";
+    }    
+}
+
+?>
+==
+{%if inGroup('comercial') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
+	    </div> 
+	    <div class="panel-body">	    
+	        <form data-request="onSave" data-request-update="perfiles_opc: '#resultado'">
+	        	<div style="display:none"><input type="text" name="id_guia" id="id_guia" value="{{ portada.id_guia }}"/></div>
+	            <div class="row">		            	
+	            	<div class="col-md-6">
+	            		<a href="../guia_detalle/{{ portada.id_guia }}">Regresar a la guia del cliente</a>
+	            	</div>		
+	            	{% if portada.id_guia !="" %}
+	            	<div class="col-md-6">
+	            		<a class="pull-right" href="../profesiograma/{{ portada.id_guia }}" target="_blank" >ver profesiograma</a>
+	            	</div>		
+	            	{% endif %}
+	            </div>
+	            <hr>
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <span for="mision">Misión:</span>
+	                    <textarea name="mision" id="mision" class="form-control">{{ portada.mision }}</textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="vision">Visión:</span>	                    
+	                    <textarea name="vision" id="vision" class="form-control">{{ portada.vision }}</textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="valores">Valores corporativos:</span>	                    
+	                    <textarea name="valores" id="valores" class="form-control">{{ portada.valores }}</textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="cultura">Qué cultura organizacional se observa:</span>	                    
+	                    <textarea name="cultura" id="cultura" class="form-control">{{ portada.cultura }}</textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="clima_laboral">Clima laboral:</span>
+	                    <select name="clima_laboral" id="clima_laboral" class="form-control">
+	                    	<option value="">--Seleccione--</option>
+	                    	<option value="Alto" {% if portada.clima_laboral =="Alto" %}selected{% endif %}>Alto</option>
+	                    	<option value="Medio" {% if portada.clima_laboral =="Medio" %}selected{% endif %}>Medio</option>
+	                    	<option value="Bajo" {% if portada.clima_laboral =="Bajo" %}selected{% endif %}>Bajo</option>
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="ubicacion">Ubicación:</span>	                    
+	                    <input type="text" id="ubicacion" name="ubicacion" class="form-control" value="{{ portada.ubicacion }}"/>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-12">
+	                    <span for="como_llegar">Como llegar:</span>
+	                    <textarea name="como_llegar" id="como_llegar" class="form-control">{{ portada.como_llegar }}</textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Qué normas implicitas existen en cuanto a:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="bienestar">Bienestar:</span>
+	                    <textarea name="bienestar" id="bienestar" class="form-control">{{ portada.bienestar }}</textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="turnos">Turnos:</span>	                    
+	                    <textarea name="turnos" id="turnos" class="form-control">{{ portada.turnos }}</textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="tiempos">Tiempos de trabajo:</span>	                    
+	                    <input type="text" id="tiempos" name="tiempos" value="{{ portada.tiempos }}" class="form-control" />
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="descansos">Descansos:</span>	                    
+	                    <input type="text" id="descansos" name="descansos" value="{{ portada.descansos }}" class="form-control"/>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-3">
+	                    <span for="horas_extras">Horas extras:</span>
+	                    <select name="horas_extras" id="horas_extras" class="form-control">
+	                    	<option value="Si"{% if portada.horas_extras =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.horas_extras =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="uniformes">Uniformes:</span>
+	                    <select name="uniformes" id="uniformes" class="form-control">
+	                    	<option value="Si"{% if portada.uniformes =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.uniformes =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="manejo_celular">Manejo de celulares:</span>	                    
+	                    <input type="text" id="manejo_celular" name="manejo_celular" value="{{ portada.manejo_celular }}" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="cabello">Cabello:</span>	                    
+	                    <input type="text" id="cabello" name="cabello" value="{{ portada.cabello }}" class="form-control" />
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="maquillaje">Maquillaje:</span>
+	                    <select name="maquillaje" id="maquillaje" class="form-control">
+	                    	<option value="Si"{% if portada.maquillaje =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.maquillaje =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="atuendo">Atuendo:</span>	                    
+	                    <input type="text" id="atuendo" name="atuendo" value="{{ portada.atuendo }}" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-12">
+	                    <span for="otros">Otros:</span>	                    
+	                    <textarea type="text" id="otros" name="otros" class="form-control">{{ portada.otros }}</textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Areas comunes:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="parqueadero">Hay Parqueadero?:</span>
+	                    <select name="parqueadero" id="parqueadero" class="form-control">
+	                    	<option value="Si"{% if portada.parqueadero =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.parqueadero =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="casino">Hay casino?:</span>	                    
+	                    <select name="casino" id="casino" class="form-control">
+	                    	<option value="Si"{% if portada.casino =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.casino =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="ruta">Hay ruta?:</span>	                    
+	                    <select name="ruta" id="ruta" class="form-control">
+	                    	<option value="Si"{% if portada.ruta =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.ruta =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Codiciones ambientales:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-3">
+	                    <span for="ruido">Ruido?:</span>
+	                    <select name="ruido" id="ruido" class="form-control">
+	                    	<option value="Si"{% if portada.ruido =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.ruido =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="ventilacion">Ventilacion?:</span>	                    
+	                    <select name="ventilacion" id="ventilacion" class="form-control">
+	                    	<option value="Si"{% if portada.ventilacion =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.ventilacion =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="iluminacion">Iluminación?:</span>	                    
+	                    <select name="iluminacion" id="iluminacion" class="form-control">
+	                    	<option value="Si"{% if portada.iluminacion =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.iluminacion =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="orden">Orden?:</span>	                    
+	                    <select name="orden" id="orden" class="form-control">
+	                    	<option value="Si"{% if portada.orden =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.orden =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="temperatura">Temperatura:</span>	                    
+	                    <select name="temperatura" id="temperatura" class="form-control">
+	                    	<option value="Si"{% if portada.temperatura =="Si" %}selected{% endif %}>Si</option>
+	                    	<option value="No"{% if portada.temperatura =="No" %}selected{% endif %}>No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Fortalezas de la empresa:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-12">	                    
+	                    <textarea name="fortalezas" id="fortalezas" class="form-control">{{ portada.fortalezas }}</textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="row">
+	                <div id="resultado" class="col-md-12">
+	                    {% partial 'perfiles_opc' %}
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+	<hr>
+	
+	<div class="panel panel-danger"> 
+		<div class="panel-heading"> 
+			<h3 class="panel-title">PERFILES DE CARGO ASOCIADOS</h3>
+		</div> 
+		<div class="panel-body">
+			<table class="table table-hover ">
+		        <thead><tr><th>Cargo</th><th>Fecha actualización</th><th>Salario</th><th>Horario</th><th>Acción</th></tr></thead>
+		        <tbody>
+		            {% for perfil in perfiles %}
+		                <tr><td>{{ perfil.cargo }}</td><td>{{ perfil.fecha_actualizacion }}</td><td> {{ perfil.salario }}</td><td>{{ perfil.horario }}</td><td><a href="../editar_perfil/{{ perfil.id }}">Ver</a></td></tr>
+		            {% endfor %}
+		        </tbody>
+		    </table>
+			{{ perfiles.render|raw }}
+		</div>
+	</div>
+
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}
