@@ -1,0 +1,163 @@
+1495722228a:1:{s:22:"menus/menu_lateral.htm";a:6:{s:8:"fileName";s:22:"menus/menu_lateral.htm";s:7:"content";s:3768:"[viewBag]
+==
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="font-size:12px !important">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Guia del cliente
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+				<li><a href="{{ 'guias/guias'|page }}">Consultar Guias</a></li>
+				<li><a href="{{ 'guias/guia_cliente'|page }}">Crear Guia Cliente</a></li>
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Incapacidades
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">			
+				<li><a href="{{ 'incapacidades/consultar_incapacidades'|page }}">Consultar Incapacidad</a></li>
+				<li><a href="{{ 'incapacidades/crear_incapacidad'|page }}">Registrar Incapacidad</a></li>
+				<li><a href="{{ 'parametros/listas_dx'|page }}">Consultar diagnósticos</a></li>
+				<li><a href="{{ 'parametros/crear_dx'|page }}">Crear diagnóstico</a></li>
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          	Gestión de usuarios
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+				<li><a href="{{ 'colaboradores/listas_colaboradores'|page }}">Consultar usuario</a></li>		
+				<li><a href="{{ 'colaboradores/crear_colaborador'|page }}">Crear usuario</a></li>	
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          	Help_desk
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+            {% if can('helpdesk') %}
+              <li><a href="{{ 'sistemas/control'|page }}">Abiertas</a></li> 
+              <li><a href="{{ 'sistemas/pendiente'|page }}">Pendientes</a></li> 
+              <li><a href="{{ 'sistemas/curso'|page }}">En curso</a></li> 
+              <li><a href="{{ 'sistemas/cerrado'|page }}">Cerrados</a></li> 
+              <li><a href="{{ 'sistemas/resuelto'|page }}">Resueltos</a></li> 
+            {% endif %}
+    				<li><a href="{{ 'sistemas/solicitud'|page }}">Crear caso</a></li>	        
+			</ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+";s:5:"mtime";i:1495718447;s:6:"markup";s:3741:"<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="font-size:12px !important">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Guia del cliente
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+				<li><a href="{{ 'guias/guias'|page }}">Consultar Guias</a></li>
+				<li><a href="{{ 'guias/guia_cliente'|page }}">Crear Guia Cliente</a></li>
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Incapacidades
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">			
+				<li><a href="{{ 'incapacidades/consultar_incapacidades'|page }}">Consultar Incapacidad</a></li>
+				<li><a href="{{ 'incapacidades/crear_incapacidad'|page }}">Registrar Incapacidad</a></li>
+				<li><a href="{{ 'parametros/listas_dx'|page }}">Consultar diagnósticos</a></li>
+				<li><a href="{{ 'parametros/crear_dx'|page }}">Crear diagnóstico</a></li>
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          	Gestión de usuarios
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+				<li><a href="{{ 'colaboradores/listas_colaboradores'|page }}">Consultar usuario</a></li>		
+				<li><a href="{{ 'colaboradores/crear_colaborador'|page }}">Crear usuario</a></li>	
+			</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          	Help_desk
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        	<ul style="padding-left: 12px !important;">
+            {% if can('helpdesk') %}
+              <li><a href="{{ 'sistemas/control'|page }}">Abiertas</a></li> 
+              <li><a href="{{ 'sistemas/pendiente'|page }}">Pendientes</a></li> 
+              <li><a href="{{ 'sistemas/curso'|page }}">En curso</a></li> 
+              <li><a href="{{ 'sistemas/cerrado'|page }}">Cerrados</a></li> 
+              <li><a href="{{ 'sistemas/resuelto'|page }}">Resueltos</a></li> 
+            {% endif %}
+    				<li><a href="{{ 'sistemas/solicitud'|page }}">Crear caso</a></li>	        
+			</ul>
+      </div>
+    </div>
+  </div>
+</div>";s:4:"code";N;s:7:"viewBag";a:0:{}}}

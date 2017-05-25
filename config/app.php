@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost:8080/redes_humanas/',
+    'url' => 'http://localhost:8080/intranet_redes/',
 
     /*
     |--------------------------------------------------------------------------

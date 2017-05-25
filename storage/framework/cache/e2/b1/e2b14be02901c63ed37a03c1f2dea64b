@@ -1,0 +1,55 @@
+1495722227a:1:{s:24:"parametros/listas_dx.htm";a:10:{s:8:"fileName";s:24:"parametros/listas_dx.htm";s:7:"content";s:940:"title = "listas_dx"
+url = "/listas_dx"
+layout = "formularios"
+description = "lista de diagnósticos creados en el sistema"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+	    $this['diagnosticos'] = Db::table('registro_diagnostico')->paginate(30);
+	}
+?>
+==
+{% if can('parametros') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">DIAGNOSTICOS</h3>
+	    </div> 
+	    <div class="panel-body">
+			<table class="table table-hover ">
+			    <thead> <tr> <th>Código</th> <th>Descripción</th> <th>Acción</th>  </tr> </thead>
+			    <tbody>
+			        {% for dx in diagnosticos %}
+			            <tr><td>{{ dx.codigo }}</td><td>{{ dx.descripcion }}</td><td><a href="editar_dx/{{ dx.id }}">Ver</a></td></tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+
+			{{ diagnosticos.render|raw }}
+		</div>
+	</div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:674:"{% if can('parametros') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">DIAGNOSTICOS</h3>
+	    </div> 
+	    <div class="panel-body">
+			<table class="table table-hover ">
+			    <thead> <tr> <th>Código</th> <th>Descripción</th> <th>Acción</th>  </tr> </thead>
+			    <tbody>
+			        {% for dx in diagnosticos %}
+			            <tr><td>{{ dx.codigo }}</td><td>{{ dx.descripcion }}</td><td><a href="editar_dx/{{ dx.id }}">Ver</a></td></tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+
+			{{ diagnosticos.render|raw }}
+		</div>
+	</div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}";s:4:"code";s:103:"	function onStart(){
+	    $this['diagnosticos'] = Db::table('registro_diagnostico')->paginate(30);
+	}";s:5:"title";s:9:"listas_dx";s:3:"url";s:10:"/listas_dx";s:6:"layout";s:11:"formularios";s:11:"description";s:44:"lista de diagnósticos creados en el sistema";s:9:"is_hidden";s:1:"0";}}

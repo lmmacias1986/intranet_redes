@@ -1,0 +1,66 @@
+1495722227a:1:{s:18:"sistemas/curso.htm";a:9:{s:8:"fileName";s:18:"sistemas/curso.htm";s:7:"content";s:1374:"title = "curso"
+url = "/curso"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+		$cursos = Db::table('help_desk')
+	    ->where('estado','=','En curso')
+	    ->orderby('creacion','asc')->paginate(20);
+	    $this['cursos'] = $cursos;
+		$this['cont_cursos'] = count($cursos);
+	}	
+?>
+==
+{% if can('helpdesk') %}
+    {% if cont_cursos > 0 %}
+    {% partial 'menu_casos' %}
+        <div class="panel panel-danger"> 
+            <div class="panel-heading"> 
+                <h3 class="panel-title">Solicitudes cursos</h3>
+            </div> 
+            <div class="panel-body">
+                <table class="table table-hover ">
+                    <thead><tr><th>creación</th><th>Asunto</th><th>Prioridad</th><th>Usuario</th><th>Acción</th></tr></thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                            <tr><td>{{ curso.creacion }}</td><td>{{ curso.asunto }}</td><td> {{ curso.prioridad }}</td><td>{{ curso.reportado_por }}</td><td><a href="consultar_solicitud/{{ curso.id }}">Ver</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ cursos.render|raw }}
+            </div>
+        </div>
+    {%else%}
+        <label>No hay solicitudes en estado 'EN CURSO'.</label>
+    {% endif %}
+{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:1057:"{% if can('helpdesk') %}
+    {% if cont_cursos > 0 %}
+    {% partial 'menu_casos' %}
+        <div class="panel panel-danger"> 
+            <div class="panel-heading"> 
+                <h3 class="panel-title">Solicitudes cursos</h3>
+            </div> 
+            <div class="panel-body">
+                <table class="table table-hover ">
+                    <thead><tr><th>creación</th><th>Asunto</th><th>Prioridad</th><th>Usuario</th><th>Acción</th></tr></thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                            <tr><td>{{ curso.creacion }}</td><td>{{ curso.asunto }}</td><td> {{ curso.prioridad }}</td><td>{{ curso.reportado_por }}</td><td><a href="consultar_solicitud/{{ curso.id }}">Ver</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ cursos.render|raw }}
+            </div>
+        </div>
+    {%else%}
+        <label>No hay solicitudes en estado 'EN CURSO'.</label>
+    {% endif %}
+{% endif %}";s:4:"code";s:224:"	function onStart(){
+		$cursos = Db::table('help_desk')
+	    ->where('estado','=','En curso')
+	    ->orderby('creacion','asc')->paginate(20);
+	    $this['cursos'] = $cursos;
+		$this['cont_cursos'] = count($cursos);
+	}	";s:5:"title";s:5:"curso";s:3:"url";s:6:"/curso";s:6:"layout";s:11:"formularios";s:9:"is_hidden";s:1:"0";}}

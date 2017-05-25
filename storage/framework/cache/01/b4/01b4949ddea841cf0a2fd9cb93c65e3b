@@ -1,0 +1,159 @@
+1495722227a:1:{s:36:"colaboradores/editar_colaborador.htm";a:10:{s:8:"fileName";s:36:"colaboradores/editar_colaborador.htm";s:7:"content";s:3150:"title = "editar_colaborador"
+url = "/editar_colaborador/:id?"
+layout = "formularios"
+description = "formulario de edición para registros de colaboradores"
+is_hidden = 0
+==
+<?php
+function onStart()
+{
+    $col = DB::table('colaboradores')->where('id','=', $this->param('id'))->first();
+    $this['col'] = $col;    
+}
+
+function onDelete(){
+    Db::table('colaboradores')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro eliminado correctamente";
+    return Redirect::to('listas_colaboradores');
+}
+
+function onSave()
+{
+    $validator = false;
+    if (input('cedula') == ""){
+        $this['error'] = "Debe ingresar el número del documento.";
+    }elseif(input('nombres')=="" || input('apellidos')=="" ){   
+        $this['error'] = "Debe diligenciar nombres y apellidos.";
+    }elseif(input('empresa')==""){   
+        $this['error'] = "Debe diligenciar la empresa a la que esta asociado.";
+    }else{
+        $validator = true;         
+    }
+   
+    if ($validator) {
+        Db::table('colaboradores')->where('id', $this->param('id'))->update(
+            ['cedula' => input('cedula'),
+            'nombres' => input('nombres'),
+            'apellidos' => input('apellidos'),
+            'empresa' => input('empresa')]
+        );  
+        $this['mensaje'] = "Colaborador actualizado correctamente";
+    }
+    
+}
+?>
+==
+{% if can('parametros') %}
+    <div class="panel panel-primary"> 
+        <div class="panel-heading"> 
+            <h3 class="panel-title">EDITAR COLABORADOR</h3>
+        </div> 
+        <div class="panel-body">
+
+            <form data-request="onSave" data-request-update="dx_opciones: '#resultado'">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula" value="{{ col.cedula }}" class="form-control">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" name="nombres" value="{{ col.nombres }}" class="form-control">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" value="{{ col.apellidos }}" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="empresa">Empresa:</label>
+                        <input type="text" id="empresa" name="empresa" value="{{ col.empresa }}" class="form-control">
+                    </div>                            
+                </div>   
+                <hr>
+                <div class="row">
+                    <div id="resultado" class="col-md-12">
+                        {% partial 'dx_opciones' %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+
+    {% partial 'acceso' %}
+
+{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:1752:"{% if can('parametros') %}
+    <div class="panel panel-primary"> 
+        <div class="panel-heading"> 
+            <h3 class="panel-title">EDITAR COLABORADOR</h3>
+        </div> 
+        <div class="panel-body">
+
+            <form data-request="onSave" data-request-update="dx_opciones: '#resultado'">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula" value="{{ col.cedula }}" class="form-control">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" name="nombres" value="{{ col.nombres }}" class="form-control">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" value="{{ col.apellidos }}" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="empresa">Empresa:</label>
+                        <input type="text" id="empresa" name="empresa" value="{{ col.empresa }}" class="form-control">
+                    </div>                            
+                </div>   
+                <hr>
+                <div class="row">
+                    <div id="resultado" class="col-md-12">
+                        {% partial 'dx_opciones' %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+
+    {% partial 'acceso' %}
+
+{% endif %}";s:4:"code";s:1202:"function onStart()
+{
+    $col = DB::table('colaboradores')->where('id','=', $this->param('id'))->first();
+    $this['col'] = $col;    
+}
+
+function onDelete(){
+    Db::table('colaboradores')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro eliminado correctamente";
+    return Redirect::to('listas_colaboradores');
+}
+
+function onSave()
+{
+    $validator = false;
+    if (input('cedula') == ""){
+        $this['error'] = "Debe ingresar el número del documento.";
+    }elseif(input('nombres')=="" || input('apellidos')=="" ){   
+        $this['error'] = "Debe diligenciar nombres y apellidos.";
+    }elseif(input('empresa')==""){   
+        $this['error'] = "Debe diligenciar la empresa a la que esta asociado.";
+    }else{
+        $validator = true;         
+    }
+   
+    if ($validator) {
+        Db::table('colaboradores')->where('id', $this->param('id'))->update(
+            ['cedula' => input('cedula'),
+            'nombres' => input('nombres'),
+            'apellidos' => input('apellidos'),
+            'empresa' => input('empresa')]
+        );  
+        $this['mensaje'] = "Colaborador actualizado correctamente";
+    }
+    
+}";s:5:"title";s:18:"editar_colaborador";s:3:"url";s:24:"/editar_colaborador/:id?";s:6:"layout";s:11:"formularios";s:11:"description";s:54:"formulario de edición para registros de colaboradores";s:9:"is_hidden";s:1:"0";}}
