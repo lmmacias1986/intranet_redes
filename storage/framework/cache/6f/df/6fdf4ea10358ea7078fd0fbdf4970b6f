@@ -1,4 +1,4 @@
-1495726415a:1:{s:32:"sistemas/consultar_solicitud.htm";a:9:{s:8:"fileName";s:32:"sistemas/consultar_solicitud.htm";s:7:"content";s:15520:"title = "consultar_solicitud"
+1495728918a:1:{s:32:"sistemas/consultar_solicitud.htm";a:9:{s:8:"fileName";s:32:"sistemas/consultar_solicitud.htm";s:7:"content";s:15520:"title = "consultar_solicitud"
 url = "/consultar_solicitud/:id?"
 layout = "formularios"
 is_hidden = 0
