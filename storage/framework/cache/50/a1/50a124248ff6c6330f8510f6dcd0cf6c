@@ -1,4 +1,4 @@
-1495722227a:1:{s:17:"forum/channel.htm";a:11:{s:8:"fileName";s:17:"forum/channel.htm";s:7:"content";s:258:"title = "Forum Channel"
+1495726415a:1:{s:17:"forum/channel.htm";a:11:{s:8:"fileName";s:17:"forum/channel.htm";s:7:"content";s:258:"title = "Forum Channel"
 url = "/forum/channel/:slug"
 layout = "default"
 description = "View a specific forum channel."

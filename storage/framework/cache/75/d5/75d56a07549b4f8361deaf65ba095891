@@ -1,4 +1,4 @@
-1495722227a:1:{s:19:"forgot-password.htm";a:9:{s:8:"fileName";s:19:"forgot-password.htm";s:7:"content";s:227:"title = "Reset Password"
+1495726415a:1:{s:19:"forgot-password.htm";a:9:{s:8:"fileName";s:19:"forgot-password.htm";s:7:"content";s:227:"title = "Reset Password"
 url = "/forgot-password/:code?"
 layout = "default"
 
