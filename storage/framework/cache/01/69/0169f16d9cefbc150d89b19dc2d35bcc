@@ -1,0 +1,35 @@
+1495807142a:1:{s:17:"blog/category.htm";a:12:{s:8:"fileName";s:17:"blog/category.htm";s:7:"content";s:656:"title = "Blog Category"
+url = "/blog/category/:slug/:page?"
+layout = "default"
+description = "Viewing blog posts in a specific category."
+hidden = "0"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "{{ :slug }}"
+postsPerPage = "10"
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog/category"
+postPage = "blog/post"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = "0"
+categoryPage = "blog/category"
+==
+<div class="row">
+    <div class="col-md-8">
+        {% partial 'blog/posts' %}
+    </div>
+    <div class="col-md-4">
+        {% partial 'blog/categories' %}
+    </div>
+</div>";s:5:"mtime";i:1495718447;s:6:"markup";s:182:"<div class="row">
+    <div class="col-md-8">
+        {% partial 'blog/posts' %}
+    </div>
+    <div class="col-md-4">
+        {% partial 'blog/categories' %}
+    </div>
+</div>";s:4:"code";N;s:5:"title";s:13:"Blog Category";s:3:"url";s:27:"/blog/category/:slug/:page?";s:6:"layout";s:7:"default";s:11:"description";s:42:"Viewing blog posts in a specific category.";s:6:"hidden";s:1:"0";s:9:"blogPosts";a:7:{s:10:"pageNumber";s:11:"{{ :page }}";s:14:"categoryFilter";s:11:"{{ :slug }}";s:12:"postsPerPage";s:2:"10";s:14:"noPostsMessage";s:14:"No posts found";s:9:"sortOrder";s:17:"published_at desc";s:12:"categoryPage";s:13:"blog/category";s:8:"postPage";s:9:"blog/post";}s:14:"blogCategories";a:3:{s:4:"slug";s:11:"{{ :slug }}";s:12:"displayEmpty";s:1:"0";s:12:"categoryPage";s:13:"blog/category";}}}
