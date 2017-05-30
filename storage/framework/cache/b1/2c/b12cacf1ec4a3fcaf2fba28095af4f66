@@ -1,0 +1,28 @@
+1496187784a:1:{s:14:"menu_casos.htm";a:6:{s:8:"fileName";s:14:"menu_casos.htm";s:7:"content";s:702:"[viewBag]
+==
+<?php
+
+?>
+==
+<div class="container">
+  <h4>Administración de solicitudes</h4>  
+  <ul class="nav nav-tabs">
+    <li {% if this.page.url == "/control" %} class="active" {% endif %}><a href="control">Nuevos</a></li>
+    <li {% if this.page.url == "/pendiente" %} class="active" {% endif %}><a href="pendiente">Pendientes</a></li>
+    <li {% if this.page.url == "/curso" %} class="active" {% endif %}><a href="curso">En Curso</a></li>
+    <li {% if this.page.url == "/cerrado" %} class="active" {% endif %}><a href="cerrado">Cerrados</a></li>
+    <li {% if this.page.url == "/resuelto" %} class="active" {% endif %}><a href="resuelto">Resueltos</a></li>
+  </ul>  
+</div>
+<hr>";s:5:"mtime";i:1496187082;s:6:"markup";s:670:"<div class="container">
+  <h4>Administración de solicitudes</h4>  
+  <ul class="nav nav-tabs">
+    <li {% if this.page.url == "/control" %} class="active" {% endif %}><a href="control">Nuevos</a></li>
+    <li {% if this.page.url == "/pendiente" %} class="active" {% endif %}><a href="pendiente">Pendientes</a></li>
+    <li {% if this.page.url == "/curso" %} class="active" {% endif %}><a href="curso">En Curso</a></li>
+    <li {% if this.page.url == "/cerrado" %} class="active" {% endif %}><a href="cerrado">Cerrados</a></li>
+    <li {% if this.page.url == "/resuelto" %} class="active" {% endif %}><a href="resuelto">Resueltos</a></li>
+  </ul>  
+</div>
+<hr>";s:4:"code";s:3:"
+";s:7:"viewBag";a:0:{}}}

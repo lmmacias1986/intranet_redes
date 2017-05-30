@@ -12,7 +12,8 @@ function onStart(){
 		->select('notification.*', 'help_desk.asunto','help_desk.descripcion')
 	    ->where('notification.id','=', $this->param('id'))
 	    ->where('notification.notificado_a','=', $this->user['username'])->first();
-	    $this['detalle'] = $notification; 	    
+	    $this['detalle'] = $notification;
+ 	    
 
 	    Db::table('notification')->where('id', $this->param('id'))->update([
 	        'estado' => 0,
@@ -26,10 +27,11 @@ function onStart(){
 	    ->take(20)
 	    ->orderBy('id', 'desc')->get();
 	    $this['notifications'] = $notifications;    
-	    $this['total'] = count($notifications);
+	    $this['total'] = count($notifications) + 1;
 	}else{
 		$notifications = DB::table('notification')
 	    ->where('notificado_a','=', $this->user['username'])    
+	    ->take(20)
 	    ->orderBy('id', 'desc')->get();
 	    $this['notifications'] = $notifications;    
 	    $this['total'] = count($notifications);
