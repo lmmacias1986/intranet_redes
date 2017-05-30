@@ -1,0 +1,42 @@
+1496179791a:1:{s:13:"blog/post.htm";a:12:{s:8:"fileName";s:13:"blog/post.htm";s:7:"content";s:590:"title = "Blog Post"
+url = "/blog/post/:slug"
+layout = "default"
+description = "Viewing a single blog post"
+hidden = "0"
+
+[blogPost]
+slug = "{{ :slug }}"
+categoryPage = "blog/category"
+
+[forumEmbedTopic]
+embedCode = "{{ :slug }}"
+channelSlug = "channel-orange"
+memberPage = "404"
+==
+<?php
+function onEnd()
+{
+    $this->page->title = $this->post->title;
+}
+?>
+==
+{% component 'blogPost' %}
+
+<hr />
+<h4>Comments</h4>
+{% if user %}
+    {% component 'forumEmbedTopic' %}
+{% else %}
+    <p>Please <a href="{{ 'account'|page }}">sign in</a> to comment!</p>
+{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:208:"{% component 'blogPost' %}
+
+<hr />
+<h4>Comments</h4>
+{% if user %}
+    {% component 'forumEmbedTopic' %}
+{% else %}
+    <p>Please <a href="{{ 'account'|page }}">sign in</a> to comment!</p>
+{% endif %}";s:4:"code";s:68:"function onEnd()
+{
+    $this->page->title = $this->post->title;
+}";s:5:"title";s:9:"Blog Post";s:3:"url";s:16:"/blog/post/:slug";s:6:"layout";s:7:"default";s:11:"description";s:26:"Viewing a single blog post";s:6:"hidden";s:1:"0";s:8:"blogPost";a:2:{s:4:"slug";s:11:"{{ :slug }}";s:12:"categoryPage";s:13:"blog/category";}s:15:"forumEmbedTopic";a:3:{s:9:"embedCode";s:11:"{{ :slug }}";s:11:"channelSlug";s:14:"channel-orange";s:10:"memberPage";s:3:"404";}}}

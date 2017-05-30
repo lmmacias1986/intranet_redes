@@ -1,0 +1,1609 @@
+1496179791a:1:{s:22:"guias/guia_detalle.htm";a:9:{s:8:"fileName";s:22:"guias/guia_detalle.htm";s:7:"content";s:46631:"title = "guia_detalle"
+url = "/guia_detalle/:id?"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+
+function onStart()
+{
+    $this['id_guia_actual'] = $this->param('id');
+    $guia = DB::table('guia_cliente')->where('id','=', $this->param('id'))->get();
+    $this['guia'] = $guia[0];
+    $pruebas = Db::table('pruebas_psicotecnicas')->get();
+    $aplicadas = Db::table('pruebas_psicotecnicas_aplicadas')->where('id_guia','=', $this->param('id'))->get();
+    $this['aplicadas'] = $aplicadas;
+    $profesiograma = Db::table('adjuntos_guia_cliente')->where('id_guia','=', $this->param('id'))->first();
+    $this['profesiograma'] = $profesiograma;
+    
+    $portada = DB::table('portada_perfiles')->where('id_guia','=', $this->param('id'))->get();
+    if(count($portada)>0){
+        $this['id_perfiles'] = $portada[0]->id;    
+    }
+    
+
+    foreach ($pruebas as $key => $prueba) {
+        foreach ($aplicadas as $llave => $aplicada) {
+            if($aplicada->id_prueba == $prueba->id){
+                $pruebas[$key]->estado  = "checked";
+            }
+        }
+    }
+    $this['pruebas'] = $pruebas;
+    $this['id_guia'] = $this->param('id');
+}
+function onPerfiles(){
+    return Redirect::to('perfiles/'.$this->param('id'));
+}
+function onSave()
+{   
+    $validator = false;
+    if (input('empresa') == ""){
+        $this['error'] = "Debe ingresar el nombre de la empresa.";
+    }elseif(input('no_contrato')==""){   
+        $this['error'] = "Debe ingresar el No de contrato.";
+    }elseif(input('nit')==""){
+        $this['error'] = "Debe ingresar el No de NIT.";
+    }elseif(input('representante_legal')==""){
+        $this['error'] = "Debe ingresar el nombre del representante legal.";
+    }elseif(input('cedula')==""){
+        $this['error'] = "Debe ingresar el No de cédula.";
+    }else{
+        $validator= true;
+    }
+
+    if ($validator) {
+        Db::table('guia_cliente')->where('id', $this->param('id'))->update([
+            'empresa' => input('empresa'),
+             'no_contrato' => input('no_contrato'),
+             'nit' => input('nit'),
+             'aiu' => input('aiu'),
+             'responsable_cta' => input('responsable_cta'),
+             'act_economica' => input('act_economica'),
+             'representante_legal' => input('representante_legal'),
+             'cargo_representante' => input('cargo_representante'),
+             'cedula' => input('cedula'),
+             'jefe_rrhh' => input('jefe_rrhh'),
+             'direccion' => input('direccion'),
+             'ciudad' => input('ciudad'),
+             'telefono' => input('telefono'),
+             'pagina_web' => input('pagina_web'),
+             'fecha_inscripcion_cc' => input('fecha_inscripcion_cc'),
+             'info_gestion_comercial' => input('info_gestion_comercial'),
+             'info_servicio_cliente' => input('info_servicio_cliente'),
+             'cmb_neg_especiales' => input('cmb_neg_especiales'),
+             'neg_especiales' => input('neg_especiales'),
+             'dotacion' => input('dotacion'),
+             'quien_entrega' => input('quien_entrega'),  
+             'info_dotacion' => input('info_dotacion'),             
+             'contacto_atc' => input('contacto_atc'),               
+            'frecuencia_visita' => input('frecuencia_visita'),               
+            'facilitador' => input('facilitador'),               
+            'cual_facilitador' => input('cual_facilitador'),               
+            'horarios_atencion' => input('horarios_atencion'),               
+            'contacto_sitio_atc1' => input('contacto_sitio_atc1'),               
+            'cargo_sitio_atc1' => input('cargo_sitio_atc1'),               
+            'correo_sitio_atc1' => input('correo_sitio_atc1'),               
+            'tel_sitio_atc1' => input('tel_sitio_atc1'),               
+            'contacto_sitio_atc2' => input('contacto_sitio_atc2'),               
+            'cargo_sitio_atc2' => input('cargo_sitio_atc2'),               
+            'correo_sitio_atc2' => input('correo_sitio_atc2'),               
+            'tel_sitio_atc2' => input('tel_sitio_atc2'),               
+            'contacto_sitio_atc3' => input('contacto_sitio_atc3'),               
+            'cargo_sitio_atc3' => input('cargo_sitio_atc3'),               
+            'correo_sitio_atc3' => input('correo_sitio_atc3'),               
+            'tel_sitio_atc3' => input('tel_sitio_atc3'),               
+            'info_adiciona_atc' => input('info_adiciona_atc'),
+             'contacto_salud' => input('contacto_salud'),
+             'cargo_contacto' => input('cargo_contacto'),
+             'email_contacto' => input('email_contacto'),
+             'telefono_contacto' => input('telefono_contacto'),
+             'arl_base' => input('arl_base'),
+             'tasa_riesgo' => input('tasa_riesgo'),
+             'contacto_seleccion' => input('contacto_seleccion'),
+             'cargo_seleccion' => input('cargo_seleccion'),
+             'email_seleccion' => input('email_seleccion'),
+             'telefono_seleccion' => input('telefono_seleccion'),
+             'celular_seleccion' => input('celular_seleccion'),
+             'cargo_proveer' => input('cargo_proveer'),
+             'require_informe' => input('require_informe'),
+             'cual_informe' => input('cual_informe'),
+             'restriccion_familiares' => input('restriccion_familiares'),
+             'horarios' => input('horarios'),
+             'entidad_bancaria' => input('entidad_bancaria'),
+             'info_adicional_seleccion' => input('info_adicional_seleccion'),
+             'contacto_contratacion' => input('contacto_contratacion'),
+             'cargo_contratacion' => input('cargo_contratacion'),
+             'email_contratacion' => input('email_contratacion'),
+             'telefono_contratacion' => input('telefono_contratacion'),
+             'clausulas_adicionales' => input('clausulas_adicionales'),
+             'diferentes_centros_costo' => input('diferentes_centros_costo'),
+             'descripcion_centro_costos' => input('descripcion_centro_costos'),
+             'examen_medico' => input('examen_medico'),
+             'otros_examenes' => input('otros_examenes'),
+             'quien_paga' => input('quien_paga'),
+             'laboratorio' => input('laboratorio'),
+             'info_adicional_contratacion' => input('info_adicional_contratacion'),
+             'contacto_nomina' => input('contacto_nomina'),
+             'cargo_nomina' => input('cargo_nomina'),
+             'porcentaje_admin' => input('porcentaje_admin'),
+             'recuencia_pago' => input('recuencia_pago'),
+             'fecha_corte' => input('fecha_corte'),
+             'dias_pago_nomina' => input('dias_pago_nomina'),
+             'paz_salvo' => input('paz_salvo'),
+             'fecha_cierre_factura' => input('fecha_cierre_factura'),
+             'manejo_mes' => input('manejo_mes'),
+             'info_adicional_nomina' => input('info_adicional_nomina'),
+             'direccion_factura' => input('direccion_factura'),
+             'regimen_contributivo' => input('regimen_contributivo'),
+             'gran_contribuyente' => input('gran_contribuyente'),
+             'autoretenedor' => input('autoretenedor'),
+             'dias_plazo_vencimiento' => input('dias_plazo_vencimiento'),
+             'dias_radicacion_factura' => input('dias_radicacion_factura'),
+             'contacto_gestion_pagos' => input('contacto_gestion_pagos'),
+             'cargo_gestion_pagos' => input('cargo_gestion_pagos'),
+             'email_gestion_pagos' => input('email_gestion_pagos'),
+             'telefono_gestion_pagos' => input('telefono_gestion_pagos'),
+             'info_gestion_pagos' => input('info_gestion_pagos'),
+             'nombre_contacto2' => input('nombre_contacto2'),
+             'telefono_contacto2' => input('telefono_contacto2'),
+             'email_contacto2' => input('email_contacto2'),
+             'nombre_contacto3' => input('nombre_contacto3'),
+             'telefono_contacto3' => input('telefono_contacto3'),
+             'email_contacto3' => input('email_contacto3'),
+             'nombre_contacto4' => input('nombre_contacto4'),
+             'telefono_contacto4' => input('telefono_contacto4'),
+             'email_contacto4' => input('email_contacto4'),
+             'nombre_contacto5' => input('nombre_contacto5'),
+             'telefono_contacto5' => input('telefono_contacto5'),
+             'email_contacto5' => input('email_contacto5'),
+             'estado_registro' => input('estado_registro')
+             ]
+        );  
+        //actualiza las lineas de pruebas tecnicas aplicadas
+
+        Db::table('pruebas_psicotecnicas_aplicadas')->where('id_guia', '=', $this->param('id'))->delete();
+        
+        $total_pruebas = Db::table('pruebas_psicotecnicas')->get(); 
+        foreach ($total_pruebas as $key => $prb) {
+            if (input('chk_pruebas_'.$key) <> ""){   
+                Db::table('pruebas_psicotecnicas_aplicadas')->insert(
+                ['id_prueba' => input('chk_pruebas_'.$key),
+                'id_guia' => $this->param('id')]);
+            }
+        }
+        $this['mensaje'] = "El registro fúe actualizado correctamente";
+    }
+    
+}
+
+function onDelete(){
+    Db::table('guia_cliente')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro de guia cliente eliminado correctamente";
+    return Redirect::to('guias');
+}
+?>
+
+==
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+$( "#fecha_inscripcion_cc" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+
+</script>
+<form data-request="onSave" data-request-update="resultados_update: '#resultado'">
+    
+    <div class="row">
+        <div class="col-md-2 col-md-offset-8">
+            <span for="id">No de registro:</span>
+            <input type="text" id="id" name="id" value="{{ guia.id }}" readonly class="form-control">
+        </div>
+        <div class="col-md-2">
+            <span for="estado_registro">Estado:</span>
+            <select id="estado_registro" name="estado_registro" class="form-control">
+            <option value="Activo" {% if guia.estado_registro=="Activo" %}selected{% endif %}>Activo</option>
+            <option value="Inactivo" {% if guia.estado_registro=="Inactivo" %}selected{% endif %}>Inactivo</option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="alert alert-info" role="alert"><p>CONTRATACIÓN</p></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <span for="empresa">Empresa:</span>
+            <input type="text" id="empresa" name="empresa" value="{{ guia.empresa }}" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <span for="no_contrato">No. Contrato:</span>
+            <input type="text" id="no_contrato" name="no_contrato" value="{{ guia.no_contrato }}" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <span for="nit">NIT:</span>
+            <input type="text" id="nit" readonly name="nit" value="{{ guia.nit }}"  class="form-control">
+        </div>
+        
+        <div class="col-md-2">
+            <span for="aiu">AIU:</span>
+            <input type="text" id="aiu" readonly name="aiu" value="{{ guia.aiu }}"  class="form-control">
+        </div>
+        
+        <div class="col-md-6">
+            <span for="representante">Representante Cta:</span>
+            <input type="text" id="responsable_cta" name="responsable_cta" value="{{ guia.responsable_cta }}"  class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="act_economica">Act. Económica:</span>
+            <input type="text" id="act_economica" name="act_economica" value="{{ guia.act_economica }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="representante_legal">Representante legal:</span>
+            <input type="text" id="representante_legal" name="representante_legal" value="{{ guia.representante_legal }}" class="form-control">
+        </div>
+        
+        <div class="col-md-2">
+            <span for="cedula">Cédula:</span>
+            <input type="text" id="cedula" name="cedula" value="{{ guia.cedula }}" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+            <span for="cargo_representante">Cargo representante:</span>
+            <input type="text" id="cargo_representante" name="cargo_representante" value="{{ guia.cargo_representante }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="jefe_rrhh">Jefe RRHH:</span>
+            <input type="text" id="jefe_rrhh" name="jefe_rrhh" value="{{ guia.jefe_rrhh }}" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+            <span for="direccion">Dirección:</span>
+            <input type="text" id="direccion" name="direccion" value="{{ guia.direccion }}" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <span for="ciudad">Ciudad:</span>
+            <input type="text" id="ciudad" name="ciudad" value="{{ guia.ciudad }}" class="form-control">
+        </div>
+        
+        <div class="col-md-3">
+            <span for="telefono">Teĺéfono:</span>
+            <input type="text" id="telefono" name="telefono" value="{{ guia.telefono }}" class="form-control">
+        </div>
+        
+        <div class="col-md-3">
+            <span for="fecha_inscripcion_cc">Fecha Inscripción CC:</span>
+            <input type="text" id="fecha_inscripcion_cc" name="fecha_inscripcion_cc" value="{{ guia.fecha_inscripcion_cc }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="pagina_web">Web:</span>
+            <input type="text" id="pagina_web" name="pagina_web" value="{{ guia.pagina_web }}" class="form-control">
+        </div>
+        
+        <div class="col-md-12">
+            <span for="info_gestion_comercial">Información adicional (Gestión Comercial):</span>
+            <textarea class="form-control" id="info_gestion_comercial" name="info_gestion_comercial">{{ guia.info_gestion_comercial }}</textarea>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <span for="info_servicio_cliente">Información adicional (Servicio al Cliente):</span>
+            <textarea class="form-control" id="info_servicio_cliente" name="info_servicio_cliente">{{ guia.info_servicio_cliente }}</textarea>
+        </div>
+        <div class="col-md-3">
+            <span for="neg_especiales">Negociaciones especiales de fuero?</span>
+            <select id="cmb_neg_especiales" name="cmb_neg_especiales" class="form-control">
+                <option value="Si"{% if guia.cmb_neg_especiales =="Si" %}selected{% endif %}>Si</option>
+                <option value="No"{% if guia.cmb_neg_especiales =="No" %}selected{% endif %}>No</option>
+            </select>                    
+        </div>
+        <div id="div_neg_especiales" {% if guia.cmb_neg_especiales =="No" %} style="display:none" {% endif %} class="col-md-9">
+            <span>Cúal?:</span>
+            <textarea class="form-control" id="neg_especiales" name="neg_especiales">{{ guia.neg_especiales }}</textarea>
+        </div>
+        <div class="col-md-12">
+            <span>Profesiograma:</span>
+            {% if profesiograma.adjunto == "" %}
+                <a href="../profesiograma/{{ id_guia }}" target="_top" >Agregar profesiograma</a>
+            {% else %}
+                <a href="../profesiograma/{{ id_guia }}" target="_top" >ver profesiograma</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SUMINISTROS</p></div>
+    <div class="row">
+        <div class="col-md-8">
+            <span for="dotacion">Tipo dotacion:</span>
+            <textarea class="form-control" id="dotacion" name="dotacion">{{ guia.dotacion }}</textarea>
+        </div>
+        <div class="col-md-4">
+            <span for="quien_entrega">Quién entrega dotación?:</span>
+            <select class="form-control" id="quien_entrega" name="quien_entrega">
+                <option value ="">--Seleccione--</option>
+                <option value="Redes Humanas"  {% if guia.quien_entrega =="Redes Humanas" %}selected{% endif %}>Redes Humanas</option>
+                <option value="Empresa Usuaria"  {% if guia.quien_entrega =="Empresa Usuaria" %}selected{% endif %}>Empresa Usuaria</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <span for="info_dotacion">Información Adicional:</span>
+            <textarea class="form-control" id="info_dotacion" name="info_dotacion">{{ guia.info_dotacion }}</textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SERVICIO AL CLIENTE</p></div>                
+            <div class="row">
+                <div class="col-md-6">
+                    <span for="contacto_atc">Contacto:</span>
+                    <input type="text" id="contacto_atc" name="contacto_atc" value="{{ guia.contacto_atc }}" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <span for="frecuencia_visita">Frecuencia de visita:</span>
+                    <input type="text" id="frecuencia_visita" name="frecuencia_visita" value="{{ guia.frecuencia_visita }}" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <span for="facilitador">Se asigna facilitador?:</span>
+                    <select id="facilitador" name="facilitador" class="form-control">
+                        <option value="Si"{% if guia.facilitador =="Si" %}selected{% endif %}>Si</option>
+                        <option value="No"{% if guia.facilitador =="No" %}selected{% endif %}>No</option>                        
+                    </select>
+                    <div id="div_facilitador" {% if guia.facilitador =="No" %}style="display:none"{% endif %}>
+                        <span>Facilitador:</span>
+                        <input type="text" name="cual_facilitador" id="cual_facilitador" value="{{ guia.cual_facilitador }}" class="form-control"/>
+                    </div>
+                </div>                
+                <div class="col-md-6">
+                    <span for="horarios_atencion">Horarios de atención:</span>
+                    <input type="text" id="horarios_atencion" name="horarios_atencion"  value="{{ guia.horarios_atencion }}" class="form-control">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 1:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc1">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc1" name="contacto_sitio_atc1"  value="{{ guia.contacto_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc1">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc1" name="cargo_sitio_atc1"  value="{{ guia.cargo_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc1">Correo:</span>
+                        <input type="text" id="correo_sitio_atc1" name="correo_sitio_atc1"  value="{{ guia.correo_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc1">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc1" name="tel_sitio_atc1"  value="{{ guia.tel_sitio_atc1 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12">                    
+                    <input name="chk_mas_sitios" type="checkbox" value="Si" id="chk_mas_sitios" />
+                    <span>Mostrar mas sitios?</span>
+                </div>
+
+                <div class="col-md-12" id="div_sitio2" style="display:none">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 2:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc2">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc2" name="contacto_sitio_atc2"  value="{{ guia.contacto_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc2">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc2" name="cargo_sitio_atc2"  value="{{ guia.cargo_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc2">Correo:</span>
+                        <input type="text" id="correo_sitio_atc2" name="correo_sitio_atc2"  value="{{ guia.correo_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc2">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc2" name="tel_sitio_atc2"  value="{{ guia.tel_sitio_atc2 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12"  id="div_sitio3" style="display:none">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 3:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc3">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc3" name="contacto_sitio_atc3"  value="{{ guia.contacto_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc3">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc3" name="cargo_sitio_atc3"  value="{{ guia.cargo_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc3">Correo:</span>
+                        <input type="text" id="correo_sitio_atc3" name="correo_sitio_atc3"  value="{{ guia.correo_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc3">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc3" name="tel_sitio_atc3"  value="{{ guia.tel_sitio_atc3 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <span for="info_adiciona_atc">Comentarios adicionales:</span>
+                    <textarea class="form-control" id="info_adiciona_atc" name="info_adiciona_atc">{{ guia.info_adiciona_atc }}</textarea>
+                </div>
+            </div>
+            <hr>
+    <div class="alert alert-info" role="alert"><p>HSE - SYSO</p></div>
+  
+    <div class="row">
+        <div class="col-md-6">
+            <span for="contacto_salud">Contacto SST:</span>
+            <input type="text" id="contacto_salud" name="contacto_salud" value="{{ guia.contacto_salud}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="cargo_contacto">Cargo del contacto:</span>
+            <input type="text" id="cargo_contacto" name="cargo_contacto" value="{{ guia.cargo_contacto}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="email_contacto">Email del contacto:</span>
+            <input type="text" id="email_contacto" name="email_contacto" value="{{ guia.email_contacto}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="telefono_contacto">Teléfono del contacto:</span>
+            <input type="text" id="telefono_contacto" name="telefono_contacto" value="{{ guia.telefono_contacto}}" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <span for="arl_base">ARL base:</span>
+            <input type="text" id="arl_base" name="arl_base" value="{{ guia.arl_base}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="tasa_riesgo">Tasa de riesgo:</span>
+            <input type="text" id="tasa_riesgo" name="tasa_riesgo" value="{{ guia.tasa_riesgo}}" class="form-control">
+        </div>
+    </div>
+    
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SELECCIÓN</p></div>
+    {% if id_perfiles %}
+        <div class="row">
+            <div class="col-md-12">
+                <a href="../ver_perfiles/{{ id_perfiles }}">Click aquí para consultar los perfiles de cargo asociados.</a>
+            </div>      
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <a href="../perfiles/{{ id_guia_actual }}">Click aquí para asociar los perfiles de cargo.</a>
+            </div>      
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <span for="contacto_seleccion">Contacto selección:</span>
+            <input type="text" id="contacto_seleccion" name="contacto_seleccion" value="{{ guia.contacto_seleccion}}" class="form-control">
+        </div>
+         <div class="col-md-3">
+            <span for="cargo_seleccion">Cargo del contacto:</span>
+            <input type="text" id="cargo_seleccion" name="cargo_seleccion" value="{{ guia.cargo_seleccion}}" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <span for="email_seleccion">Email del contacto:</span>
+            <input type="text" id="email_seleccion" name="email_seleccion" value="{{ guia.email_seleccion}}" class="form-control">
+        </div>
+         <div class="col-md-2">
+            <span for="telefono_seleccion">Tel del contacto:</span>
+            <input type="text" id="telefono_seleccion" name="telefono_seleccion" value="{{ guia.telefono_seleccion}}" class="form-control">
+        </div>
+        <div class="col-md-3">
+                    <span for="celular_seleccion">Celular:</span>
+                    <input type="text" id="celular_seleccion" name="celular_seleccion" value="{{ guia.celular_seleccion}}" class="form-control">
+                </div>
+        <div class="col-md-3">
+            <span for="cargo_proveer">Cargos a proveer:</span>
+            <input type="text" id="cargo_proveer" name="cargo_proveer" value="{{ guia.cargo_proveer}}" class="form-control">
+        </div>        
+        <div class="col-md-3">
+            <span for="require_informe">Requiere informe:</span>
+            <select id="require_informe" name="require_informe" class="form-control">
+                <option value="">-- Sel --</option>
+                <option value="Si" {% if guia.require_informe =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.require_informe =="No" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <span for="cual_informe">Cual?:</span>
+            <select id="cual_informe" name="cual_informe" class="form-control" {% if guia.cual_informe =="" %}disabled{% endif %}>
+                <option value="">-- Sel --</option>
+                <option value="Indicadores" {% if guia.cual_informe =="Indicadores" %}selected{% endif %}>Indicadores</option>
+                <option value="BD mes anterior" {% if guia.cual_informe =="BD mes anterior" %}selected{% endif %}>BD mes anterior</option>
+                <option value="Indicadores y BD" {% if guia.cual_informe =="Indicadores y BD" %}selected{% endif %}>Indicadores y BD</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <span for="restriccion_familiares">Restricción de familiares:</span>
+            <select id="restriccion_familiares" name="restriccion_familiares" class="form-control">
+                <option value="">-- Sel --</option>
+                <option value="Si" {% if guia.restriccion_familiares =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.restriccion_familiares =="No" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <span for="horarios">Horarios:</span>
+            <input type="text" id="horarios" name="horarios" value="{{ guia.horarios }}" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <span for="entidad_bancaria">Entidad bancaria:</span>
+            <input type="text" id="entidad_bancaria" name="entidad_bancaria" value="{{ guia.entidad_bancaria }}" class="form-control">
+        </div>
+        <div class="col-md-12">
+            <span for="pruebas_psicotecnicas">Pruebas psicotécnicas:</span>
+            <ul>
+            {% for prueba in pruebas %}
+                <li style="float:left; list-style:none; margin-left:5px">                           
+                    <input name="chk_pruebas_{{ loop.index0 }}" value="{{ prueba.id }}" {{ prueba.estado }} type="checkbox" />
+                    <span>{{ prueba.descripcion }}</span>                                     
+                </li>                    
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <span for="info_adicional_seleccion">Información adicional selección:</span>
+            <textarea class="form-control" id="info_adicional_seleccion" name="info_adicional_seleccion">{{ guia.info_adicional_seleccion }}</textarea>
+        </div>
+    </div>
+    <hr>
+        <div class="alert alert-info" role="alert"><p>CONTRATACIÓN</p></div>
+      
+        <div class="row">
+            <div class="col-md-4">
+                <span for="contacto_contratacion">Contacto contratación:</span>
+                <input type="text" id="contacto_contratacion" name="contacto_contratacion" value="{{ guia.contacto_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_contratacion">Cargo contacto:</span>
+                <input type="text" id="cargo_contratacion" name="cargo_contratacion" value="{{ guia.cargo_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="email_contratacion">Email concacto:</span>
+                <input type="text" id="email_contratacion" name="email_contratacion" value="{{ guia.email_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="telefono_contratacion">Telefono contacto:</span>
+                <input type="text" id="telefono_contratacion" name="telefono_contratacion" value="{{ guia.telefono_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="examen_medico">Pago exámen médico:</span>
+                <input type="text" id="examen_medico" name="examen_medico" value="{{ guia.examen_medico }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="otros_examenes">Otros exámenes (Facturables):</span>
+                <input type="text" id="otros_examenes" name="otros_examenes" value="{{ guia.otros_examenes }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                    <span for="quien_paga">Quién paga el exámen?:</span>
+                    <select class="form-control" id="quien_paga" name="quien_paga">
+                        <option value ="">--Seleccione--</option>
+                        <option value="Redes Humanas" {% if guia.quien_paga =="Redes Humanas" %}selected{% endif %} >Redes Humanas</option>
+                        <option value="Empresa Usuaria"{% if guia.quien_paga =="Empresa Usuaria" %}selected{% endif %} >Empresa Usuaria</option>
+                    </select>
+                </div>
+            <div class="col-md-4">
+                <span for="laboratorio">Laboratorio especificado asignado:</span>
+                <input type="text" id="laboratorio" name="laboratorio" value="{{ guia.laboratorio }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="diferentes_centros_costo">Los trabajadores son asignados a diferentes centros de costo:</span>
+                <select id="diferentes_centros_costo" name="diferentes_centros_costo" class="form-control">
+                <option>--Seleccione--</option>
+                <option value ="Si" {% if guia.diferentes_centros_costo =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.diferentes_centros_costo =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                 Mostrar mas contactos: <input name="chk_contactos" type="checkbox" value="Si" id="chk_contactos" />
+            </div>
+
+
+            <!-- divs ocultos para creacion de mas contactos-->
+            <div class="col-md-12" id="div_contactos" style="display:none">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span for="nombre_contacto2">Nombre Contacto 2:</span>
+                        <input type="text" id="nombre_contacto2" name="nombre_contacto2" value ="{{ guia.nombre_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto2">Teléfono:</span>
+                        <input type="text" id="telefono_contacto2" name="telefono_contacto2" value ="{{ guia.telefono_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto2">Email:</span>
+                        <input type="text" id="email_contacto2" name="email_contacto2" value ="{{ guia.email_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto3">Nombre Contacto 3:</span>
+                        <input type="text" id="nombre_contacto3" name="nombre_contacto3" value ="{{ guia.nombre_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto3">Teléfono:</span>
+                        <input type="text" id="telefono_contacto3" name="telefono_contacto3" value ="{{ guia.telefono_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto3">Email:</span>
+                        <input type="text" id="email_contacto3" name="email_contacto3" value ="{{ guia.email_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto4">Nombre Contacto 4:</span>
+                        <input type="text" id="nombre_contacto4" name="nombre_contacto4" value ="{{ guia.nombre_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto4">Teléfono:</span>
+                        <input type="text" id="telefono_contacto4" name="telefono_contacto4" value ="{{ guia.telefono_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto4">Email:</span>
+                        <input type="text" id="email_contacto4" name="email_contacto4" value ="{{ guia.email_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto5">Nombre Contacto 5:</span>
+                        <input type="text" id="nombre_contacto5" name="nombre_contacto5" value ="{{ guia.nombre_contacto5 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto5">Teléfono:</span>
+                        <input type="text" id="telefono_contacto5" name="telefono_contacto5" value ="{{ guia.telefono_contacto5 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto5">Email:</span>
+                        <input type="text" id="email_contacto5" name="email_contacto5" value ="{{ guia.email_contacto5 }}"class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" id="div_costos" {% if guia.diferentes_centros_costo == "No" %}style="display:none" {% endif %}>
+                <span for="descripcion_centro_costos">Descripción centros de costos:</span>
+                <textarea id="descripcion_centro_costos" name="descripcion_centro_costos" class="form-control">{{ guia.descripcion_centro_costos }}</textarea>
+            </div>
+            <div class="col-md-12">
+                <span for="clausulas_adicionales">Los trabajadores tienen clausulas adicionales al contrato por al:</span>
+                <textarea id="clausulas_adicionales" name="clausulas_adicionales" class="form-control">{{ guia.clausulas_adicionales }}</textarea>
+            </div>
+            
+            <div class="col-md-12">
+                <span for="info_adicional_contratacion">Información adicional contratación:</span>
+                <textarea id="info_adicional_contratacion" name="info_adicional_contratacion" class="form-control">{{ guia.info_adicional_contratacion }}</textarea>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="alert alert-info" role="alert"><p>NOMINAS</p></div>
+        <div class="row">
+            <div class="col-md-4">
+                <span for="contacto_nomina">Contacto nomina:</span>
+                <input type="text" id="contacto_nomina" name="contacto_nomina" value="{{ guia.contacto_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_nomina">Cargo contacto:</span>
+                <input type="text" id="cargo_nomina" name="cargo_nomina" value="{{ guia.cargo_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="porcentaje_admin">Porcentaje de administración:</span>
+                <input type="text" id="porcentaje_admin" name="porcentaje_admin" value="{{ guia.porcentaje_admin }}" class="form-control">
+            </div>            
+            <div class="col-md-4">
+                <span for="recuencia_pago">Recuencia de pago:</span>
+                <input type="text" id="recuencia_pago" name="recuencia_pago" value="{{ guia.recuencia_pago }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="fecha_corte">Fecha de corte de novedades:</span>
+                <input type="text" id="fecha_corte" name="fecha_corte" value="{{ guia.fecha_corte }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="dias_pago_nomina">Días de pago nomina:</span>
+                <input type="text" id="dias_pago_nomina" name="dias_pago_nomina" value="{{ guia.dias_pago_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="paz_salvo">Utiliza paz y salvo:</span>
+                <select id="paz_salvo" name="paz_salvo" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="Si" {% if guia.paz_salvo =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No" {% if guia.paz_salvo =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <span for="fecha_cierre_factura">Fecha cierre de factura:</span>
+                <input type="text" id="fecha_cierre_factura" name="fecha_cierre_factura" value="{{ guia.fecha_cierre_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="manejo_mes">Manejo de mes :</span>
+                <select id="manejo_mes" name="manejo_mes" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="Comercial 30 Días" {% if guia.manejo_mes =="Comercial 30 Días" %}selected{% endif %}>Comercial 30 Días</option>
+                    <option value ="Calendario 31 Días" {% if guia.manejo_mes =="Calendario 31 Días" %}selected{% endif %}>Calendario 31 Días</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <span for="info_adicional_nomina">Información adicional contratación:</span>
+                <textarea id="info_adicional_nomina" name="info_adicional_nomina" class="form-control">{{ guia.info_adicional_nomina }}</textarea>
+            </div>
+        </div>
+        <hr>
+
+        <div class="alert alert-info" role="alert"><p>CONTABILIDAD</p></div>
+        <div class="row">
+            <div class="col-md-4">
+                <span for="direccion_factura">Dirección para envío de factura:</span>
+                <input type="text" id="direccion_factura" name="direccion_factura" value="{{ guia.direccion_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="regimen_contributivo">Régimen contributivo:</span>
+                <input type="text" id="regimen_contributivo" name="regimen_contributivo" value="{{ guia.regimen_contributivo }}" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <span for="gran_contribuyente">Gran contribuyente:</span>
+                <select id="gran_contribuyente" name="gran_contribuyente" class="form-control">
+                <option value="">--Seleccione--</option>
+                    <option value="Si"  {% if guia.gran_contribuyente =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No"  {% if guia.gran_contribuyente =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <span for="autoretenedor">Autoretenedor:</span>
+                <select id="autoretenedor" name="autoretenedor" class="form-control">
+                <option value="">--Seleccione--</option>
+                    <option value="Si" {% if guia.autoretenedor =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No" {% if guia.autoretenedor =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <span for="dias_plazo_vencimiento">Días de plazo vencimiento de facturación:</span>
+                <input type="text" id="dias_plazo_vencimiento" name="dias_plazo_vencimiento" value="{{ guia.dias_plazo_vencimiento }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="dias_radicacion_factura">Días de radicación factura:</span>
+                <input type="text" id="dias_radicacion_factura" name="dias_radicacion_factura" value="{{ guia.dias_radicacion_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="contacto_gestion_pagos">Contacto gestión de pagos:</span>
+                <input type="text" id="contacto_gestion_pagos" name="contacto_gestion_pagos" value="{{ guia.contacto_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_gestion_pagos">Cargo de contacto:</span>
+                <input type="text" id="cargo_gestion_pagos" name="cargo_gestion_pagos" value="{{ guia.cargo_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="email_gestion_pagos">Email contacto:</span>
+                <input type="text" id="email_gestion_pagos" name="email_gestion_pagos" value="{{ guia.email_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="telefono_gestion_pagos">Teléfono contacto:</span>
+                <input type="text" id="telefono_gestion_pagos" name="telefono_gestion_pagos" value="{{ guia.telefono_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-12">
+                <span for="info_gestion_pagos">Información adicional contabilidad:</span>
+                <textarea id="info_gestion_pagos" name="info_gestion_pagos" class="form-control">{{ guia.info_gestion_pagos }}</textarea>
+            </div>
+        </div>
+        <hr>        
+    <div class="row">
+        <div id="resultado" class="col-md-12">
+            {% partial 'resultados_update' %}
+        </div>
+    </div>
+</form>
+";s:5:"mtime";i:1495740950;s:6:"markup";s:37023:"<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+$( "#fecha_inscripcion_cc" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+
+</script>
+<form data-request="onSave" data-request-update="resultados_update: '#resultado'">
+    
+    <div class="row">
+        <div class="col-md-2 col-md-offset-8">
+            <span for="id">No de registro:</span>
+            <input type="text" id="id" name="id" value="{{ guia.id }}" readonly class="form-control">
+        </div>
+        <div class="col-md-2">
+            <span for="estado_registro">Estado:</span>
+            <select id="estado_registro" name="estado_registro" class="form-control">
+            <option value="Activo" {% if guia.estado_registro=="Activo" %}selected{% endif %}>Activo</option>
+            <option value="Inactivo" {% if guia.estado_registro=="Inactivo" %}selected{% endif %}>Inactivo</option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="alert alert-info" role="alert"><p>CONTRATACIÓN</p></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <span for="empresa">Empresa:</span>
+            <input type="text" id="empresa" name="empresa" value="{{ guia.empresa }}" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <span for="no_contrato">No. Contrato:</span>
+            <input type="text" id="no_contrato" name="no_contrato" value="{{ guia.no_contrato }}" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <span for="nit">NIT:</span>
+            <input type="text" id="nit" readonly name="nit" value="{{ guia.nit }}"  class="form-control">
+        </div>
+        
+        <div class="col-md-2">
+            <span for="aiu">AIU:</span>
+            <input type="text" id="aiu" readonly name="aiu" value="{{ guia.aiu }}"  class="form-control">
+        </div>
+        
+        <div class="col-md-6">
+            <span for="representante">Representante Cta:</span>
+            <input type="text" id="responsable_cta" name="responsable_cta" value="{{ guia.responsable_cta }}"  class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="act_economica">Act. Económica:</span>
+            <input type="text" id="act_economica" name="act_economica" value="{{ guia.act_economica }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="representante_legal">Representante legal:</span>
+            <input type="text" id="representante_legal" name="representante_legal" value="{{ guia.representante_legal }}" class="form-control">
+        </div>
+        
+        <div class="col-md-2">
+            <span for="cedula">Cédula:</span>
+            <input type="text" id="cedula" name="cedula" value="{{ guia.cedula }}" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+            <span for="cargo_representante">Cargo representante:</span>
+            <input type="text" id="cargo_representante" name="cargo_representante" value="{{ guia.cargo_representante }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="jefe_rrhh">Jefe RRHH:</span>
+            <input type="text" id="jefe_rrhh" name="jefe_rrhh" value="{{ guia.jefe_rrhh }}" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+            <span for="direccion">Dirección:</span>
+            <input type="text" id="direccion" name="direccion" value="{{ guia.direccion }}" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <span for="ciudad">Ciudad:</span>
+            <input type="text" id="ciudad" name="ciudad" value="{{ guia.ciudad }}" class="form-control">
+        </div>
+        
+        <div class="col-md-3">
+            <span for="telefono">Teĺéfono:</span>
+            <input type="text" id="telefono" name="telefono" value="{{ guia.telefono }}" class="form-control">
+        </div>
+        
+        <div class="col-md-3">
+            <span for="fecha_inscripcion_cc">Fecha Inscripción CC:</span>
+            <input type="text" id="fecha_inscripcion_cc" name="fecha_inscripcion_cc" value="{{ guia.fecha_inscripcion_cc }}" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <span for="pagina_web">Web:</span>
+            <input type="text" id="pagina_web" name="pagina_web" value="{{ guia.pagina_web }}" class="form-control">
+        </div>
+        
+        <div class="col-md-12">
+            <span for="info_gestion_comercial">Información adicional (Gestión Comercial):</span>
+            <textarea class="form-control" id="info_gestion_comercial" name="info_gestion_comercial">{{ guia.info_gestion_comercial }}</textarea>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <span for="info_servicio_cliente">Información adicional (Servicio al Cliente):</span>
+            <textarea class="form-control" id="info_servicio_cliente" name="info_servicio_cliente">{{ guia.info_servicio_cliente }}</textarea>
+        </div>
+        <div class="col-md-3">
+            <span for="neg_especiales">Negociaciones especiales de fuero?</span>
+            <select id="cmb_neg_especiales" name="cmb_neg_especiales" class="form-control">
+                <option value="Si"{% if guia.cmb_neg_especiales =="Si" %}selected{% endif %}>Si</option>
+                <option value="No"{% if guia.cmb_neg_especiales =="No" %}selected{% endif %}>No</option>
+            </select>                    
+        </div>
+        <div id="div_neg_especiales" {% if guia.cmb_neg_especiales =="No" %} style="display:none" {% endif %} class="col-md-9">
+            <span>Cúal?:</span>
+            <textarea class="form-control" id="neg_especiales" name="neg_especiales">{{ guia.neg_especiales }}</textarea>
+        </div>
+        <div class="col-md-12">
+            <span>Profesiograma:</span>
+            {% if profesiograma.adjunto == "" %}
+                <a href="../profesiograma/{{ id_guia }}" target="_top" >Agregar profesiograma</a>
+            {% else %}
+                <a href="../profesiograma/{{ id_guia }}" target="_top" >ver profesiograma</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SUMINISTROS</p></div>
+    <div class="row">
+        <div class="col-md-8">
+            <span for="dotacion">Tipo dotacion:</span>
+            <textarea class="form-control" id="dotacion" name="dotacion">{{ guia.dotacion }}</textarea>
+        </div>
+        <div class="col-md-4">
+            <span for="quien_entrega">Quién entrega dotación?:</span>
+            <select class="form-control" id="quien_entrega" name="quien_entrega">
+                <option value ="">--Seleccione--</option>
+                <option value="Redes Humanas"  {% if guia.quien_entrega =="Redes Humanas" %}selected{% endif %}>Redes Humanas</option>
+                <option value="Empresa Usuaria"  {% if guia.quien_entrega =="Empresa Usuaria" %}selected{% endif %}>Empresa Usuaria</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <span for="info_dotacion">Información Adicional:</span>
+            <textarea class="form-control" id="info_dotacion" name="info_dotacion">{{ guia.info_dotacion }}</textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SERVICIO AL CLIENTE</p></div>                
+            <div class="row">
+                <div class="col-md-6">
+                    <span for="contacto_atc">Contacto:</span>
+                    <input type="text" id="contacto_atc" name="contacto_atc" value="{{ guia.contacto_atc }}" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <span for="frecuencia_visita">Frecuencia de visita:</span>
+                    <input type="text" id="frecuencia_visita" name="frecuencia_visita" value="{{ guia.frecuencia_visita }}" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <span for="facilitador">Se asigna facilitador?:</span>
+                    <select id="facilitador" name="facilitador" class="form-control">
+                        <option value="Si"{% if guia.facilitador =="Si" %}selected{% endif %}>Si</option>
+                        <option value="No"{% if guia.facilitador =="No" %}selected{% endif %}>No</option>                        
+                    </select>
+                    <div id="div_facilitador" {% if guia.facilitador =="No" %}style="display:none"{% endif %}>
+                        <span>Facilitador:</span>
+                        <input type="text" name="cual_facilitador" id="cual_facilitador" value="{{ guia.cual_facilitador }}" class="form-control"/>
+                    </div>
+                </div>                
+                <div class="col-md-6">
+                    <span for="horarios_atencion">Horarios de atención:</span>
+                    <input type="text" id="horarios_atencion" name="horarios_atencion"  value="{{ guia.horarios_atencion }}" class="form-control">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 1:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc1">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc1" name="contacto_sitio_atc1"  value="{{ guia.contacto_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc1">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc1" name="cargo_sitio_atc1"  value="{{ guia.cargo_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc1">Correo:</span>
+                        <input type="text" id="correo_sitio_atc1" name="correo_sitio_atc1"  value="{{ guia.correo_sitio_atc1 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc1">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc1" name="tel_sitio_atc1"  value="{{ guia.tel_sitio_atc1 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12">                    
+                    <input name="chk_mas_sitios" type="checkbox" value="Si" id="chk_mas_sitios" />
+                    <span>Mostrar mas sitios?</span>
+                </div>
+
+                <div class="col-md-12" id="div_sitio2" style="display:none">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 2:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc2">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc2" name="contacto_sitio_atc2"  value="{{ guia.contacto_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc2">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc2" name="cargo_sitio_atc2"  value="{{ guia.cargo_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc2">Correo:</span>
+                        <input type="text" id="correo_sitio_atc2" name="correo_sitio_atc2"  value="{{ guia.correo_sitio_atc2 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc2">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc2" name="tel_sitio_atc2"  value="{{ guia.tel_sitio_atc2 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12"  id="div_sitio3" style="display:none">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <u>Sitio de atención 3:</u>
+                         </div>       
+                    </div>
+                    <div class="col-md-6">
+                        <span for="contacto_sitio_atc3">Contacto:</span>
+                        <input type="text" id="contacto_sitio_atc3" name="contacto_sitio_atc3"  value="{{ guia.contacto_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="cargo_sitio_atc3">Cargo:</span>
+                        <input type="text" id="cargo_sitio_atc3" name="cargo_sitio_atc3"  value="{{ guia.cargo_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="correo_sitio_atc3">Correo:</span>
+                        <input type="text" id="correo_sitio_atc3" name="correo_sitio_atc3"  value="{{ guia.correo_sitio_atc3 }}" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <span for="tel_sitio_atc3">Teléfono:</span>
+                        <input type="text" id="tel_sitio_atc3" name="tel_sitio_atc3"  value="{{ guia.tel_sitio_atc3 }}" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <span for="info_adiciona_atc">Comentarios adicionales:</span>
+                    <textarea class="form-control" id="info_adiciona_atc" name="info_adiciona_atc">{{ guia.info_adiciona_atc }}</textarea>
+                </div>
+            </div>
+            <hr>
+    <div class="alert alert-info" role="alert"><p>HSE - SYSO</p></div>
+  
+    <div class="row">
+        <div class="col-md-6">
+            <span for="contacto_salud">Contacto SST:</span>
+            <input type="text" id="contacto_salud" name="contacto_salud" value="{{ guia.contacto_salud}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="cargo_contacto">Cargo del contacto:</span>
+            <input type="text" id="cargo_contacto" name="cargo_contacto" value="{{ guia.cargo_contacto}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="email_contacto">Email del contacto:</span>
+            <input type="text" id="email_contacto" name="email_contacto" value="{{ guia.email_contacto}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="telefono_contacto">Teléfono del contacto:</span>
+            <input type="text" id="telefono_contacto" name="telefono_contacto" value="{{ guia.telefono_contacto}}" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <span for="arl_base">ARL base:</span>
+            <input type="text" id="arl_base" name="arl_base" value="{{ guia.arl_base}}" class="form-control">
+        </div>
+         <div class="col-md-6">
+            <span for="tasa_riesgo">Tasa de riesgo:</span>
+            <input type="text" id="tasa_riesgo" name="tasa_riesgo" value="{{ guia.tasa_riesgo}}" class="form-control">
+        </div>
+    </div>
+    
+    <hr>
+    <div class="alert alert-info" role="alert"><p>SELECCIÓN</p></div>
+    {% if id_perfiles %}
+        <div class="row">
+            <div class="col-md-12">
+                <a href="../ver_perfiles/{{ id_perfiles }}">Click aquí para consultar los perfiles de cargo asociados.</a>
+            </div>      
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <a href="../perfiles/{{ id_guia_actual }}">Click aquí para asociar los perfiles de cargo.</a>
+            </div>      
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-4">
+            <span for="contacto_seleccion">Contacto selección:</span>
+            <input type="text" id="contacto_seleccion" name="contacto_seleccion" value="{{ guia.contacto_seleccion}}" class="form-control">
+        </div>
+         <div class="col-md-3">
+            <span for="cargo_seleccion">Cargo del contacto:</span>
+            <input type="text" id="cargo_seleccion" name="cargo_seleccion" value="{{ guia.cargo_seleccion}}" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <span for="email_seleccion">Email del contacto:</span>
+            <input type="text" id="email_seleccion" name="email_seleccion" value="{{ guia.email_seleccion}}" class="form-control">
+        </div>
+         <div class="col-md-2">
+            <span for="telefono_seleccion">Tel del contacto:</span>
+            <input type="text" id="telefono_seleccion" name="telefono_seleccion" value="{{ guia.telefono_seleccion}}" class="form-control">
+        </div>
+        <div class="col-md-3">
+                    <span for="celular_seleccion">Celular:</span>
+                    <input type="text" id="celular_seleccion" name="celular_seleccion" value="{{ guia.celular_seleccion}}" class="form-control">
+                </div>
+        <div class="col-md-3">
+            <span for="cargo_proveer">Cargos a proveer:</span>
+            <input type="text" id="cargo_proveer" name="cargo_proveer" value="{{ guia.cargo_proveer}}" class="form-control">
+        </div>        
+        <div class="col-md-3">
+            <span for="require_informe">Requiere informe:</span>
+            <select id="require_informe" name="require_informe" class="form-control">
+                <option value="">-- Sel --</option>
+                <option value="Si" {% if guia.require_informe =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.require_informe =="No" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <span for="cual_informe">Cual?:</span>
+            <select id="cual_informe" name="cual_informe" class="form-control" {% if guia.cual_informe =="" %}disabled{% endif %}>
+                <option value="">-- Sel --</option>
+                <option value="Indicadores" {% if guia.cual_informe =="Indicadores" %}selected{% endif %}>Indicadores</option>
+                <option value="BD mes anterior" {% if guia.cual_informe =="BD mes anterior" %}selected{% endif %}>BD mes anterior</option>
+                <option value="Indicadores y BD" {% if guia.cual_informe =="Indicadores y BD" %}selected{% endif %}>Indicadores y BD</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <span for="restriccion_familiares">Restricción de familiares:</span>
+            <select id="restriccion_familiares" name="restriccion_familiares" class="form-control">
+                <option value="">-- Sel --</option>
+                <option value="Si" {% if guia.restriccion_familiares =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.restriccion_familiares =="No" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <span for="horarios">Horarios:</span>
+            <input type="text" id="horarios" name="horarios" value="{{ guia.horarios }}" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <span for="entidad_bancaria">Entidad bancaria:</span>
+            <input type="text" id="entidad_bancaria" name="entidad_bancaria" value="{{ guia.entidad_bancaria }}" class="form-control">
+        </div>
+        <div class="col-md-12">
+            <span for="pruebas_psicotecnicas">Pruebas psicotécnicas:</span>
+            <ul>
+            {% for prueba in pruebas %}
+                <li style="float:left; list-style:none; margin-left:5px">                           
+                    <input name="chk_pruebas_{{ loop.index0 }}" value="{{ prueba.id }}" {{ prueba.estado }} type="checkbox" />
+                    <span>{{ prueba.descripcion }}</span>                                     
+                </li>                    
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <span for="info_adicional_seleccion">Información adicional selección:</span>
+            <textarea class="form-control" id="info_adicional_seleccion" name="info_adicional_seleccion">{{ guia.info_adicional_seleccion }}</textarea>
+        </div>
+    </div>
+    <hr>
+        <div class="alert alert-info" role="alert"><p>CONTRATACIÓN</p></div>
+      
+        <div class="row">
+            <div class="col-md-4">
+                <span for="contacto_contratacion">Contacto contratación:</span>
+                <input type="text" id="contacto_contratacion" name="contacto_contratacion" value="{{ guia.contacto_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_contratacion">Cargo contacto:</span>
+                <input type="text" id="cargo_contratacion" name="cargo_contratacion" value="{{ guia.cargo_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="email_contratacion">Email concacto:</span>
+                <input type="text" id="email_contratacion" name="email_contratacion" value="{{ guia.email_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="telefono_contratacion">Telefono contacto:</span>
+                <input type="text" id="telefono_contratacion" name="telefono_contratacion" value="{{ guia.telefono_contratacion }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="examen_medico">Pago exámen médico:</span>
+                <input type="text" id="examen_medico" name="examen_medico" value="{{ guia.examen_medico }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="otros_examenes">Otros exámenes (Facturables):</span>
+                <input type="text" id="otros_examenes" name="otros_examenes" value="{{ guia.otros_examenes }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                    <span for="quien_paga">Quién paga el exámen?:</span>
+                    <select class="form-control" id="quien_paga" name="quien_paga">
+                        <option value ="">--Seleccione--</option>
+                        <option value="Redes Humanas" {% if guia.quien_paga =="Redes Humanas" %}selected{% endif %} >Redes Humanas</option>
+                        <option value="Empresa Usuaria"{% if guia.quien_paga =="Empresa Usuaria" %}selected{% endif %} >Empresa Usuaria</option>
+                    </select>
+                </div>
+            <div class="col-md-4">
+                <span for="laboratorio">Laboratorio especificado asignado:</span>
+                <input type="text" id="laboratorio" name="laboratorio" value="{{ guia.laboratorio }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="diferentes_centros_costo">Los trabajadores son asignados a diferentes centros de costo:</span>
+                <select id="diferentes_centros_costo" name="diferentes_centros_costo" class="form-control">
+                <option>--Seleccione--</option>
+                <option value ="Si" {% if guia.diferentes_centros_costo =="Si" %}selected{% endif %}>Si</option>
+                <option value="No" {% if guia.diferentes_centros_costo =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                 Mostrar mas contactos: <input name="chk_contactos" type="checkbox" value="Si" id="chk_contactos" />
+            </div>
+
+
+            <!-- divs ocultos para creacion de mas contactos-->
+            <div class="col-md-12" id="div_contactos" style="display:none">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span for="nombre_contacto2">Nombre Contacto 2:</span>
+                        <input type="text" id="nombre_contacto2" name="nombre_contacto2" value ="{{ guia.nombre_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto2">Teléfono:</span>
+                        <input type="text" id="telefono_contacto2" name="telefono_contacto2" value ="{{ guia.telefono_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto2">Email:</span>
+                        <input type="text" id="email_contacto2" name="email_contacto2" value ="{{ guia.email_contacto2 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto3">Nombre Contacto 3:</span>
+                        <input type="text" id="nombre_contacto3" name="nombre_contacto3" value ="{{ guia.nombre_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto3">Teléfono:</span>
+                        <input type="text" id="telefono_contacto3" name="telefono_contacto3" value ="{{ guia.telefono_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto3">Email:</span>
+                        <input type="text" id="email_contacto3" name="email_contacto3" value ="{{ guia.email_contacto3 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto4">Nombre Contacto 4:</span>
+                        <input type="text" id="nombre_contacto4" name="nombre_contacto4" value ="{{ guia.nombre_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto4">Teléfono:</span>
+                        <input type="text" id="telefono_contacto4" name="telefono_contacto4" value ="{{ guia.telefono_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto4">Email:</span>
+                        <input type="text" id="email_contacto4" name="email_contacto4" value ="{{ guia.email_contacto4 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="nombre_contacto5">Nombre Contacto 5:</span>
+                        <input type="text" id="nombre_contacto5" name="nombre_contacto5" value ="{{ guia.nombre_contacto5 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="telefono_contacto5">Teléfono:</span>
+                        <input type="text" id="telefono_contacto5" name="telefono_contacto5" value ="{{ guia.telefono_contacto5 }}"class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <span for="email_contacto5">Email:</span>
+                        <input type="text" id="email_contacto5" name="email_contacto5" value ="{{ guia.email_contacto5 }}"class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" id="div_costos" {% if guia.diferentes_centros_costo == "No" %}style="display:none" {% endif %}>
+                <span for="descripcion_centro_costos">Descripción centros de costos:</span>
+                <textarea id="descripcion_centro_costos" name="descripcion_centro_costos" class="form-control">{{ guia.descripcion_centro_costos }}</textarea>
+            </div>
+            <div class="col-md-12">
+                <span for="clausulas_adicionales">Los trabajadores tienen clausulas adicionales al contrato por al:</span>
+                <textarea id="clausulas_adicionales" name="clausulas_adicionales" class="form-control">{{ guia.clausulas_adicionales }}</textarea>
+            </div>
+            
+            <div class="col-md-12">
+                <span for="info_adicional_contratacion">Información adicional contratación:</span>
+                <textarea id="info_adicional_contratacion" name="info_adicional_contratacion" class="form-control">{{ guia.info_adicional_contratacion }}</textarea>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="alert alert-info" role="alert"><p>NOMINAS</p></div>
+        <div class="row">
+            <div class="col-md-4">
+                <span for="contacto_nomina">Contacto nomina:</span>
+                <input type="text" id="contacto_nomina" name="contacto_nomina" value="{{ guia.contacto_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_nomina">Cargo contacto:</span>
+                <input type="text" id="cargo_nomina" name="cargo_nomina" value="{{ guia.cargo_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="porcentaje_admin">Porcentaje de administración:</span>
+                <input type="text" id="porcentaje_admin" name="porcentaje_admin" value="{{ guia.porcentaje_admin }}" class="form-control">
+            </div>            
+            <div class="col-md-4">
+                <span for="recuencia_pago">Recuencia de pago:</span>
+                <input type="text" id="recuencia_pago" name="recuencia_pago" value="{{ guia.recuencia_pago }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="fecha_corte">Fecha de corte de novedades:</span>
+                <input type="text" id="fecha_corte" name="fecha_corte" value="{{ guia.fecha_corte }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="dias_pago_nomina">Días de pago nomina:</span>
+                <input type="text" id="dias_pago_nomina" name="dias_pago_nomina" value="{{ guia.dias_pago_nomina }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="paz_salvo">Utiliza paz y salvo:</span>
+                <select id="paz_salvo" name="paz_salvo" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="Si" {% if guia.paz_salvo =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No" {% if guia.paz_salvo =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <span for="fecha_cierre_factura">Fecha cierre de factura:</span>
+                <input type="text" id="fecha_cierre_factura" name="fecha_cierre_factura" value="{{ guia.fecha_cierre_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="manejo_mes">Manejo de mes :</span>
+                <select id="manejo_mes" name="manejo_mes" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    <option value="Comercial 30 Días" {% if guia.manejo_mes =="Comercial 30 Días" %}selected{% endif %}>Comercial 30 Días</option>
+                    <option value ="Calendario 31 Días" {% if guia.manejo_mes =="Calendario 31 Días" %}selected{% endif %}>Calendario 31 Días</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <span for="info_adicional_nomina">Información adicional contratación:</span>
+                <textarea id="info_adicional_nomina" name="info_adicional_nomina" class="form-control">{{ guia.info_adicional_nomina }}</textarea>
+            </div>
+        </div>
+        <hr>
+
+        <div class="alert alert-info" role="alert"><p>CONTABILIDAD</p></div>
+        <div class="row">
+            <div class="col-md-4">
+                <span for="direccion_factura">Dirección para envío de factura:</span>
+                <input type="text" id="direccion_factura" name="direccion_factura" value="{{ guia.direccion_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="regimen_contributivo">Régimen contributivo:</span>
+                <input type="text" id="regimen_contributivo" name="regimen_contributivo" value="{{ guia.regimen_contributivo }}" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <span for="gran_contribuyente">Gran contribuyente:</span>
+                <select id="gran_contribuyente" name="gran_contribuyente" class="form-control">
+                <option value="">--Seleccione--</option>
+                    <option value="Si"  {% if guia.gran_contribuyente =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No"  {% if guia.gran_contribuyente =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <span for="autoretenedor">Autoretenedor:</span>
+                <select id="autoretenedor" name="autoretenedor" class="form-control">
+                <option value="">--Seleccione--</option>
+                    <option value="Si" {% if guia.autoretenedor =="Si" %}selected{% endif %}>Si</option>
+                    <option value ="No" {% if guia.autoretenedor =="No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <span for="dias_plazo_vencimiento">Días de plazo vencimiento de facturación:</span>
+                <input type="text" id="dias_plazo_vencimiento" name="dias_plazo_vencimiento" value="{{ guia.dias_plazo_vencimiento }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="dias_radicacion_factura">Días de radicación factura:</span>
+                <input type="text" id="dias_radicacion_factura" name="dias_radicacion_factura" value="{{ guia.dias_radicacion_factura }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="contacto_gestion_pagos">Contacto gestión de pagos:</span>
+                <input type="text" id="contacto_gestion_pagos" name="contacto_gestion_pagos" value="{{ guia.contacto_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="cargo_gestion_pagos">Cargo de contacto:</span>
+                <input type="text" id="cargo_gestion_pagos" name="cargo_gestion_pagos" value="{{ guia.cargo_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="email_gestion_pagos">Email contacto:</span>
+                <input type="text" id="email_gestion_pagos" name="email_gestion_pagos" value="{{ guia.email_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <span for="telefono_gestion_pagos">Teléfono contacto:</span>
+                <input type="text" id="telefono_gestion_pagos" name="telefono_gestion_pagos" value="{{ guia.telefono_gestion_pagos }}" class="form-control">
+            </div>
+            <div class="col-md-12">
+                <span for="info_gestion_pagos">Información adicional contabilidad:</span>
+                <textarea id="info_gestion_pagos" name="info_gestion_pagos" class="form-control">{{ guia.info_gestion_pagos }}</textarea>
+            </div>
+        </div>
+        <hr>        
+    <div class="row">
+        <div id="resultado" class="col-md-12">
+            {% partial 'resultados_update' %}
+        </div>
+    </div>
+</form>";s:4:"code";s:9490:"function onStart()
+{
+    $this['id_guia_actual'] = $this->param('id');
+    $guia = DB::table('guia_cliente')->where('id','=', $this->param('id'))->get();
+    $this['guia'] = $guia[0];
+    $pruebas = Db::table('pruebas_psicotecnicas')->get();
+    $aplicadas = Db::table('pruebas_psicotecnicas_aplicadas')->where('id_guia','=', $this->param('id'))->get();
+    $this['aplicadas'] = $aplicadas;
+    $profesiograma = Db::table('adjuntos_guia_cliente')->where('id_guia','=', $this->param('id'))->first();
+    $this['profesiograma'] = $profesiograma;
+    
+    $portada = DB::table('portada_perfiles')->where('id_guia','=', $this->param('id'))->get();
+    if(count($portada)>0){
+        $this['id_perfiles'] = $portada[0]->id;    
+    }
+    
+
+    foreach ($pruebas as $key => $prueba) {
+        foreach ($aplicadas as $llave => $aplicada) {
+            if($aplicada->id_prueba == $prueba->id){
+                $pruebas[$key]->estado  = "checked";
+            }
+        }
+    }
+    $this['pruebas'] = $pruebas;
+    $this['id_guia'] = $this->param('id');
+}
+function onPerfiles(){
+    return Redirect::to('perfiles/'.$this->param('id'));
+}
+function onSave()
+{   
+    $validator = false;
+    if (input('empresa') == ""){
+        $this['error'] = "Debe ingresar el nombre de la empresa.";
+    }elseif(input('no_contrato')==""){   
+        $this['error'] = "Debe ingresar el No de contrato.";
+    }elseif(input('nit')==""){
+        $this['error'] = "Debe ingresar el No de NIT.";
+    }elseif(input('representante_legal')==""){
+        $this['error'] = "Debe ingresar el nombre del representante legal.";
+    }elseif(input('cedula')==""){
+        $this['error'] = "Debe ingresar el No de cédula.";
+    }else{
+        $validator= true;
+    }
+
+    if ($validator) {
+        Db::table('guia_cliente')->where('id', $this->param('id'))->update([
+            'empresa' => input('empresa'),
+             'no_contrato' => input('no_contrato'),
+             'nit' => input('nit'),
+             'aiu' => input('aiu'),
+             'responsable_cta' => input('responsable_cta'),
+             'act_economica' => input('act_economica'),
+             'representante_legal' => input('representante_legal'),
+             'cargo_representante' => input('cargo_representante'),
+             'cedula' => input('cedula'),
+             'jefe_rrhh' => input('jefe_rrhh'),
+             'direccion' => input('direccion'),
+             'ciudad' => input('ciudad'),
+             'telefono' => input('telefono'),
+             'pagina_web' => input('pagina_web'),
+             'fecha_inscripcion_cc' => input('fecha_inscripcion_cc'),
+             'info_gestion_comercial' => input('info_gestion_comercial'),
+             'info_servicio_cliente' => input('info_servicio_cliente'),
+             'cmb_neg_especiales' => input('cmb_neg_especiales'),
+             'neg_especiales' => input('neg_especiales'),
+             'dotacion' => input('dotacion'),
+             'quien_entrega' => input('quien_entrega'),  
+             'info_dotacion' => input('info_dotacion'),             
+             'contacto_atc' => input('contacto_atc'),               
+            'frecuencia_visita' => input('frecuencia_visita'),               
+            'facilitador' => input('facilitador'),               
+            'cual_facilitador' => input('cual_facilitador'),               
+            'horarios_atencion' => input('horarios_atencion'),               
+            'contacto_sitio_atc1' => input('contacto_sitio_atc1'),               
+            'cargo_sitio_atc1' => input('cargo_sitio_atc1'),               
+            'correo_sitio_atc1' => input('correo_sitio_atc1'),               
+            'tel_sitio_atc1' => input('tel_sitio_atc1'),               
+            'contacto_sitio_atc2' => input('contacto_sitio_atc2'),               
+            'cargo_sitio_atc2' => input('cargo_sitio_atc2'),               
+            'correo_sitio_atc2' => input('correo_sitio_atc2'),               
+            'tel_sitio_atc2' => input('tel_sitio_atc2'),               
+            'contacto_sitio_atc3' => input('contacto_sitio_atc3'),               
+            'cargo_sitio_atc3' => input('cargo_sitio_atc3'),               
+            'correo_sitio_atc3' => input('correo_sitio_atc3'),               
+            'tel_sitio_atc3' => input('tel_sitio_atc3'),               
+            'info_adiciona_atc' => input('info_adiciona_atc'),
+             'contacto_salud' => input('contacto_salud'),
+             'cargo_contacto' => input('cargo_contacto'),
+             'email_contacto' => input('email_contacto'),
+             'telefono_contacto' => input('telefono_contacto'),
+             'arl_base' => input('arl_base'),
+             'tasa_riesgo' => input('tasa_riesgo'),
+             'contacto_seleccion' => input('contacto_seleccion'),
+             'cargo_seleccion' => input('cargo_seleccion'),
+             'email_seleccion' => input('email_seleccion'),
+             'telefono_seleccion' => input('telefono_seleccion'),
+             'celular_seleccion' => input('celular_seleccion'),
+             'cargo_proveer' => input('cargo_proveer'),
+             'require_informe' => input('require_informe'),
+             'cual_informe' => input('cual_informe'),
+             'restriccion_familiares' => input('restriccion_familiares'),
+             'horarios' => input('horarios'),
+             'entidad_bancaria' => input('entidad_bancaria'),
+             'info_adicional_seleccion' => input('info_adicional_seleccion'),
+             'contacto_contratacion' => input('contacto_contratacion'),
+             'cargo_contratacion' => input('cargo_contratacion'),
+             'email_contratacion' => input('email_contratacion'),
+             'telefono_contratacion' => input('telefono_contratacion'),
+             'clausulas_adicionales' => input('clausulas_adicionales'),
+             'diferentes_centros_costo' => input('diferentes_centros_costo'),
+             'descripcion_centro_costos' => input('descripcion_centro_costos'),
+             'examen_medico' => input('examen_medico'),
+             'otros_examenes' => input('otros_examenes'),
+             'quien_paga' => input('quien_paga'),
+             'laboratorio' => input('laboratorio'),
+             'info_adicional_contratacion' => input('info_adicional_contratacion'),
+             'contacto_nomina' => input('contacto_nomina'),
+             'cargo_nomina' => input('cargo_nomina'),
+             'porcentaje_admin' => input('porcentaje_admin'),
+             'recuencia_pago' => input('recuencia_pago'),
+             'fecha_corte' => input('fecha_corte'),
+             'dias_pago_nomina' => input('dias_pago_nomina'),
+             'paz_salvo' => input('paz_salvo'),
+             'fecha_cierre_factura' => input('fecha_cierre_factura'),
+             'manejo_mes' => input('manejo_mes'),
+             'info_adicional_nomina' => input('info_adicional_nomina'),
+             'direccion_factura' => input('direccion_factura'),
+             'regimen_contributivo' => input('regimen_contributivo'),
+             'gran_contribuyente' => input('gran_contribuyente'),
+             'autoretenedor' => input('autoretenedor'),
+             'dias_plazo_vencimiento' => input('dias_plazo_vencimiento'),
+             'dias_radicacion_factura' => input('dias_radicacion_factura'),
+             'contacto_gestion_pagos' => input('contacto_gestion_pagos'),
+             'cargo_gestion_pagos' => input('cargo_gestion_pagos'),
+             'email_gestion_pagos' => input('email_gestion_pagos'),
+             'telefono_gestion_pagos' => input('telefono_gestion_pagos'),
+             'info_gestion_pagos' => input('info_gestion_pagos'),
+             'nombre_contacto2' => input('nombre_contacto2'),
+             'telefono_contacto2' => input('telefono_contacto2'),
+             'email_contacto2' => input('email_contacto2'),
+             'nombre_contacto3' => input('nombre_contacto3'),
+             'telefono_contacto3' => input('telefono_contacto3'),
+             'email_contacto3' => input('email_contacto3'),
+             'nombre_contacto4' => input('nombre_contacto4'),
+             'telefono_contacto4' => input('telefono_contacto4'),
+             'email_contacto4' => input('email_contacto4'),
+             'nombre_contacto5' => input('nombre_contacto5'),
+             'telefono_contacto5' => input('telefono_contacto5'),
+             'email_contacto5' => input('email_contacto5'),
+             'estado_registro' => input('estado_registro')
+             ]
+        );  
+        //actualiza las lineas de pruebas tecnicas aplicadas
+
+        Db::table('pruebas_psicotecnicas_aplicadas')->where('id_guia', '=', $this->param('id'))->delete();
+        
+        $total_pruebas = Db::table('pruebas_psicotecnicas')->get(); 
+        foreach ($total_pruebas as $key => $prb) {
+            if (input('chk_pruebas_'.$key) <> ""){   
+                Db::table('pruebas_psicotecnicas_aplicadas')->insert(
+                ['id_prueba' => input('chk_pruebas_'.$key),
+                'id_guia' => $this->param('id')]);
+            }
+        }
+        $this['mensaje'] = "El registro fúe actualizado correctamente";
+    }
+    
+}
+
+function onDelete(){
+    Db::table('guia_cliente')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro de guia cliente eliminado correctamente";
+    return Redirect::to('guias');
+}";s:5:"title";s:12:"guia_detalle";s:3:"url";s:18:"/guia_detalle/:id?";s:6:"layout";s:11:"formularios";s:9:"is_hidden";s:1:"0";}}
