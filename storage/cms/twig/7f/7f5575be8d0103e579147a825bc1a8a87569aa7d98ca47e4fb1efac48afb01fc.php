@@ -328,13 +328,11 @@ class __TwigTemplate_dc53e072d4fb3bac7ab21c8447bba83f4ed2722a95b046ce7e286707218
                         </div>
                         <div class=\"col-md-12\">
                             <span for=\"atendido\">Atendido por:</span>
-                            <label>";
+                            <input type=\"text\" readonly value=\"";
                 // line 116
-                echo twig_escape_filter($this->env, $this->getAttribute(($context["user"] ?? null), "name", array()), "html", null, true);
-                echo " ";
-                echo twig_escape_filter($this->env, $this->getAttribute(($context["user"] ?? null), "surname", array()), "html", null, true);
-                echo "</label>
-                        </div>
+                echo twig_escape_filter($this->env, $this->getAttribute(($context["user"] ?? null), "username", array()), "html", null, true);
+                echo "\" style=\"border:none; font-weight:bold\" name=\"atendido_por\" id=\"atendido_por\"/>
+                        </div>                        
                     </div>
                 </form>
             </div>
@@ -503,7 +501,7 @@ class __TwigTemplate_dc53e072d4fb3bac7ab21c8447bba83f4ed2722a95b046ce7e286707218
 
     public function getDebugInfo()
     {
-        return array (  487 => 216,  468 => 200,  459 => 194,  452 => 190,  443 => 184,  436 => 180,  429 => 176,  419 => 171,  413 => 168,  406 => 164,  399 => 160,  389 => 153,  382 => 149,  372 => 142,  365 => 138,  358 => 134,  346 => 124,  333 => 116,  327 => 112,  323 => 111,  311 => 104,  305 => 103,  299 => 102,  293 => 101,  282 => 95,  276 => 94,  270 => 93,  264 => 92,  258 => 91,  250 => 86,  240 => 81,  234 => 80,  228 => 79,  222 => 78,  216 => 77,  204 => 70,  198 => 69,  192 => 68,  186 => 67,  180 => 66,  174 => 65,  168 => 64,  162 => 63,  156 => 62,  150 => 61,  144 => 60,  138 => 59,  132 => 58,  126 => 57,  120 => 56,  114 => 55,  108 => 54,  102 => 53,  96 => 52,  87 => 46,  77 => 39,  67 => 32,  60 => 28,  50 => 21,  43 => 17,  36 => 13,  24 => 3,  21 => 2,  19 => 1,);
+        return array (  485 => 216,  466 => 200,  457 => 194,  450 => 190,  441 => 184,  434 => 180,  427 => 176,  417 => 171,  411 => 168,  404 => 164,  397 => 160,  387 => 153,  380 => 149,  370 => 142,  363 => 138,  356 => 134,  344 => 124,  333 => 116,  327 => 112,  323 => 111,  311 => 104,  305 => 103,  299 => 102,  293 => 101,  282 => 95,  276 => 94,  270 => 93,  264 => 92,  258 => 91,  250 => 86,  240 => 81,  234 => 80,  228 => 79,  222 => 78,  216 => 77,  204 => 70,  198 => 69,  192 => 68,  186 => 67,  180 => 66,  174 => 65,  168 => 64,  162 => 63,  156 => 62,  150 => 61,  144 => 60,  138 => 59,  132 => 58,  126 => 57,  120 => 56,  114 => 55,  108 => 54,  102 => 53,  96 => 52,  87 => 46,  77 => 39,  67 => 32,  60 => 28,  50 => 21,  43 => 17,  36 => 13,  24 => 3,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -631,8 +629,8 @@ class __TwigTemplate_dc53e072d4fb3bac7ab21c8447bba83f4ed2722a95b046ce7e286707218
                         </div>
                         <div class=\"col-md-12\">
                             <span for=\"atendido\">Atendido por:</span>
-                            <label>{{ user.name }} {{ user.surname }}</label>
-                        </div>
+                            <input type=\"text\" readonly value=\"{{ user.username }}\" style=\"border:none; font-weight:bold\" name=\"atendido_por\" id=\"atendido_por\"/>
+                        </div>                        
                     </div>
                 </form>
             </div>

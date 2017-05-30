@@ -366,8 +366,19 @@ button.oc-loading:after {
   }
 }
 
-
 .fondo_logo{
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+1,ffffff+9,ffffff+90,1e5799+100,c8f7ed+100,1e5799+100 */
-width: 164px;
+  width: 164px;
+}
+.span_notificaciones{
+  background-color: #FFF;
+  color: red;
+  border-radius: 15px;
+  padding: 5px 10px 5px 10px;
+}
+.div_notificacion{
+  font-size: 12px;
+  border-bottom: 1px solid #DDD;
+}
+.btn_notificacion{
+  width: 100%
 }

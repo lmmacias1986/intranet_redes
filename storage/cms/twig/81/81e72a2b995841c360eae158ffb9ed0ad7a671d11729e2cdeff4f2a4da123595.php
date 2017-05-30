@@ -46,14 +46,12 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
         echo "        <link href=\"";
         echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter(array(0 => "assets/less/theme.less"));
         // line 14
-        echo "\" rel=\"stylesheet\">
-        
+        echo "\" rel=\"stylesheet\">        
     </head>
     <body>
 
         <!-- Header -->
         <header id=\"layout-header\">
-
             <!-- Nav -->
             <nav id=\"layout-nav\" class=\" barra_titulo navbar navbar-default navbar-fixed-top\" role=\"navigation\">
                 <div class=\"container\">
@@ -66,7 +64,7 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
                         </button>
                         <div class=\"fondo_logo col-md-2\">
                             <a href=\"";
-        // line 33
+        // line 31
         echo $this->env->getExtension('Cms\Twig\Extension')->pageFilter("home");
         echo "\"><img src=\"";
         echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter("assets/images/october.png");
@@ -76,9 +74,9 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
                     <div class=\"collapse navbar-collapse navbar-main-collapse\">
                         <ul class=\"nav navbar-nav \" >
                             ";
-        // line 38
+        // line 36
         if (($context["user"] ?? null)) {
-            // line 39
+            // line 37
             echo "                            <li class=\"";
             if (($this->getAttribute($this->getAttribute(($context["this"] ?? null), "page", array()), "id", array()) == "account")) {
                 echo "active";
@@ -92,44 +90,50 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
             echo " - Intranet</a></li>
                             ";
         }
-        // line 40
+        // line 38
         echo "                            
                         </ul>
                         <ul class=\"nav navbar-nav navbar-right\">
                             ";
-        // line 43
+        // line 41
         if (($context["user"] ?? null)) {
-            // line 44
+            // line 42
             echo "                                <li><a href=\"#\" data-request=\"onLogout\" style=\"color:#1E5799\"><< Salir >></a></li>
                             ";
         } else {
-            // line 46
+            // line 44
             echo "                                 ";
             $context['__cms_component_params'] = [];
             echo $this->env->getExtension('CMS')->componentFunction("menuUserWidget"            , $context['__cms_component_params']            );
             unset($context['__cms_component_params']);
-            // line 47
+            // line 45
             echo "                            ";
         }
-        // line 48
+        // line 46
         echo "                        </ul>
                     </div>
                 </div>
             </nav>
 
-        </header>        
+        </header>    
+        <hr>    
         <!-- Content -->
         <section id=\"layout-content\" class=\"seccion_fondo\">            
             <div class=\"container contenedor_fondo\">
                 <div class=\"col-md-2\">
                     ";
-        // line 58
+        // line 57
         $context['__cms_partial_params'] = [];
         echo $this->env->getExtension('CMS')->partialFunction("menus/menu_lateral"        , $context['__cms_partial_params']        );
         unset($context['__cms_partial_params']);
+        // line 58
+        echo "                    ";
+        $context['__cms_partial_params'] = [];
+        echo $this->env->getExtension('CMS')->partialFunction("notification/notification"        , $context['__cms_partial_params']        );
+        unset($context['__cms_partial_params']);
         // line 59
         echo "                </div>
-                <div class=\"col-md-10 borde_menu\">
+                <div class=\"col-md-10 borde_menu\">                    
                     ";
         // line 61
         echo $this->env->getExtension('CMS')->pageFunction();
@@ -147,7 +151,7 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
         unset($context['__cms_partial_params']);
         // line 69
         echo "        </footer>
-
+        
         <!-- Scripts -->
         <script src=\"";
         // line 72
@@ -184,7 +188,7 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
 
     public function getDebugInfo()
     {
-        return array (  170 => 92,  166 => 91,  159 => 90,  156 => 89,  154 => 72,  149 => 69,  145 => 68,  137 => 62,  135 => 61,  131 => 59,  127 => 58,  115 => 48,  112 => 47,  107 => 46,  103 => 44,  101 => 43,  96 => 40,  82 => 39,  80 => 38,  70 => 33,  49 => 14,  46 => 12,  43 => 11,  39 => 10,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
+        return array (  174 => 92,  170 => 91,  163 => 90,  160 => 89,  158 => 72,  153 => 69,  149 => 68,  141 => 62,  139 => 61,  135 => 59,  130 => 58,  126 => 57,  113 => 46,  110 => 45,  105 => 44,  101 => 42,  99 => 41,  94 => 38,  80 => 37,  78 => 36,  68 => 31,  49 => 14,  46 => 12,  43 => 11,  39 => 10,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -210,14 +214,12 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
         {% styles %}
         <link href=\"{{ [
             'assets/less/theme.less'
-        ]|theme }}\" rel=\"stylesheet\">
-        
+        ]|theme }}\" rel=\"stylesheet\">        
     </head>
     <body>
 
         <!-- Header -->
         <header id=\"layout-header\">
-
             <!-- Nav -->
             <nav id=\"layout-nav\" class=\" barra_titulo navbar navbar-default navbar-fixed-top\" role=\"navigation\">
                 <div class=\"container\">
@@ -249,14 +251,16 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
                 </div>
             </nav>
 
-        </header>        
+        </header>    
+        <hr>    
         <!-- Content -->
         <section id=\"layout-content\" class=\"seccion_fondo\">            
             <div class=\"container contenedor_fondo\">
                 <div class=\"col-md-2\">
                     {% partial \"menus/menu_lateral\"%}
+                    {% partial \"notification/notification\"%}
                 </div>
-                <div class=\"col-md-10 borde_menu\">
+                <div class=\"col-md-10 borde_menu\">                    
                     {% page %}
                 </div>
             </div>
@@ -266,7 +270,7 @@ class __TwigTemplate_2435efcf9b7c1845b594a6d6d954c5c3656c5fc3601de8923c63d8bd1cd
         <footer id=\"layout-footer\">
             {% partial \"footer\" %}
         </footer>
-
+        
         <!-- Scripts -->
         <script src=\"{{ [
             'assets/javascript/jquery.js',

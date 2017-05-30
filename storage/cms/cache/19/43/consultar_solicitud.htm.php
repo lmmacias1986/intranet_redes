@@ -1,5 +1,5 @@
 <?php 
-class Cms59283280d65b1546169155_348404390Class extends \Cms\Classes\PageCode
+class Cms592dd62754d7c063517230_1190157881Class extends \Cms\Classes\PageCode
 {
 public function onStart(){    
 	$solicitud = DB::table('help_desk')
@@ -27,10 +27,12 @@ public function onSave(){
     }elseif(input('medio')==""){
         $this['error'] = "debe seleccionar el canal por el cual se reporto la solicitud.";
     }else{        
-              $validator= true;
+        $validator= true;
     }
     
     if ($validator) {
+
+
         Db::table('help_desk')->where('id', $this->param('id'))->update([
             'actualizacion' => date_format(date_create(), 'Y-m-d H:i:s'),
             'estado' => input('estado'),
@@ -38,11 +40,23 @@ public function onSave(){
             'clasificacion' => input('clasificacion'),
             'medio' => input('medio'),
             'actividades' => input('actividades'),
-            'atendido' => $this->user['username'],
+            'atendido' => input('atendido_por'),
             'reportado_por' => input('reportado_por')
             ]
-        );        
-        $this['mensaje'] = "La solicitud fúe actualizada correctamente.";
+        );
+        $id_not = Db::table('notification')->insertGetId(
+            [
+            'id_solicitud' => $this->param('id'),
+             'notificado_por' => input('atendido_por'),
+            'notificado_a' => input('reportado_por'),
+            'titulo' => "Solicitud actualizada - ". input('estado'),
+            'mensaje' => "Su solicitud fue atendida y actualizada al estado: " . input('estado') .", usuario responsable: ". input('atendido_por'),            
+            'created_at' => date_format(date_create(), 'Y-m-d H:i:s'),
+            'updated_at' => date_format(date_create(), 'Y-m-d H:i:s'),                        
+            'estado' => 1]
+        );
+
+        $this['mensaje'] = "La solicitud fúe actualizada correctamente. - Notificación enviada.";
 
         return Redirect::to('consultar_solicitud/'.$this->param('id'));
     }

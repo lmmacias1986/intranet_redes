@@ -1,4 +1,4 @@
-1495807142a:1:{s:36:"colaboradores/editar_colaborador.htm";a:10:{s:8:"fileName";s:36:"colaboradores/editar_colaborador.htm";s:7:"content";s:3150:"title = "editar_colaborador"
+1496179158a:1:{s:36:"colaboradores/editar_colaborador.htm";a:10:{s:8:"fileName";s:36:"colaboradores/editar_colaborador.htm";s:7:"content";s:3150:"title = "editar_colaborador"
 url = "/editar_colaborador/:id?"
 layout = "formularios"
 description = "formulario de edición para registros de colaboradores"

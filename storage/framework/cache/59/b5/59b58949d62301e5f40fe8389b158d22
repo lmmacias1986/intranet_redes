@@ -1,4 +1,4 @@
-1495807143a:1:{s:11:"default.htm";a:9:{s:8:"fileName";s:11:"default.htm";s:7:"content";s:4523:"description = "Default layout"
+1496179396a:1:{s:11:"default.htm";a:9:{s:8:"fileName";s:11:"default.htm";s:7:"content";s:4585:"description = "Default layout"
 
 [session]
 security = "all"
@@ -75,6 +75,7 @@ forceSecure = 0
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
                     {% partial "menus/menu_lateral"%}
+                    {% partial "notification/notification"%}
                 </div>
                 <div class="col-md-8">
                     {% page %}
@@ -112,7 +113,7 @@ forceSecure = 0
         {% scripts %}
           
     </body>
-</html>";s:5:"mtime";i:1495739822;s:6:"markup";s:4221:"<!DOCTYPE html>
+</html>";s:5:"mtime";i:1496170288;s:6:"markup";s:4283:"<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -173,6 +174,7 @@ forceSecure = 0
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
                     {% partial "menus/menu_lateral"%}
+                    {% partial "notification/notification"%}
                 </div>
                 <div class="col-md-8">
                     {% page %}

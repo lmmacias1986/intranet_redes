@@ -131,12 +131,17 @@ class __TwigTemplate_75a37e13123e753bd8048c847e15ca4c5d5a0d217279bf6a3d5a8ccf664
         echo $this->env->getExtension('CMS')->partialFunction("menus/menu_lateral"        , $context['__cms_partial_params']        );
         unset($context['__cms_partial_params']);
         // line 62
+        echo "                    ";
+        $context['__cms_partial_params'] = [];
+        echo $this->env->getExtension('CMS')->partialFunction("notification/notification"        , $context['__cms_partial_params']        );
+        unset($context['__cms_partial_params']);
+        // line 63
         echo "                </div>
                 <div class=\"col-md-8\">
                     ";
-        // line 64
-        echo $this->env->getExtension('CMS')->pageFunction();
         // line 65
+        echo $this->env->getExtension('CMS')->pageFunction();
+        // line 66
         echo "                </div>
                 <div class=\"col-md-3\">
                    
@@ -146,32 +151,32 @@ class __TwigTemplate_75a37e13123e753bd8048c847e15ca4c5d5a0d217279bf6a3d5a8ccf664
         <!-- Footer -->
         <footer id=\"layout-footer\">
             ";
-        // line 73
+        // line 74
         $context['__cms_partial_params'] = [];
         echo $this->env->getExtension('CMS')->partialFunction("footer"        , $context['__cms_partial_params']        );
         unset($context['__cms_partial_params']);
-        // line 74
+        // line 75
         echo "        </footer>
 
         <!-- Scripts -->
         <script src=\"";
-        // line 77
+        // line 78
         echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter(array(0 => "assets/javascript/jquery.js", 1 => "assets/vendor/bootstrap/js/transition.js", 2 => "assets/vendor/bootstrap/js/alert.js", 3 => "assets/vendor/bootstrap/js/button.js", 4 => "assets/vendor/bootstrap/js/carousel.js", 5 => "assets/vendor/bootstrap/js/collapse.js", 6 => "assets/vendor/bootstrap/js/dropdown.js", 7 => "assets/vendor/bootstrap/js/modal.js", 8 => "assets/vendor/bootstrap/js/tooltip.js", 9 => "assets/vendor/bootstrap/js/popover.js", 10 => "assets/vendor/bootstrap/js/scrollspy.js", 11 => "assets/vendor/bootstrap/js/tab.js", 12 => "assets/vendor/bootstrap/js/affix.js", 13 => "assets/javascript/app.js", 14 => "assets/vendor/jquery/jquery-3.1.1.min.js", 15 => "assets/vendor/jquery/jquery-ui.js"));
-        // line 94
+        // line 95
         echo "\"></script>
         ";
-        // line 95
+        // line 96
         echo '<script src="'. Request::getBasePath()
                 .'/modules/system/assets/js/framework.js"></script>'.PHP_EOL;
         echo '<script src="'. Request::getBasePath()
                     .'/modules/system/assets/js/framework.extras.js"></script>'.PHP_EOL;
         echo '<link rel="stylesheet" property="stylesheet" href="'. Request::getBasePath()
                     .'/modules/system/assets/css/framework.extras.css">'.PHP_EOL;
-        // line 96
+        // line 97
         echo "        ";
         echo $this->env->getExtension('CMS')->assetsFunction('js');
         echo $this->env->getExtension('CMS')->displayBlock('scripts');
-        // line 97
+        // line 98
         echo "          
     </body>
 </html>";
@@ -189,7 +194,7 @@ class __TwigTemplate_75a37e13123e753bd8048c847e15ca4c5d5a0d217279bf6a3d5a8ccf664
 
     public function getDebugInfo()
     {
-        return array (  175 => 97,  171 => 96,  164 => 95,  161 => 94,  159 => 77,  154 => 74,  150 => 73,  140 => 65,  138 => 64,  134 => 62,  130 => 61,  116 => 49,  113 => 48,  108 => 47,  104 => 45,  102 => 44,  97 => 41,  83 => 40,  81 => 39,  71 => 34,  49 => 14,  46 => 12,  43 => 11,  39 => 10,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
+        return array (  180 => 98,  176 => 97,  169 => 96,  166 => 95,  164 => 78,  159 => 75,  155 => 74,  145 => 66,  143 => 65,  139 => 63,  134 => 62,  130 => 61,  116 => 49,  113 => 48,  108 => 47,  104 => 45,  102 => 44,  97 => 41,  83 => 40,  81 => 39,  71 => 34,  49 => 14,  46 => 12,  43 => 11,  39 => 10,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -263,6 +268,7 @@ class __TwigTemplate_75a37e13123e753bd8048c847e15ca4c5d5a0d217279bf6a3d5a8ccf664
             <div class=\"container contenedor_fondo\">
                 <div class=\"col-md-2\">
                     {% partial \"menus/menu_lateral\"%}
+                    {% partial \"notification/notification\"%}
                 </div>
                 <div class=\"col-md-8\">
                     {% page %}

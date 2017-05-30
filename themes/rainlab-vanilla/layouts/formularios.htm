@@ -3,6 +3,7 @@ description = "layout para forms"
 [session]
 security = "user"
 redirect = "home"
+
 ==
 <!DOCTYPE html>
 <html>
@@ -17,14 +18,12 @@ redirect = "home"
         {% styles %}
         <link href="{{ [
             'assets/less/theme.less'
-        ]|theme }}" rel="stylesheet">
-        
+        ]|theme }}" rel="stylesheet">        
     </head>
     <body>
 
         <!-- Header -->
         <header id="layout-header">
-
             <!-- Nav -->
             <nav id="layout-nav" class=" barra_titulo navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -56,14 +55,16 @@ redirect = "home"
                 </div>
             </nav>
 
-        </header>        
+        </header>    
+        <hr>    
         <!-- Content -->
         <section id="layout-content" class="seccion_fondo">            
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
                     {% partial "menus/menu_lateral"%}
+                    {% partial "notification/notification"%}
                 </div>
-                <div class="col-md-10 borde_menu">
+                <div class="col-md-10 borde_menu">                    
                     {% page %}
                 </div>
             </div>
@@ -73,7 +74,7 @@ redirect = "home"
         <footer id="layout-footer">
             {% partial "footer" %}
         </footer>
-
+        
         <!-- Scripts -->
         <script src="{{ [
             'assets/javascript/jquery.js',

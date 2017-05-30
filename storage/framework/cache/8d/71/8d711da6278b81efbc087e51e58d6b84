@@ -1,8 +1,9 @@
-1495807188a:1:{s:15:"formularios.htm";a:7:{s:8:"fileName";s:15:"formularios.htm";s:7:"content";s:4296:"description = "layout para forms"
+1496179391a:1:{s:15:"formularios.htm";a:7:{s:8:"fileName";s:15:"formularios.htm";s:7:"content";s:4398:"description = "layout para forms"
 
 [session]
 security = "user"
 redirect = "home"
+
 ==
 <!DOCTYPE html>
 <html>
@@ -17,14 +18,12 @@ redirect = "home"
         {% styles %}
         <link href="{{ [
             'assets/less/theme.less'
-        ]|theme }}" rel="stylesheet">
-        
+        ]|theme }}" rel="stylesheet">        
     </head>
     <body>
 
         <!-- Header -->
         <header id="layout-header">
-
             <!-- Nav -->
             <nav id="layout-nav" class=" barra_titulo navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -56,14 +55,16 @@ redirect = "home"
                 </div>
             </nav>
 
-        </header>        
+        </header>    
+        <hr>    
         <!-- Content -->
         <section id="layout-content" class="seccion_fondo">            
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
                     {% partial "menus/menu_lateral"%}
+                    {% partial "notification/notification"%}
                 </div>
-                <div class="col-md-10 borde_menu">
+                <div class="col-md-10 borde_menu">                    
                     {% page %}
                 </div>
             </div>
@@ -73,7 +74,7 @@ redirect = "home"
         <footer id="layout-footer">
             {% partial "footer" %}
         </footer>
-
+        
         <!-- Scripts -->
         <script src="{{ [
             'assets/javascript/jquery.js',
@@ -97,7 +98,7 @@ redirect = "home"
         {% scripts %}
           
     </body>
-</html>";s:5:"mtime";i:1495740689;s:6:"markup";s:4206:"<!DOCTYPE html>
+</html>";s:5:"mtime";i:1496178790;s:6:"markup";s:4306:"<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -110,14 +111,12 @@ redirect = "home"
         {% styles %}
         <link href="{{ [
             'assets/less/theme.less'
-        ]|theme }}" rel="stylesheet">
-        
+        ]|theme }}" rel="stylesheet">        
     </head>
     <body>
 
         <!-- Header -->
         <header id="layout-header">
-
             <!-- Nav -->
             <nav id="layout-nav" class=" barra_titulo navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -149,14 +148,16 @@ redirect = "home"
                 </div>
             </nav>
 
-        </header>        
+        </header>    
+        <hr>    
         <!-- Content -->
         <section id="layout-content" class="seccion_fondo">            
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
                     {% partial "menus/menu_lateral"%}
+                    {% partial "notification/notification"%}
                 </div>
-                <div class="col-md-10 borde_menu">
+                <div class="col-md-10 borde_menu">                    
                     {% page %}
                 </div>
             </div>
@@ -166,7 +167,7 @@ redirect = "home"
         <footer id="layout-footer">
             {% partial "footer" %}
         </footer>
-
+        
         <!-- Scripts -->
         <script src="{{ [
             'assets/javascript/jquery.js',

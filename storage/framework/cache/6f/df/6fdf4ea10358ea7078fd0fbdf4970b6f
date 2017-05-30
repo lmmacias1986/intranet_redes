@@ -1,4 +1,4 @@
-1495807143a:1:{s:32:"sistemas/consultar_solicitud.htm";a:9:{s:8:"fileName";s:32:"sistemas/consultar_solicitud.htm";s:7:"content";s:15520:"title = "consultar_solicitud"
+1496179158a:1:{s:32:"sistemas/consultar_solicitud.htm";a:9:{s:8:"fileName";s:32:"sistemas/consultar_solicitud.htm";s:7:"content";s:16319:"title = "consultar_solicitud"
 url = "/consultar_solicitud/:id?"
 layout = "formularios"
 is_hidden = 0
@@ -31,10 +31,12 @@ function onSave(){
     }elseif(input('medio')==""){
         $this['error'] = "debe seleccionar el canal por el cual se reporto la solicitud.";
     }else{        
-              $validator= true;
+        $validator= true;
     }
     
     if ($validator) {
+
+
         Db::table('help_desk')->where('id', $this->param('id'))->update([
             'actualizacion' => date_format(date_create(), 'Y-m-d H:i:s'),
             'estado' => input('estado'),
@@ -42,11 +44,23 @@ function onSave(){
             'clasificacion' => input('clasificacion'),
             'medio' => input('medio'),
             'actividades' => input('actividades'),
-            'atendido' => $this->user['username'],
+            'atendido' => input('atendido_por'),
             'reportado_por' => input('reportado_por')
             ]
-        );        
-        $this['mensaje'] = "La solicitud fúe actualizada correctamente.";
+        );
+        $id_not = Db::table('notification')->insertGetId(
+            [
+            'id_solicitud' => $this->param('id'),
+             'notificado_por' => input('atendido_por'),
+            'notificado_a' => input('reportado_por'),
+            'titulo' => "Solicitud actualizada - ". input('estado'),
+            'mensaje' => "Su solicitud fue atendida y actualizada al estado: " . input('estado') .", usuario responsable: ". input('atendido_por'),            
+            'created_at' => date_format(date_create(), 'Y-m-d H:i:s'),
+            'updated_at' => date_format(date_create(), 'Y-m-d H:i:s'),                        
+            'estado' => 1]
+        );
+
+        $this['mensaje'] = "La solicitud fúe actualizada correctamente. - Notificación enviada.";
 
         return Redirect::to('consultar_solicitud/'.$this->param('id'));
     }
@@ -168,8 +182,8 @@ function onSave(){
                         </div>
                         <div class="col-md-12">
                             <span for="atendido">Atendido por:</span>
-                            <label>{{ user.name }} {{ user.surname }}</label>
-                        </div>
+                            <input type="text" readonly value="{{ user.username }}" style="border:none; font-weight:bold" name="atendido_por" id="atendido_por"/>
+                        </div>                        
                     </div>
                 </form>
             </div>
@@ -269,7 +283,7 @@ function onSave(){
     {% endif %}
 {% else %}
     {% partial 'acceso' %}
-{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:13749:"{%if user.name %}
+{% endif %}";s:5:"mtime";i:1496169551;s:6:"markup";s:13857:"{%if user.name %}
     {% if can('helpdesk') %}
         <div class="panel panel-primary"> 
             <div class="panel-heading"> 
@@ -384,8 +398,8 @@ function onSave(){
                         </div>
                         <div class="col-md-12">
                             <span for="atendido">Atendido por:</span>
-                            <label>{{ user.name }} {{ user.surname }}</label>
-                        </div>
+                            <input type="text" readonly value="{{ user.username }}" style="border:none; font-weight:bold" name="atendido_por" id="atendido_por"/>
+                        </div>                        
                     </div>
                 </form>
             </div>
@@ -485,7 +499,7 @@ function onSave(){
     {% endif %}
 {% else %}
     {% partial 'acceso' %}
-{% endif %}";s:4:"code";s:1643:"function onStart(){    
+{% endif %}";s:4:"code";s:2334:"function onStart(){    
 	$solicitud = DB::table('help_desk')
     ->where('reportado_por','=', $this->user['username'])
     ->where('id','=', $this->param('id'))->first();
@@ -511,10 +525,12 @@ function onSave(){
     }elseif(input('medio')==""){
         $this['error'] = "debe seleccionar el canal por el cual se reporto la solicitud.";
     }else{        
-              $validator= true;
+        $validator= true;
     }
     
     if ($validator) {
+
+
         Db::table('help_desk')->where('id', $this->param('id'))->update([
             'actualizacion' => date_format(date_create(), 'Y-m-d H:i:s'),
             'estado' => input('estado'),
@@ -522,11 +538,23 @@ function onSave(){
             'clasificacion' => input('clasificacion'),
             'medio' => input('medio'),
             'actividades' => input('actividades'),
-            'atendido' => $this->user['username'],
+            'atendido' => input('atendido_por'),
             'reportado_por' => input('reportado_por')
             ]
-        );        
-        $this['mensaje'] = "La solicitud fúe actualizada correctamente.";
+        );
+        $id_not = Db::table('notification')->insertGetId(
+            [
+            'id_solicitud' => $this->param('id'),
+             'notificado_por' => input('atendido_por'),
+            'notificado_a' => input('reportado_por'),
+            'titulo' => "Solicitud actualizada - ". input('estado'),
+            'mensaje' => "Su solicitud fue atendida y actualizada al estado: " . input('estado') .", usuario responsable: ". input('atendido_por'),            
+            'created_at' => date_format(date_create(), 'Y-m-d H:i:s'),
+            'updated_at' => date_format(date_create(), 'Y-m-d H:i:s'),                        
+            'estado' => 1]
+        );
+
+        $this['mensaje'] = "La solicitud fúe actualizada correctamente. - Notificación enviada.";
 
         return Redirect::to('consultar_solicitud/'.$this->param('id'));
     }
