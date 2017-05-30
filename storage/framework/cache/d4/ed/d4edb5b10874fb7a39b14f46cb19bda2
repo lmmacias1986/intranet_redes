@@ -1,0 +1,520 @@
+1496179946a:1:{s:18:"guias/perfiles.htm";a:9:{s:8:"fileName";s:18:"guias/perfiles.htm";s:7:"content";s:12422:"title = "perfiles"
+url = "/perfiles/:id?"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+
+function onStart(){
+	$validacion = Db::table('portada_perfiles')->where('id_guia','=',$this->param('id'))->get(); 
+    if(count($validacion)>0){
+    	return Redirect::to('ver_perfiles/'.$validacion[0]->id);
+    }    
+}
+function onRegresar(){
+	return Redirect::to('guia_detalle/'.$this->param('id'));
+}
+function onPerfiles(){
+	return Redirect::to('crear_perfil/'.input('id_portada'));
+}
+function onSave()
+{
+    $validator = false;
+    if (input('mision') == ""){
+        $this['error'] = "Debe ingresar un texto de misión empresarial.";
+    }elseif(input('vision')==""){   
+        $this['error'] = "Debe ingresar un texto de visión empresarial.";
+    }elseif(input('ubicacion')==""){
+        $this['error'] = "Debe ingresar la dirección de la empresa.";
+    }else{
+        $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('portada_perfiles')->insertGetId(
+            ['mision' => input('mision'),
+			 'vision' => input('vision'),
+			 'valores' => input('valores'),
+			 'cultura' => input('cultura'),
+			 'clima_laboral' => input('clima_laboral'),
+			 'ubicacion' => input('ubicacion'),
+			 'como_llegar' => input('como_llegar'),
+			 'bienestar' => input('bienestar'),
+			 'turnos' => input('turnos'),
+			 'descansos' => input('descansos'),
+			 'horas_extras' => input('horas_extras'),
+			 'uniformes' => input('uniformes'),
+			 'manejo_celular' => input('manejo_celular'),
+			 'cabello' => input('cabello'),
+			 'maquillaje' => input('maquillaje'),
+			 'atuendo' => input('atuendo'),
+			 'otros' => input('otros'),
+			 'parqueadero' => input('parqueadero'),
+			 'casino' => input('casino'),
+			 'ruta' => input('ruta'),
+			 'ruido' => input('ruido'),
+			 'ventilacion' => input('ventilacion'),
+			 'iluminacion' => input('iluminacion'),
+			 'orden' => input('orden'),
+			 'fortalezas' => input('fortalezas'),
+			 'id_guia' => $this->param('id')]
+        );  
+        $this['id'] = $id;
+        $this['regresar']="si";
+        $this['mensaje'] = "El registro fúe creado con el id: " . $id;        
+    }    
+}
+
+?>
+==
+{%if inGroup('comercial') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
+	    </div> 
+	    <div class="panel-body">	    
+	        <form data-request="onSave" data-request-update="perfiles: '#resultado'">
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="mision">Misión:</span>
+	                    <textarea name="mision" id="mision" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="vision">Visión:</span>	                    
+	                    <textarea name="vision" id="vision" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="valores">Valores corporativos:</span>	                    
+	                    <textarea name="valores" id="valores" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="cultura">Qué cultura organizacional se observa:</span>	                    
+	                    <textarea name="cultura" id="cultura" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="clima_laboral">Clima laboral:</span>
+	                    <select name="clima_laboral" id="clima_laboral" class="form-control">
+	                    	<option value="">--Seleccione--</option>
+	                    	<option value="Alto">Alto</option>
+	                    	<option value="Medio">Medio</option>
+	                    	<option value="Bajo">Bajo</option>
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="ubicacion">Ubicación:</span>	                    
+	                    <input type="text" id="ubicacion" name="ubicacion" class="form-control" placeholder="Dirección"/>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-12">
+	                    <span for="como_llegar">Como llegar:</span>
+	                    <textarea name="como_llegar" id="como_llegar" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Qué normas implicitas existen en cuanto a:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="bienestar">Bienestar:</span>
+	                    <textarea name="bienestar" id="bienestar" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="turnos">Turnos:</span>	                    
+	                    <textarea name="turnos" id="turnos" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <!--div class="col-md-6">
+	                    <span for="tiempos">Tiempos de trabajo:</span>	                    
+	                    <input type="text" id="tiempos" name="tiempos" class="form-control" />
+	                </div-->
+	                <div class="col-md-6">
+	                    <span for="descansos">Descansos:</span>	                    
+	                    <input type="text" id="descansos" name="descansos" class="form-control"/>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-3">
+	                    <span for="horas_extras">Horas extras:</span>
+	                    <select name="horas_extras" id="horas_extras" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="uniformes">Uniformes:</span>
+	                    <select name="uniformes" id="uniformes" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="manejo_celular">Manejo de celulares:</span>	                    
+	                    <input type="text" id="manejo_celular" name="manejo_celular" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="cabello">Cabello:</span>	                    
+	                    <input type="text" id="cabello" name="cabello" class="form-control" />
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="maquillaje">Maquillaje:</span>
+	                    <select name="maquillaje" id="maquillaje" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="atuendo">Atuendo:</span>	                    
+	                    <input type="text" id="atuendo" name="atuendo" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-12">
+	                    <span for="otros">Otros:</span>	                    
+	                    <textarea type="text" id="otros" name="atuendo" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Areas comunes:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="parqueadero">Hay Parqueadero?:</span>
+	                    <select name="parqueadero" id="parqueadero" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="casino">Hay casino?:</span>	                    
+	                    <select name="casino" id="casino" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="ruta">Hay ruta?:</span>	                    
+	                    <select name="ruta" id="ruta" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Codiciones ambientales:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-3">
+	                    <span for="ruido">Ruido?:</span>
+	                    <select name="ruido" id="ruido" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="ventilacion">Ventilacion?:</span>	                    
+	                    <select name="ventilacion" id="ventilacion" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="iluminacion">Iluminación?:</span>	                    
+	                    <select name="iluminacion" id="iluminacion" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="orden">Orden?:</span>	                    
+	                    <select name="orden" id="orden" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="temperatura">Temperatura:</span>	                    
+	                    <select name="temperatura" id="temperatura" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Fortalezas de la empresa:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-12">	                    
+	                    <textarea name="fortalezas" id="fortalezas" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="row">
+	                <div id="resultado" class="col-md-12">
+	                    {% partial 'perfiles' %}
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}";s:5:"mtime";i:1495718447;s:6:"markup";s:10221:"{%if inGroup('comercial') %}
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
+	    </div> 
+	    <div class="panel-body">	    
+	        <form data-request="onSave" data-request-update="perfiles: '#resultado'">
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="mision">Misión:</span>
+	                    <textarea name="mision" id="mision" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="vision">Visión:</span>	                    
+	                    <textarea name="vision" id="vision" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="valores">Valores corporativos:</span>	                    
+	                    <textarea name="valores" id="valores" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="cultura">Qué cultura organizacional se observa:</span>	                    
+	                    <textarea name="cultura" id="cultura" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="clima_laboral">Clima laboral:</span>
+	                    <select name="clima_laboral" id="clima_laboral" class="form-control">
+	                    	<option value="">--Seleccione--</option>
+	                    	<option value="Alto">Alto</option>
+	                    	<option value="Medio">Medio</option>
+	                    	<option value="Bajo">Bajo</option>
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="ubicacion">Ubicación:</span>	                    
+	                    <input type="text" id="ubicacion" name="ubicacion" class="form-control" placeholder="Dirección"/>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-12">
+	                    <span for="como_llegar">Como llegar:</span>
+	                    <textarea name="como_llegar" id="como_llegar" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Qué normas implicitas existen en cuanto a:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-6">
+	                    <span for="bienestar">Bienestar:</span>
+	                    <textarea name="bienestar" id="bienestar" class="form-control"></textarea>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="turnos">Turnos:</span>	                    
+	                    <textarea name="turnos" id="turnos" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <!--div class="col-md-6">
+	                    <span for="tiempos">Tiempos de trabajo:</span>	                    
+	                    <input type="text" id="tiempos" name="tiempos" class="form-control" />
+	                </div-->
+	                <div class="col-md-6">
+	                    <span for="descansos">Descansos:</span>	                    
+	                    <input type="text" id="descansos" name="descansos" class="form-control"/>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-3">
+	                    <span for="horas_extras">Horas extras:</span>
+	                    <select name="horas_extras" id="horas_extras" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="uniformes">Uniformes:</span>
+	                    <select name="uniformes" id="uniformes" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-6">
+	                    <span for="manejo_celular">Manejo de celulares:</span>	                    
+	                    <input type="text" id="manejo_celular" name="manejo_celular" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="cabello">Cabello:</span>	                    
+	                    <input type="text" id="cabello" name="cabello" class="form-control" />
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="maquillaje">Maquillaje:</span>
+	                    <select name="maquillaje" id="maquillaje" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="atuendo">Atuendo:</span>	                    
+	                    <input type="text" id="atuendo" name="atuendo" class="form-control" />
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-12">
+	                    <span for="otros">Otros:</span>	                    
+	                    <textarea type="text" id="otros" name="atuendo" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Areas comunes:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-4">
+	                    <span for="parqueadero">Hay Parqueadero?:</span>
+	                    <select name="parqueadero" id="parqueadero" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="casino">Hay casino?:</span>	                    
+	                    <select name="casino" id="casino" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-4">
+	                    <span for="ruta">Hay ruta?:</span>	                    
+	                    <select name="ruta" id="ruta" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Codiciones ambientales:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-3">
+	                    <span for="ruido">Ruido?:</span>
+	                    <select name="ruido" id="ruido" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="ventilacion">Ventilacion?:</span>	                    
+	                    <select name="ventilacion" id="ventilacion" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="iluminacion">Iluminación?:</span>	                    
+	                    <select name="iluminacion" id="iluminacion" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="orden">Orden?:</span>	                    
+	                    <select name="orden" id="orden" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	                <div class="col-md-3">
+	                    <span for="temperatura">Temperatura:</span>	                    
+	                    <select name="temperatura" id="temperatura" class="form-control">
+	                    	<option value="Si">Si</option>
+	                    	<option value="No">No</option>	                    	
+	                    </select>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="alert alert-info" role="alert"><p>Fortalezas de la empresa:</p></div>
+	            <div class="row">	                
+	                <div class="col-md-12">	                    
+	                    <textarea name="fortalezas" id="fortalezas" class="form-control"></textarea>
+	                </div>
+	            </div>
+	            <hr>
+	            <div class="row">
+	                <div id="resultado" class="col-md-12">
+	                    {% partial 'perfiles' %}
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}";s:4:"code";s:2093:"function onStart(){
+	$validacion = Db::table('portada_perfiles')->where('id_guia','=',$this->param('id'))->get(); 
+    if(count($validacion)>0){
+    	return Redirect::to('ver_perfiles/'.$validacion[0]->id);
+    }    
+}
+function onRegresar(){
+	return Redirect::to('guia_detalle/'.$this->param('id'));
+}
+function onPerfiles(){
+	return Redirect::to('crear_perfil/'.input('id_portada'));
+}
+function onSave()
+{
+    $validator = false;
+    if (input('mision') == ""){
+        $this['error'] = "Debe ingresar un texto de misión empresarial.";
+    }elseif(input('vision')==""){   
+        $this['error'] = "Debe ingresar un texto de visión empresarial.";
+    }elseif(input('ubicacion')==""){
+        $this['error'] = "Debe ingresar la dirección de la empresa.";
+    }else{
+        $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('portada_perfiles')->insertGetId(
+            ['mision' => input('mision'),
+			 'vision' => input('vision'),
+			 'valores' => input('valores'),
+			 'cultura' => input('cultura'),
+			 'clima_laboral' => input('clima_laboral'),
+			 'ubicacion' => input('ubicacion'),
+			 'como_llegar' => input('como_llegar'),
+			 'bienestar' => input('bienestar'),
+			 'turnos' => input('turnos'),
+			 'descansos' => input('descansos'),
+			 'horas_extras' => input('horas_extras'),
+			 'uniformes' => input('uniformes'),
+			 'manejo_celular' => input('manejo_celular'),
+			 'cabello' => input('cabello'),
+			 'maquillaje' => input('maquillaje'),
+			 'atuendo' => input('atuendo'),
+			 'otros' => input('otros'),
+			 'parqueadero' => input('parqueadero'),
+			 'casino' => input('casino'),
+			 'ruta' => input('ruta'),
+			 'ruido' => input('ruido'),
+			 'ventilacion' => input('ventilacion'),
+			 'iluminacion' => input('iluminacion'),
+			 'orden' => input('orden'),
+			 'fortalezas' => input('fortalezas'),
+			 'id_guia' => $this->param('id')]
+        );  
+        $this['id'] = $id;
+        $this['regresar']="si";
+        $this['mensaje'] = "El registro fúe creado con el id: " . $id;        
+    }    
+}";s:5:"title";s:8:"perfiles";s:3:"url";s:14:"/perfiles/:id?";s:6:"layout";s:11:"formularios";s:9:"is_hidden";s:1:"0";}}
