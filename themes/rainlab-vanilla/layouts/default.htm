@@ -1,4 +1,4 @@
-description = "Default layout"
+ description = "Default layout"
 
 [session]
 security = "all"
@@ -30,8 +30,27 @@ forceSecure = 0
         ]|theme }}" rel="stylesheet">
         
     </head>
-    <body>
-
+    {% if user %}
+        {% if can('helpdesk') %} 
+            <body onLoad='setInterval("actualizar_notificaciones(1)",60000);'>
+        {% else %}
+            <body onLoad='setInterval("actualizar_notificaciones(0)",60000);'>
+        {% endif %}
+            <div style="display:none">
+                <button
+                    data-request="onStart"
+                    data-request-update="indicadores: '#div_notifica'" id="btn_update1">
+                    Go
+                </button>
+                <button
+                    data-request="onRun"
+                    data-request-update="notification: '#div_notifica'" id="btn_update0">
+                    Go
+                </button>
+            </div>
+    {% else %}
+        <body>
+    {% endif %}
         <header id="layout-header">
 
             <nav id="layout-nav" class=" barra_titulo navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,8 +90,24 @@ forceSecure = 0
         <section id="layout-content" class="seccion_fondo">            
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
-                    {% partial "menus/menu_lateral"%}
-                    {% partial "notification/notification"%}
+                    {%if user.name %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% partial "menus/menu_lateral"%}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {%if user.name %}
+                        <div class="row">
+                            <div class="col-md-12"  id="div_notifica">
+                                {% if can('helpdesk') %}                                        
+                                    {% partial "indicadores"%}
+                                {% else %}                            
+                                    {% partial 'notification' %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-8">
                     {% page %}

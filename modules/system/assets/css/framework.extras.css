@@ -378,7 +378,24 @@ button.oc-loading:after {
 .div_notificacion{
   font-size: 12px;
   border-bottom: 1px solid #DDD;
+  padding: 0px 10px 0px 10px;
 }
 .btn_notificacion{
   width: 100%
+}
+.div_indicadores{
+  border-radius: 5px;
+  border:solid 1px #ddd;
+  font-size: 12px;
+  color:#FFF;
+  text-align: center;
+  padding: 10px 0px 6px 0px;
+  margin: 2px 0px 2px 0px;  
+}
+.div_notificacion_pendiente{
+  background-color:#d9534f;
+  color:#FFF;   
+}
+.div_notificacion_pendiente a{
+  color:#FFF;
 }

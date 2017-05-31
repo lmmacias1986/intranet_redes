@@ -1,0 +1,43 @@
+[viewBag]
+==
+<?php
+function onStart(){
+
+    $notifications = DB::table('notification')
+    ->where('notificado_a','=', $this->user['username'])
+    ->where('estado','=', 1)
+    ->orderBy('id', 'desc')->get();
+    $this['notifications'] = $notifications;    
+    $this['total'] = count($notifications);
+    
+}
+function onRun(){
+    $notifications = DB::table('notification')
+    ->where('notificado_a','=', $this->user['username'])
+    ->where('estado','=', 1)
+    ->orderBy('id', 'desc')->get();
+    $this['notifications'] = $notifications;    
+    $this['total'] = count($notifications);
+    
+}
+
+?>
+==
+
+{% if total > 0 %}    
+    <button type="button" class="btn btn-danger btn_notificacion" data-toggle="collapse" data-target="#div_notifications"><span class="span_notificaciones">{{ total }}</span> - Notificaciones</button>
+    <div id="div_notifications" class="collapse">
+        {% for notification in notifications %}
+            <div class="col-md-12">                
+                <div class="row div_notificacion">
+                    {{ notification.titulo }}                
+                    <br>
+                    <a href="/intranet_redes/notificaciones/{{ notification.id }}">Ver</a>
+                </div>    
+            </div>
+        {% endfor %}
+    </div>    
+{% endif %}
+
+
+

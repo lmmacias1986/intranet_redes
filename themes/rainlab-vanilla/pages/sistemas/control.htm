@@ -6,7 +6,7 @@ is_hidden = 0
 ==
 <?php
 	function onStart(){
-		$nuevas = Db::table('help_desk')->where('estado','=','Abierto')->orderby('creacion','asc')->paginate(20);
+		$nuevas = Db::table('help_desk')->where('estado','=','Abierto')->orderby('creacion','desc')->paginate(20);
 		$this['nuevas'] = $nuevas;
 		$this['cont_nuevas'] = count($nuevas);	   
 	}	

@@ -97,3 +97,11 @@ function soloNumeros(evt){
     var key = nav4 ? evt.which : evt.keyCode; 
     return (key <= 13 || key==46 || (key >= 38 && key <= 57)); 
 }
+
+function actualizar_notificaciones(id){
+    if (id==1){
+        $('#btn_update1').click();            
+    }else{
+        $('#btn_update0').click();    
+    }    
+}

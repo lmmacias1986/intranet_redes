@@ -7,7 +7,7 @@ is_hidden = 0
 	function onStart(){
 		$pendientes = Db::table('help_desk')
 	    ->where('estado','=','Pendiente')
-	    ->orderby('creacion','asc')->paginate(20);
+	    ->orderby('creacion','desc')->paginate(20);
 	    $this['pendientes'] = $pendientes;
 		$this['cont_pendientes'] = count($pendientes);
 	}	

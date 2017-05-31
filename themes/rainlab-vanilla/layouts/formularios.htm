@@ -20,8 +20,27 @@ redirect = "home"
             'assets/less/theme.less'
         ]|theme }}" rel="stylesheet">        
     </head>
-    <body>
-
+    {% if user %}
+        {% if can('helpdesk') %} 
+            <body onLoad='setInterval("actualizar_notificaciones(1)",60000);'>
+        {% else %}
+            <body onLoad='setInterval("actualizar_notificaciones(0)",60000);'>
+        {% endif %}
+            <div style="display:none">
+                <button
+                    data-request="onStart"
+                    data-request-update="indicadores: '#div_notifica'" id="btn_update1">
+                    Go
+                </button>
+                <button
+                    data-request="onRun"
+                    data-request-update="notification: '#div_notifica'" id="btn_update0">
+                    Go
+                </button>
+            </div>
+    {% else %}
+        <body>
+    {% endif %}
         <!-- Header -->
         <header id="layout-header">
             <!-- Nav -->
@@ -46,7 +65,7 @@ redirect = "home"
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             {% if user %}
-                                <li><a href="#" data-request="onLogout" style="color:#1E5799"><< Salir >></a></li>
+                                <li><a href="#" data-request="onLogout" style="color:#1E5799">Salir</a></li>
                             {% else %}
                                  {% component 'menuUserWidget' %}
                             {% endif %}
@@ -61,13 +80,29 @@ redirect = "home"
         <section id="layout-content" class="seccion_fondo">            
             <div class="container contenedor_fondo">
                 <div class="col-md-2">
-                    {% partial "menus/menu_lateral"%}
-                    {% partial "notification/notification"%}
+                    {%if user.name %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% partial "menus/menu_lateral"%}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {%if user.name %}
+                        <div class="row">
+                            <div class="col-md-12"  id="div_notifica">
+                                {% if can('helpdesk') %}                                        
+                                    {% partial "indicadores"%}
+                                {% else %}                            
+                                    {% partial "notification"%}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="col-md-10 borde_menu">                    
+                <div class="col-md-10">
                     {% page %}
                 </div>
-            </div>
+                
         </section>
 
         <!-- Footer -->

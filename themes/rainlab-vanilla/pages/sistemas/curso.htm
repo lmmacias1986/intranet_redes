@@ -7,7 +7,7 @@ is_hidden = 0
 	function onStart(){
 		$cursos = Db::table('help_desk')
 	    ->where('estado','=','En curso')
-	    ->orderby('creacion','asc')->paginate(20);
+	    ->orderby('creacion','desc')->paginate(20);
 	    $this['cursos'] = $cursos;
 		$this['cont_cursos'] = count($cursos);
 	}	
