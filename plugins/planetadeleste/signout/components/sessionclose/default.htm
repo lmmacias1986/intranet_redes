@@ -1,0 +1,9 @@
+{% if user %}
+    {% put scripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.signOut({{ settings|raw }});
+        });
+    </script>
+    {% endput %}
+{% endif %}

@@ -4,6 +4,8 @@ description = "layout para forms"
 security = "user"
 redirect = "home"
 
+[SessionClose]
+load_js = 1
 ==
 <!DOCTYPE html>
 <html>
@@ -20,6 +22,7 @@ redirect = "home"
             'assets/less/theme.less'
         ]|theme }}" rel="stylesheet">        
     </head>
+    {% component 'SessionClose' %}
     {% if user %}
         {% if can('helpdesk') %} 
             <body onLoad='setInterval("actualizar_notificaciones(1)",60000);'>

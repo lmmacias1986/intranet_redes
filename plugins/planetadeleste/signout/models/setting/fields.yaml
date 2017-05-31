@@ -1,0 +1,54 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    timeout:
+        label: planetadeleste.signout::lang.fields.timeout
+        comment: planetadeleste.signout::lang.fields.timeout_desc
+        type: number
+        default: 30
+        span: left
+    notify:
+        label: planetadeleste.signout::lang.fields.notify
+        comment: planetadeleste.signout::lang.fields.notify_desc
+        type: switch
+        default: false
+        span: right
+    notify_timeout:
+        label: planetadeleste.signout::lang.fields.notify_timeout
+        comment: planetadeleste.signout::lang.fields.notify_timeout_desc
+        type: number
+        default: 20
+        span: left
+        trigger:
+          action: show
+          field: notify
+          condition: checked
+    message:
+        label: planetadeleste.signout::lang.fields.message
+        comment: planetadeleste.signout::lang.fields.message_desc
+        commentHtml: true
+        default: Session will close in {timeout} seconds.
+        span: right
+        trigger:
+          action: show
+          field: notify
+          condition: checked
+    close_button:
+        label: planetadeleste.signout::lang.fields.close_button
+        span: left
+        default: Close
+        trigger:
+          action: show
+          field: notify
+          condition: checked
+    ok_button:
+        label: planetadeleste.signout::lang.fields.ok_button
+        span: left
+        default: Continue
+        trigger:
+          action: show
+          field: notify
+          condition: checked
+

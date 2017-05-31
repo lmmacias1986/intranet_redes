@@ -1,4 +1,4 @@
- description = "Default layout"
+description = "Default layout"
 
 [session]
 security = "all"
@@ -13,6 +13,9 @@ forgotPasswordPage = "forgot-password"
 [Esroyo\UserProfile\Components\Account account]
 paramCode = "code"
 forceSecure = 0
+
+[SessionClose]
+load_js = 1
 ==
 <!DOCTYPE html>
 <html>
@@ -30,6 +33,7 @@ forceSecure = 0
         ]|theme }}" rel="stylesheet">
         
     </head>
+    {% component 'SessionClose' %}
     {% if user %}
         {% if can('helpdesk') %} 
             <body onLoad='setInterval("actualizar_notificaciones(1)",60000);'>
