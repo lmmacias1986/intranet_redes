@@ -1,0 +1,78 @@
+title = "directorio"
+url = "/directorio"
+layout = "formularios"
+description = "directorio de empresas y empleados"
+is_hidden = 0
+==
+<?php
+
+function onStart(){
+
+}
+
+function onCreate(){
+	
+}
+
+?>
+==
+<div class="row">
+	<div class="col-md-12">		
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#redes_humanas" aria-controls="redes_humanas" role="tab" data-toggle="tab">Redes Humanas</a></li>
+			{%if can('helpdesk') %}
+				<li role="presentation"><a href="#empresas" aria-controls="empresas" role="tab" data-toggle="tab">Empresas</a></li>
+			{% endif %}
+			{%if can('helpdesk') %}
+				<li role="presentation"><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<div class="col-md-12">		
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="redes_humanas">
+
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="empresas">
+
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="crear">
+				<div class="panel panel-primary"> 
+				    <div class="panel-heading"> 
+				        <h3 class="panel-title">INGRESAR COLABORADOR</h3>
+				    </div> 
+				    <div class="panel-body">
+				        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
+				            <div class="row">
+				                <div class="col-md-6">
+				                    <label for="tipo_registro">Tipo de Registro:</label>
+				                    <input type="radio" name="tipo_registro" class="form-control" value ="Empleado">
+				                    <input type="radio" name="tipo_registro" class="form-control" value ="Empresa">
+				                </div>
+				                <div class="col-md-5">
+				                    <label for="nombres">Nombres:</label>
+				                    <input type="text" id="nombres" name="nombres" class="form-control">
+				                </div>
+				                <div class="col-md-5">
+				                    <label for="apellidos">Apellidos:</label>
+				                    <input type="text" id="apellidos" name="apellidos" class="form-control">
+				                </div>
+				                <div class="col-md-4">
+				                    <label for="empresa">Empresa:</label>
+				                    <input type="text" id="empresa" name="empresa" class="form-control">
+				                </div>        
+				            </div>   
+				            <hr>
+				            <div class="row">
+				                <div id="result_contact" class="col-md-12">
+				                    {% partial 'result_contact' %}
+				                </div>
+				            </div>
+				        </form>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

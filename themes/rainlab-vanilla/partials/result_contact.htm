@@ -1,0 +1,11 @@
+[viewBag]
+==
+{% if mensaje %}
+    <p> {{ mensaje }} </p>
+    	<button id="regresar" name="regresar" type="submit" data-request="onRedirect"  class="btn btn-primary">regresar</button>    
+{% else %}  
+	{% if error %}
+		<p> {{ error }} </p>
+	{% endif %}
+    	<button id="simpleContactSubmitButton" type="submit" class="btn btn-primary">Guardar</button>
+{% endif %}

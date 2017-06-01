@@ -3,11 +3,11 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="font-size:12px !important">
   <div class="panel panel-default">
     <div class="panel-heading boton_menu" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <h3 class="panel-title">
+        <i class="icon-file-text" aria-hidden="true"></i><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Guia del cliente
         </a>
-      </h4>
+      </h3>
     </div>
     <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
@@ -20,11 +20,11 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-heading boton_menu " role="tab" id="headingTwo">
-      <h4 class="panel-title">
+      <h3 class="panel-title"><i class="icon-ambulance" aria-hidden="true"></i>
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Incapacidades
         </a>
-      </h4>
+      </h3>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
@@ -39,11 +39,11 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-heading boton_menu" role="tab" id="headingThree">
-      <h4 class="panel-title">
+      <h3 class="panel-title"><i class="icon-user" aria-hidden="true"></i>
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           	Gestión de usuarios
         </a>
-      </h4>
+      </h3>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
@@ -56,13 +56,13 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-heading boton_menu" role="tab" id="headingFour">
-      <h4 class="panel-title">
+      <h3 class="panel-title"><i class="icon-phone-sign" aria-hidden="true"></i>
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           	Help_desk
         </a>
-      </h4>
+      </h3>
     </div>
-    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
         	<ul style="padding-left: 12px !important;">
             {% if can('helpdesk') %}
@@ -76,6 +76,15 @@
 			</ul>
       </div>
     </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading boton_menu" role="tab" id="headingFive">
+      <a href="{{ 'directorio/directorio'|page }}" class="link_directorio">
+        <h3 class="panel-title"><i class="icon-th-list" aria-hidden="true"></i>
+              Directorio
+        </h3>
+      </a>
+    </div>    
   </div>
 </div>
 

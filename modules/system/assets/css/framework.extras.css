@@ -399,3 +399,17 @@ button.oc-loading:after {
 .div_notificacion_pendiente a{
   color:#FFF;
 }
+.link_directorio{
+  color:inherit !important;
+}
+.link_directorio:hover{
+  color:inherit !important;
+}
+
+.panel-title {
+  font-size: 13px !important;
+}
+
+table{
+ font-size: 13px !important; 
+}
