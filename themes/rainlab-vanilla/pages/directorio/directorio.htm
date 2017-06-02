@@ -5,13 +5,41 @@ description = "directorio de empresas y empleados"
 is_hidden = 0
 ==
 <?php
-
 function onStart(){
-
+	$internos = Db::table('directorio')->where('tipo','=','internos')->get();
+	$empresas = Db::table('directorio')->where('tipo','=','empresa')->get();
 }
-
+function onRedirect(){
+	return Redirect::to('directorio');
+}
 function onCreate(){
-	
+	$validator = false;
+    if (input('nombres') == ""){
+        $this['error'] = "Debe ingresar el nombre del contacto.";
+    }elseif(input('rdbtipo')==""){   
+        $this['error'] = "Debe seleccionar un tipo de registro.";
+    }elseif(input('telefono')==""){   
+        $this['error'] = "Debe indicar un teléfono para el contacto.";
+    }elseif(input('rdbtipo')=="empresa" and input('empresa')==""){
+    	$this['error'] = "Debe indicar el nombre de la empresa.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('directorio')->insertGetId(
+            ['tipo' => input('rdbtipo'),
+            'empresa' => input('empresa'),
+            'nombres' => input('nombres'),
+            'direccion' => input('direccion'),
+            'correo' => input('correo'),
+            'telefono' => input('telefono'),
+            'ext' => input('ext')
+            ]
+        );  
+        $this['id'] = $id;
+        $this['mensaje'] = "El registro fúe creado correctamente";
+    }
 }
 
 ?>
@@ -25,7 +53,7 @@ function onCreate(){
 				<li role="presentation"><a href="#empresas" aria-controls="empresas" role="tab" data-toggle="tab">Empresas</a></li>
 			{% endif %}
 			{%if can('helpdesk') %}
-				<li role="presentation"><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
+				<li role="presentation" class=""><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
 			{% endif %}
 		</ul>
 	</div>
@@ -37,30 +65,48 @@ function onCreate(){
 			<div role="tabpanel" class="tab-pane fade" id="empresas">
 
 			</div>
+			{%if can('helpdesk') %}
 			<div role="tabpanel" class="tab-pane fade" id="crear">
 				<div class="panel panel-primary"> 
 				    <div class="panel-heading"> 
-				        <h3 class="panel-title">INGRESAR COLABORADOR</h3>
+				        <h3 class="panel-title">Ingresar Registro</h3>
 				    </div> 
 				    <div class="panel-body">
 				        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
 				            <div class="row">
-				                <div class="col-md-6">
+				                <div class="col-md-4">
 				                    <label for="tipo_registro">Tipo de Registro:</label>
-				                    <input type="radio" name="tipo_registro" class="form-control" value ="Empleado">
-				                    <input type="radio" name="tipo_registro" class="form-control" value ="Empresa">
+				                    <div class="radio">
+										<label><input type="radio" name="rdbtipo" value="empresa" >Empresa</label>
+										
+										<label><input type="radio" name="rdbtipo" value="internos" checked >Interno</label>
+									</div>
 				                </div>
-				                <div class="col-md-5">
+				                <div class="col-md-8" >
+				                	<label for="empresa">empresa:</label>
+				                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
+				               	</div>
+				            </div>
+				            <div class="row">
+				                <div class="col-md-4">
 				                    <label for="nombres">Nombres:</label>
-				                    <input type="text" id="nombres" name="nombres" class="form-control">
-				                </div>
-				                <div class="col-md-5">
-				                    <label for="apellidos">Apellidos:</label>
-				                    <input type="text" id="apellidos" name="apellidos" class="form-control">
+				                    <input type="text" id="nombres" name="nombres" class="form-control" required>
 				                </div>
 				                <div class="col-md-4">
-				                    <label for="empresa">Empresa:</label>
-				                    <input type="text" id="empresa" name="empresa" class="form-control">
+				                    <label for="direccion">Dirección:</label>
+				                    <input type="text" id="direccion" name="direccion" class="form-control">
+				                </div>
+				                <div class="col-md-4">
+				                    <label for="correo">Correo:</label>
+				                    <input type="text" id="correo" name="correo" class="form-control" required>
+				                </div>        
+				                <div class="col-md-4">
+				                    <label for="telefono">Teléfono:</label>
+				                    <input type="text" id="telefono" name="telefono" class="form-control" required>
+				                </div>        
+				                <div class="col-md-2">
+				                    <label for="ext">Ext:</label>
+				                    <input type="text" id="ext" name="ext" class="form-control">
 				                </div>        
 				            </div>   
 				            <hr>
@@ -73,6 +119,7 @@ function onCreate(){
 				    </div>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>

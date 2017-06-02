@@ -84,6 +84,15 @@ $( "input:radio[name=opciones]" ).on( "click", function() {
     }
 });
 
+$("input:radio[name=rdbtipo]").on("click", function(){
+   if( this.value=='empresa' ){        
+        $("#empresa").prop('disabled', false);
+    } else {
+        $("#empresa").val('');
+        $("#empresa").prop('disabled', 'disabled');
+    } 
+});
+
 $("#carga_fisica").change(function () {
     if( this.value=='Si' ){        
         document.getElementById('div_carga_fisica').style.display='block';
