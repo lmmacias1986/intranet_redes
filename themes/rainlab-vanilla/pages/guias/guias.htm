@@ -5,7 +5,7 @@ is_hidden = 0
 ==
 <?php
 	function onStart(){
-	    $this['guias'] = Db::table('guia_cliente')->paginate(15);
+	    $this['guias'] = Db::table('guia_cliente')->orderby('created_at','desc')->paginate(15);
 	}
 	function onFind(){
 		if(input('buscador') =="" and  input('nombre_buscar') ==""){

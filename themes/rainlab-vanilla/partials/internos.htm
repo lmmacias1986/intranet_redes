@@ -1,0 +1,15 @@
+[viewBag]
+==
+
+<table class="table table-hover ">
+    <thead> <tr> <th>Nombres</th> <th>Teléfono</th> <th>Ext</th> <th>Correo</th> <th>Dirección</th></tr> </thead>
+    <tbody>
+        {% for interno in internos %}
+        	{% if interno.empresa =="" %}
+            <tr><td>{{ interno.nombres }}</td><td>{{ interno.telefono }}</td><td>{{ interno.ext }}</td><td>{{ interno.correo }}</td><td>{{ interno.direccion }}</td></tr>
+           	{% endif %}
+        {% endfor %}
+        
+    </tbody>
+</table>
+<tr>{{ internos.render|raw }}</tr>

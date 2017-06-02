@@ -6,12 +6,23 @@ is_hidden = 0
 ==
 <?php
 function onStart(){
-	$internos = Db::table('directorio')->where('tipo','=','internos')->get();
-	$empresas = Db::table('directorio')->where('tipo','=','empresa')->get();
+	$internos = Db::table('directorio')->where('tipo','=','internos')->orderby('nombres','asc')->paginate(20);
+	$this['internos'] = $internos;
 }
 function onRedirect(){
 	return Redirect::to('directorio');
 }
+
+function onFindinterno(){	
+	$resultados = Db::table('directorio')
+	->where('nombres','like','%'.input('palabra').'%')
+	->orwhere('correo','like','%'.input('palabra').'%')
+	->orwhere('direccion','like','%'.input('palabra').'%')
+	->orderby('nombres','asc')->get();	
+	$this['internos'] = $resultados;
+
+}
+
 function onCreate(){
 	$validator = false;
     if (input('nombres') == ""){
@@ -45,26 +56,41 @@ function onCreate(){
 ?>
 ==
 <div class="row">
-	<div class="col-md-12">		
+	<div class="col-md-7">		
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#redes_humanas" aria-controls="redes_humanas" role="tab" data-toggle="tab">Redes Humanas</a></li>
 			{%if can('helpdesk') %}
-				<li role="presentation"><a href="#empresas" aria-controls="empresas" role="tab" data-toggle="tab">Empresas</a></li>
+				<li role="presentation"><a href="directorioemp">Empresas</a></li>
 			{% endif %}
 			{%if can('helpdesk') %}
 				<li role="presentation" class=""><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
 			{% endif %}
 		</ul>
 	</div>
+	<div class="col-md-5">
+		<form data-request="onFindinterno" data-request-update="internos: '#resultados_internos'">
+			<div class="row">
+                <div class="col-md-8">		
+                	<i class="icon-find" aria-hidden="true"></i>                	
+                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+               	</div>
+               	<div class="col-md-4">
+               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
+               	</div>	
+            </div>
+		</form>
+	</div>
+	<hr>
+	<hr>
 	<div class="col-md-12">		
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="redes_humanas">
 
-			</div>
-			<div role="tabpanel" class="tab-pane fade" id="empresas">
-
-			</div>
+				<div class="col-md-12" id="resultados_internos">
+					{% partial 'internos' %}
+				</div>		
+			</div>			
 			{%if can('helpdesk') %}
 			<div role="tabpanel" class="tab-pane fade" id="crear">
 				<div class="panel panel-primary"> 
