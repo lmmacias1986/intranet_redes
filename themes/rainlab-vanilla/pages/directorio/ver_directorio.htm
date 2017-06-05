@@ -61,12 +61,14 @@ function onEdit(){
 		        <form data-request="onEdit" data-request-update="result_contact: '#result_contact'">
 		            <div class="row">
 		                <div class="col-md-4">
+		                {%if can('admin_directorio') %}
 		                    <label for="tipo_registro">Tipo de Registro:</label>
 		                    <div class="radio">
 								<label><input type="radio" name="rdbtipo" value="empresa" {% if registro.tipo == "empresa" %}checked {% endif %}>Empresa</label>
 								
 								<label><input type="radio" name="rdbtipo" value="internos" {% if registro.tipo == "internos" %} checked {% endif %}>Internos</label>
 							</div>
+						{% endif %}
 		                </div>
 		                <div class="col-md-8" >
 		                	<label for="empresa">empresa:</label>
@@ -102,11 +104,13 @@ function onEdit(){
 		                </div>        
 		            </div>   
 		            <hr>
+		            {%if can('admin_directorio') %}
 		            <div class="row">
 		                <div id="result_contact" class="col-md-12">
 		                    {% partial 'result_contact' %}
 		                </div>
 		            </div>
+		            {% endif %}
 		        </form>
 		    </div>
 		</div>		
