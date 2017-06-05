@@ -87,9 +87,12 @@ $( "input:radio[name=opciones]" ).on( "click", function() {
 $("input:radio[name=rdbtipo]").on("click", function(){
    if( this.value=='empresa' ){        
         $("#empresa").prop('disabled', false);
+        $("#ciudad").prop('disabled', false);
     } else {
         $("#empresa").val('');
         $("#empresa").prop('disabled', 'disabled');
+        $("#ciudad").val('');
+        $("#ciudad").prop('disabled', 'disabled');
     } 
 });
 

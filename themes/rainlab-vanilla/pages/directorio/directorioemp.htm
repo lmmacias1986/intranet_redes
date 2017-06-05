@@ -10,7 +10,7 @@ function onStart(){
 	$this['empresas'] = $empresas;
 }
 function onRedirect(){
-	return Redirect::to('directorio_emp');
+	return Redirect::to('directorioemp');
 }
 
 function onFindempresa(){
@@ -42,6 +42,7 @@ function onCreate(){
             ['tipo' => input('rdbtipo'),
             'empresa' => input('empresa'),
             'nombres' => input('nombres'),
+            'ciudad' => input('ciudad'),
             'direccion' => input('direccion'),
             'correo' => input('correo'),
             'telefono' => input('telefono'),
@@ -119,8 +120,12 @@ function onCreate(){
 				                    <input type="text" id="nombres" name="nombres" class="form-control" required>
 				                </div>
 				                <div class="col-md-4">
-				                    <label for="direccion">Dirección:</label>
+				                    <label for="direccion">Dirección ó Dependencia:</label>
 				                    <input type="text" id="direccion" name="direccion" class="form-control">
+				                </div>
+				                <div class="col-md-4">
+				                    <label for="ciudad">Ciudad:</label>
+				                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
 				                </div>
 				                <div class="col-md-4">
 				                    <label for="correo">Correo:</label>

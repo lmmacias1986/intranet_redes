@@ -38,6 +38,7 @@ function onEdit(){
             ['tipo' => input('rdbtipo'),
             'empresa' => input('empresa'),
             'nombres' => input('nombres'),
+            'ciudad' => input('ciudad'),
             'direccion' => input('direccion'),
             'correo' => input('correo'),
             'telefono' => input('telefono'),
@@ -54,7 +55,7 @@ function onEdit(){
 	<div class="col-md-12">		
 		<div class="panel panel-primary"> 
 		    <div class="panel-heading"> 
-		        <h3 class="panel-title">Ingresar Registro</h3>
+		        <h3 class="panel-title">Editar Registro</h3>
 		    </div> 
 		    <div class="panel-body">
 		        <form data-request="onEdit" data-request-update="result_contact: '#result_contact'">
@@ -78,7 +79,11 @@ function onEdit(){
 		                    <input type="text" id="nombres" name="nombres" class="form-control" value="{{ registro.nombres }}" required>
 		                </div>
 		                <div class="col-md-4">
-		                    <label for="direccion">Dirección:</label>
+		                    <label for="ciudad">Ciudad</label>
+		                    <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ registro.ciudad }}" {% if registro.tipo == "internos" %} disabled {% endif %}>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="direccion">Dirección / Dependencia</label>
 		                    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
 		                </div>
 		                <div class="col-md-4">
