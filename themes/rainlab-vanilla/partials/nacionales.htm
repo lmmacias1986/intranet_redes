@@ -2,10 +2,10 @@
 ==
 
 <table class="table table-hover ">
-    <thead> <tr> <th>Id</th><th>Compañia</th> <th>Tipo</th> <th>Contenido</th> <th>Ciudad destino</th> <th>Transportadora</th><th>Acción</th></tr> </thead>
+    <thead> <tr> <th>Id</th><th>Fecha Envío</th><th>Compañia</th> <th>Tipo</th> <th>Contenido</th> <th>Ciudad destino</th> <th>Transportadora</th><th>Acción</th></tr> </thead>
     <tbody>
         {% for nacional in nacionales %}        	
-            <tr><td>{{ nacional.id }}</td><td>{{ nacional.compania }}</td><td>{{ nacional.tipo_envio }}</td><td>{{ nacional.contenido }}</td><td>{{ nacional.ciudad_destino }}</td><td>{{ nacional.empresa_transportadora }}</td><td><a href="editar_envio_nc/{{ nacional.id }}">Ver</a></td></tr>           	
+            <tr><td>{{ nacional.id }}</td><td>{{ nacional.fecha_envio }}</td><td>{{ nacional.compania }}</td><td>{{ nacional.tipo_envio }}</td><td>{{ nacional.contenido }}</td><td>{{ nacional.ciudad_destino }}</td><td>{{ nacional.empresa_transportadora }}</td><td><a href="editar_envio_nc/{{ nacional.id }}">Ver</a></td></tr>           	
         {% endfor %}
         
     </tbody>

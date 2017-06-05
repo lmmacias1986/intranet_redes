@@ -39,7 +39,8 @@ function onUpdate(){
             'ciudad_destino' => input('ciudad_destino'),
             'empresa_transportadora' => input('empresa_transportadora'),
             'numero_guia' => input('numero_guia'),
-            'observacion' => input('observacion')
+            'observacion' => input('observacion'),
+            'actualizado_por' => input('username')
             ]
         );  
         $this['mensaje'] = "El envío fúe actualizado correctamente";
@@ -55,7 +56,10 @@ function onUpdate(){
 		        <h3 class="panel-title">Registrar envío nacional.</h3>
 		    </div> 
 		    <div class="panel-body">
-		        <form data-request="onUpdate" data-request-update="envios: '#result_envios'">				            
+		        <form data-request="onUpdate" data-request-update="envios: '#result_envios'">	
+		        <div class="col-md-12" style="display:none">
+		        	<input type="text" name="username" id="username" value="{{ user.name }} {{ user.surname }}"/>
+		        </div>			            
 		            <div class="row">
 		            	<div class="col-md-4">
 		                    <label for="fecha_envio">Fecha de envío:</label>

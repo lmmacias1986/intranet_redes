@@ -2,10 +2,10 @@
 ==
 
 <table class="table table-hover ">
-    <thead> <tr> <th>Id</th>  <th>Destino</th> <th>Prioridad</th> <th>Estado</th><th>Fecha envío</th><th>Acción</th></tr> </thead>
+    <thead> <tr> <th>Id</th> <th>Fecha Envío</th> <th>Destino</th> <th>Prioridad</th> <th>Estado</th><th>Acción</th></tr> </thead>
     <tbody>
         {% for local in locales %}        	
-            <tr><td>{{ local.id }}</td><td>{{ local.destino }}</td><td>{{ local.prioridad }}</td><td>{{ local.estado }}</td><td>{{ local.fecha_envio }}</td><td><a href="editar_envio_lc/{{ local.id }}" >Ver</a></td></tr>           	
+            <tr><td>{{ local.id }}</td><td>{{ local.fecha_envio }}</td><td>{{ local.destino }}</td><td>{{ local.prioridad }}</td><td>{{ local.estado }}</td><td><a href="editar_envio_lc/{{ local.id }}" >Ver</a></td></tr>           	
         {% endfor %}
         
     </tbody>

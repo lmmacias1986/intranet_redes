@@ -80,12 +80,9 @@ function onEdit(){
 		                </div>
 		                
 		                <div class="col-md-4">
-	                		{% if registro.tipo == "internos" %}
-			                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
-			                   {% else %}				                  
-			                    <label for="direccion" id="lb_direccion_emp">Dirección:</label>
-			                {% endif %}
-			                    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
+		                	<label for="direccion" id="lb_direccion" {% if registro.tipo == "empresas" %}style="display:none"{% endif %}>Dependencia o Ciudad:</label>
+				            <label for="direccion" id="lb_direccion_emp" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>Dirección:</label>
+	                		    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
 			                </div>
 			                <div class="col-md-4">
 			                    <label for="ciudad">Ciudad:</label>

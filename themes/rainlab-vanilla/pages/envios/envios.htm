@@ -5,6 +5,7 @@ description = "envios de empresas y empleados"
 is_hidden = 0
 ==
 <?php
+
 function onRedirect(){
 	return Redirect::to('locales');
 }
@@ -26,7 +27,8 @@ function onLocal(){
             'fecha_envio' => input('fecha_envio_lc'),
             'destino' => input('destino'),
             'descripcion' => input('descripcion'),
-            'prioridad' => input('prioridad')	            
+            'prioridad' => input('prioridad'),
+            'creado_por' => input('username')
             ]
         );  
 
@@ -58,7 +60,8 @@ function onNacional(){
             'ciudad_destino' => input('ciudad_destino'),
             'empresa_transportadora' => input('empresa_transportadora'),
             'numero_guia' => input('numero_guia'),
-            'observacion' => input('observacion')
+            'observacion' => input('observacion'),
+            'creado_por' =>input('username')
             ]
         );  
         $this['id'] = $id;
@@ -85,7 +88,10 @@ function onNacional(){
 		        <h3 class="panel-title">Registrar envío local.</h3>
 		    </div> 
 		    <div class="panel-body">
-		        <form data-request="onLocal" data-request-update="envios_lc: '#result_envios_lc'">				            
+		        <form data-request="onLocal" data-request-update="envios_lc: '#result_envios_lc'">		
+		        <div class="col-md-12" style="display:none">
+		        	<input type="text" name="username" id="username" value="{{ user.name }} {{ user.surname }}"/>
+		        </div>			            		            
 		            <div class="row">
 		                <div class="col-md-3">
 		                    <label for="estado">Estado:</label>
@@ -134,7 +140,10 @@ function onNacional(){
 		        <h3 class="panel-title">Registrar envío nacional.</h3>
 		    </div> 
 		    <div class="panel-body">
-		        <form data-request="onNacional" data-request-update="envios: '#result_envios'">				            
+		        <form data-request="onNacional" data-request-update="envios: '#result_envios'">		
+		        <div class="col-md-12" style="display:none">
+		        	<input type="text" name="username" id="username" value="{{ user.name }} {{ user.surname }}"/>
+		        </div>			            		            
 		            <div class="row">
 		            	<div class="col-md-4">
 		                    <label for="fecha_envio">Fecha de envío:</label>
