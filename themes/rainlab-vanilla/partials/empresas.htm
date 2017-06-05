@@ -6,7 +6,7 @@
     <tbody>
         {% for empresa in empresas %}
         	{% if empresa.tipo == "empresa" %}            	
-            	<tr><td>{{ empresa.empresa }}</td><td>{{ empresa.nombres }}</td><td>{{ empresa.telefono }}</td><td>{{ empresa.ext }}</td><td>{{ empresa.correo }}</td><td>{{ empresa.ciudad }}</td><td><a href="ver_directorio/{{ empresa.id }}" class="btn btn-success">Ver</a></td></tr>
+            	<tr><td>{{ empresa.empresa }}</td><td>{{ empresa.nombres }}</td><td>{{ empresa.telefono }}</td><td>{{ empresa.ext }}</td><td>{{ empresa.correo }}</td><td>{{ empresa.ciudad }}</td><td><a href="ver_directorio/{{ empresa.id }}" >Ver</a></td></tr>
             {% endif %}
         {% endfor %}
     </tbody>

@@ -1,0 +1,20 @@
+title = "nacionales"
+url = "/nacionales"
+layout = "formularios"
+description = "listado de envios nacionales"
+is_hidden = 0
+==
+<?php
+
+function onStart(){
+	$nacionales = Db::table('envios_nacionales')->orderby('id','desc')->paginate(20);
+	$this['nacionales'] = $nacionales;
+}
+
+?>
+==
+<div class="row">
+	<div class="col-md-12">				
+		{% partial 'nacionales' %}
+	</div>
+</div>

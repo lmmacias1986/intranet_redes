@@ -1,0 +1,241 @@
+title = "envios"
+url = "/envios"
+layout = "formularios"
+description = "envios de empresas y empleados"
+is_hidden = 0
+==
+<?php
+function onRedirect(){
+	return Redirect::to('locales');
+}
+function onLocal(){		
+	$validator = false;
+    if (input('estado') == ""){
+        $this['error'] = "Debe seleccionar el estado del Envío.";
+    }elseif(input('fecha_envio_lc')==""){   
+        $this['error'] = "Debe ingresar la fecha del envío.";
+    }elseif(input('destino')==""){   
+        $this['error'] = "Debe indicar un destino del envío.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('envios_locales')->insertGetId(
+            ['estado' => input('estado'),
+            'fecha_envio' => input('fecha_envio_lc'),
+            'destino' => input('destino'),
+            'descripcion' => input('descripcion'),
+            'prioridad' => input('prioridad')	            
+            ]
+        );  
+
+        $this['id'] = $id;
+        $this['mensaje_lc'] = "El envío fúe registrado correctamente";
+    }	
+
+	
+}
+function onNacional(){	
+	$validator = false;
+    if(input('fecha_envio')==""){   
+        $this['error'] = "Debe ingresar la fecha del envío.";
+    }elseif(input('ciudad_destino')==""){   
+        $this['error'] = "Debe indicar un destino del envío.";
+    }else{
+
+       $validator= true;
+    }
+    if($validator){
+        $id = Db::table('envios_nacionales')->insertGetId(
+            ['fecha_envio' => input('fecha_envio'),
+            'remitente' => input('remitente'),
+            'compania' => input('compania'),
+            'tipo_envio' => input('tipo_envio'),
+            'contenido' => input('contenido'),
+            'otros_contenidos' => input('otros_contenidos'),
+            'peso' => input('peso'),
+            'ciudad_destino' => input('ciudad_destino'),
+            'empresa_transportadora' => input('empresa_transportadora'),
+            'numero_guia' => input('numero_guia'),
+            'observacion' => input('observacion')
+            ]
+        );  
+        $this['id'] = $id;
+        $this['mensaje'] = "El envío fúe registrado correctamente";
+    }		
+}
+
+?>
+==
+
+<div class="row">
+	<div class="col-md-12">		
+		<div class="row">
+			<div class="col-md-12">
+                <label for="tipo_registro">Tipo de Envío:</label>
+                <div class="radio">
+					<label><input type="radio" name="opc_envios" value="locales" checked >Locales</label>						
+					<label><input type="radio" name="opc_envios" value="nacionales" >Nacionales</label>
+				</div>
+            </div>
+        </div>
+		<div class="panel panel-primary" id="form_locales">
+		    <div class="panel-heading"> 
+		        <h3 class="panel-title">Registrar envío local.</h3>
+		    </div> 
+		    <div class="panel-body">
+		        <form data-request="onLocal" data-request-update="envios_lc: '#result_envios_lc'">				            
+		            <div class="row">
+		                <div class="col-md-3">
+		                    <label for="estado">Estado:</label>
+		                    <select id="estado" name="estado" class="form-control" >
+		                    	<option value="Nueva">Nueva</option>
+		                    	<option value="Atendida">Atendida</option>
+		                    	<option value="Cancelada">Cancelada</option>
+		                    	<option value="Pendiente">Pendiente</option>				                    	
+		                    </select>
+		                </div>
+		                <div class="col-md-3">
+		                    <label for="fecha_envio_lc">Fecha de envío:</label>
+		                    <input type="text" id="fecha_envio_lc" name="fecha_envio_lc" class="form-control" required>
+		                </div>
+		                <div class="col-md-6">
+		                    <label for="destino">destino:</label>
+		                    <input type="text" id="destino" name="destino" class="form-control" required>
+		                </div>
+		                <div class="col-md-12">
+		                    <label for="descripcion">descripcion:</label>
+		                    <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
+		                </div>        
+		                <div class="col-md-4">
+		                    <label for="prioridad">Prioridad:</label>
+		                    <select id="prioridad" name="prioridad" class="form-control" >
+		                    	<option value="Baja">Baja</option>
+		                    	<option value="Normal">Normal</option>
+		                    	<option value="Alta">Alta</option>
+		                    	<option value="Urgente">Urgente</option>				                    	
+		                    </select>
+		                </div>        				                
+		            </div>   
+		            <hr>
+		            <div class="row">
+		                <div id="result_envios_lc" class="col-md-12">
+		                    {% partial 'envios_lc' %}
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		</div>
+
+
+		<div class="panel panel-primary" id="form_nacionales" style="display:none"> 
+		    <div class="panel-heading"> 
+		        <h3 class="panel-title">Registrar envío nacional.</h3>
+		    </div> 
+		    <div class="panel-body">
+		        <form data-request="onNacional" data-request-update="envios: '#result_envios'">				            
+		            <div class="row">
+		            	<div class="col-md-4">
+		                    <label for="fecha_envio">Fecha de envío:</label>
+		                    <input type="text" id="fecha_envio" name="fecha_envio" class="form-control" required>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="remitente">Remitente:</label>
+		                    <input type="text" id="remitente" name="remitente" class="form-control" required>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="compania">Compañia:</label>
+		                    <select id="compania" name="compania" class="form-control" >
+		                    	<option value="Redes Humanas">Redes Humanas</option>
+		                    	<option value="Sercontratos">Sercontratos</option>
+		                    	<option value="Synergo">Synergo</option>
+		                    	<option value="Redes Envíos">Redes Envíos</option>				                    	
+		                    </select>
+		                </div>
+		                
+		                <div class="col-md-4">
+		                    <label for="tipo_envio">Tipo de envío:</label>
+		                    <select id="tipo_envio" name="tipo_envio" class="form-control" >
+		                    	<option value="Caja">Caja</option>
+		                    	<option value="Paquete">Paquete</option>
+		                    	<option value="Sobre">Sobre</option>
+		                    	<option value="Otros">Otros</option>				                    	
+		                    </select>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="contenido">Contenido:</label>
+		                    <select id="contenido" name="contenido" class="form-control" >
+		                    	<option value="Bonos">Bonos</option>
+								<option value="Cartuchos de impresoras">Cartuchos de impresoras</option>
+								<option value="computador escritorio">computador escritorio</option>
+								<option value="Computador portatil">Computador portatil</option>
+								<option value="Documentos">Documentos</option>
+								<option value="Dotacion">Dotacion</option>
+								<option value="Equipos de comunicación">Equipos de comunicación</option>
+								<option value="Facturas">Facturas</option>
+								<option value="Impresoras">Impresoras</option>
+								<option value="Papelerias">Papelerias</option>
+								<option value="Respuestos">Respuestos</option>
+								<option value="Otro">Otro</option>
+		                    </select>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="peso">Peso aprox:</label>
+		                    <select id="peso" name="peso" class="form-control" >
+		                    	<option value="Mas de un 1KG">Mas de un 1KG</option>
+		                    	<option value="Entre 1 Y 10 KG">Entre 1 Y 10 KG</option>
+		                    	<option value="Entre 11 Y 100 KG">Entre 11 Y 100 KG</option>
+		                    	<option value="Mas de 100 KG">Mas de 100 KG</option>				                    	
+		                    </select>
+		                </div>
+
+		                <div class="col-md-12" id="div_otros_contenidos" style="display:none">
+		                    <label for="otros_contenidos">Otros contenidos:</label>
+		                    <input type="text" id="otros_contenidos" name="otros_contenidos" class="form-control">
+		                </div>
+
+		                <div class="col-md-4" >
+		                    <label for="ciudad_destino">Ciudad destino:</label>
+		                    <input type="text" id="ciudad_destino" name="ciudad_destino" class="form-control">
+		                </div>
+
+		                <div class="col-md-4" >
+		                    <label for="empresa_transportadora">Empresa Transportadora:</label>
+		                    <input type="text" id="empresa_transportadora" name="empresa_transportadora" class="form-control" required>
+		                </div>
+
+		                <div class="col-md-4" >
+		                    <label for="numero_guia">Número de guía:</label>
+		                    <input type="text" id="numero_guia" name="numero_guia" class="form-control" required>
+		                </div>
+
+		                <div class="col-md-12">
+		                    <label for="observacion">Observación:</label>
+		                    <textarea id="observacion" name="observacion" class="form-control" required></textarea>
+		                </div>        				                
+		            </div>   
+		            <hr>
+		            <div class="row">
+		                <div id="result_envios" class="col-md-12">
+		                    {% partial 'envios' %}
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$( function() {
+$( "#fecha_envio_lc" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+$( function() {
+$( "#fecha_envio" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+</script>

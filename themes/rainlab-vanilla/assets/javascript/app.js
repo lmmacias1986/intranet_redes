@@ -121,3 +121,23 @@ function actualizar_notificaciones(id){
         $('#btn_update0').click();    
     }    
 }
+
+
+$("#contenido").change(function () {
+    if( this.value=='Otro' ){
+        document.getElementById('div_otros_contenidos').style.display='block';
+    } else {
+        document.getElementById('div_otros_contenidos').style.display='none';
+    }
+});
+
+
+$( "input:radio[name=opc_envios]" ).on( "click", function() {
+  if( this.value=='locales' ){        
+        $("#form_nacionales").hide();
+        $("#form_locales").show();
+    } else {        
+        $("#form_locales").hide();
+        $("#form_nacionales").show();
+    }
+});

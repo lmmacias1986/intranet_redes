@@ -6,7 +6,7 @@
     <tbody>
         {% for interno in internos %}
         	{% if interno.empresa =="" %}
-            <tr><td>{{ interno.nombres }}</td><td>{{ interno.telefono }}</td><td>{{ interno.ext }}</td><td>{{ interno.correo }}</td><td>{{ interno.direccion }}</td><td><a href="ver_directorio/{{ interno.id }}" class="btn btn-success">Ver</a></td></tr>
+            <tr><td>{{ interno.nombres }}</td><td>{{ interno.telefono }}</td><td>{{ interno.ext }}</td><td>{{ interno.correo }}</td><td>{{ interno.direccion }}</td><td><a href="ver_directorio/{{ interno.id }}">Ver</a></td></tr>
            	{% endif %}
         {% endfor %}
         

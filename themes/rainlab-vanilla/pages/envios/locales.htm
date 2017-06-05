@@ -1,0 +1,20 @@
+title = "locales"
+url = "/locales"
+layout = "formularios"
+description = "listado de envios locales"
+is_hidden = 0
+==
+<?php
+
+function onStart(){
+	$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(20);
+	$this['locales'] = $locales;
+}
+
+?>
+==
+<div class="row">
+	<div class="col-md-12">				
+		{% partial 'locales' %}
+	</div>
+</div>
