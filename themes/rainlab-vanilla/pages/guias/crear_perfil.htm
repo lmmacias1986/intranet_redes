@@ -224,7 +224,7 @@ function onSave()
 }
 ?>
 ==
-
+{% if can('guia_cliente') %}
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
     	<h3 class="panel-title" style="text-align:center"><b>CREAR PERFIL DE CARGO</b></h3>
@@ -1591,3 +1591,6 @@ function onSave()
         </form>
     </div>
 </div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}

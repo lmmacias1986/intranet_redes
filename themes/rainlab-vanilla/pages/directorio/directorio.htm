@@ -61,10 +61,10 @@ function onCreate(){
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#redes_humanas" aria-controls="redes_humanas" role="tab" data-toggle="tab">Redes Humanas</a></li>
-			{%if can('helpdesk') %}
+			{%if can('recepcion') %}
 				<li role="presentation"><a href="directorioemp">Empresas</a></li>
 			{% endif %}
-			{%if can('helpdesk') %}
+			{%if can('admin_directorio') %}
 				<li role="presentation" class=""><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
 			{% endif %}
 		</ul>
@@ -87,12 +87,11 @@ function onCreate(){
 	<div class="col-md-12">		
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="redes_humanas">
-
 				<div class="col-md-12" id="resultados_internos">
 					{% partial 'internos' %}
 				</div>		
 			</div>			
-			{%if can('helpdesk') %}
+			{%if can('admin_directorio') %}
 			<div role="tabpanel" class="tab-pane fade" id="crear">
 				<div class="panel panel-primary"> 
 				    <div class="panel-heading"> 

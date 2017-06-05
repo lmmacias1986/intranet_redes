@@ -228,7 +228,7 @@ is_hidden = 0
     }
 ?>
 ==
-
+{% if can('guia_cliente') %}
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
     	<h3 class="panel-title" style="text-align:center"><b>EDITAR PERFIL DE CARGO</b></h3>
@@ -1626,3 +1626,6 @@ is_hidden = 0
     </div>
 </div>
 
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}

@@ -87,11 +87,13 @@ function onUpdate(){
 		                </div>        				                
 		            </div>   
 		            <hr>
+		            {%if can('admin_envios') %}
 		            <div class="row">
 		                <div id="result_envios" class="col-md-12">
 		                    {% partial 'envios_lc' %}
 		                </div>
 		            </div>
+		            {% endif %}
 		        </form>
 		    </div>
 		</div>

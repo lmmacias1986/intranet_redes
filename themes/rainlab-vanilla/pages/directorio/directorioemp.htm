@@ -87,12 +87,13 @@ function onCreate(){
 	<div class="col-md-12">		
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="empresas">
-				
+				{%if can('recepcion') %}
 				<div class="col-md-12" id="resultados_empresa">
 					{% partial 'empresas' %}
-				</div>				
+				</div>	
+				{% endif %}			
 			</div>
-			{%if can('helpdesk') %}
+			{%if can('admin_directorio') %}
 			<div role="tabpanel" class="tab-pane fade" id="crear">
 				<div class="panel panel-primary"> 
 				    <div class="panel-heading"> 
