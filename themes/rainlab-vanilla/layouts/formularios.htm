@@ -22,7 +22,7 @@ load_js = 1
             'assets/less/theme.less'
         ]|theme }}" rel="stylesheet">        
     </head>
-    {% component 'SessionClose' %}
+
     {% if user %}
         {% if can('helpdesk') %} 
             <body onLoad='setInterval("actualizar_notificaciones(1)",60000);'>
