@@ -1,0 +1,107 @@
+title = "ver_directorio"
+url = "/ver_directorio/:id?"
+layout = "formularios"
+description = "editar registros del directorio"
+is_hidden = 0
+==
+<?php
+function onStart(){
+	$registro = Db::table('directorio')->where('id','=', $this->param('id'))->first();
+	$this['registro'] = $registro;
+	$this['eliminar'] = "OK";
+}
+function onRedirect(){
+	return Redirect::to('directorio');
+}
+
+function onDelete(){
+    Db::table('directorio')->where('id', '=', $this->param('id'))->delete();
+    $this['mensaje'] = "Registro eliminado correctamente";
+}
+
+function onEdit(){
+	$validator = false;
+    if (input('nombres') == ""){
+        $this['error'] = "Debe ingresar el nombre del contacto.";
+    }elseif(input('rdbtipo')==""){   
+        $this['error'] = "Debe seleccionar un tipo de registro.";
+    }elseif(input('telefono')==""){   
+        $this['error'] = "Debe indicar un teléfono para el contacto.";
+    }elseif(input('rdbtipo')=="empresa" and input('empresa')==""){
+    	$this['error'] = "Debe indicar el nombre de la empresa.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        Db::table('directorio')->where('id', $this->param('id'))->update(
+            ['tipo' => input('rdbtipo'),
+            'empresa' => input('empresa'),
+            'nombres' => input('nombres'),
+            'direccion' => input('direccion'),
+            'correo' => input('correo'),
+            'telefono' => input('telefono'),
+            'ext' => input('ext')
+            ]
+        );  
+        $this['mensaje'] = "El registro fúe actualizado correctamente";
+    }
+}
+
+?>
+==
+<div class="row">	
+	<div class="col-md-12">		
+		<div class="panel panel-primary"> 
+		    <div class="panel-heading"> 
+		        <h3 class="panel-title">Ingresar Registro</h3>
+		    </div> 
+		    <div class="panel-body">
+		        <form data-request="onEdit" data-request-update="result_contact: '#result_contact'">
+		            <div class="row">
+		                <div class="col-md-4">
+		                    <label for="tipo_registro">Tipo de Registro:</label>
+		                    <div class="radio">
+								<label><input type="radio" name="rdbtipo" value="empresa" {% if registro.tipo == "empresa" %}checked {% endif %}>Empresa</label>
+								
+								<label><input type="radio" name="rdbtipo" value="internos" {% if registro.tipo == "internos" %} checked {% endif %}>Internos</label>
+							</div>
+		                </div>
+		                <div class="col-md-8" >
+		                	<label for="empresa">empresa:</label>
+		                    <input type="text" id="empresa" name="empresa" value="{{ registro.empresa }}" class="form-control" {% if registro.tipo == "internos" %} disabled {% endif %}>
+		               	</div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-4">
+		                    <label for="nombres">Nombres:</label>
+		                    <input type="text" id="nombres" name="nombres" class="form-control" value="{{ registro.nombres }}" required>
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="direccion">Dirección:</label>
+		                    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
+		                </div>
+		                <div class="col-md-4">
+		                    <label for="correo">Correo:</label>
+		                    <input type="text" id="correo" name="correo" class="form-control" value="{{ registro.correo }}" required>
+		                </div>        
+		                <div class="col-md-4">
+		                    <label for="telefono">Teléfono:</label>
+		                    <input type="text" id="telefono" name="telefono" class="form-control" value="{{ registro.telefono }}" required>
+		                </div>        
+		                <div class="col-md-2">
+		                    <label for="ext">Ext:</label>
+		                    <input type="text" id="ext" name="ext" class="form-control" value="{{ registro.ext }}" >
+		                </div>        
+		            </div>   
+		            <hr>
+		            <div class="row">
+		                <div id="result_contact" class="col-md-12">
+		                    {% partial 'result_contact' %}
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		</div>		
+	</div>
+</div>
