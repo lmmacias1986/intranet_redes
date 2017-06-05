@@ -88,11 +88,15 @@ $("input:radio[name=rdbtipo]").on("click", function(){
    if( this.value=='empresa' ){        
         $("#empresa").prop('disabled', false);
         $("#ciudad").prop('disabled', false);
+        $("#lb_direccion").hide();
+        $("#lb_direccion_emp").show();
     } else {
         $("#empresa").val('');
         $("#empresa").prop('disabled', 'disabled');
         $("#ciudad").val('');
         $("#ciudad").prop('disabled', 'disabled');
+        $("#lb_direccion").show();
+        $("#lb_direccion_emp").hide();
     } 
 });
 
