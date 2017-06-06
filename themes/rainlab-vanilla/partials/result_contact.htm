@@ -2,12 +2,13 @@
 ==
 {% if mensaje %}
     <p> {{ mensaje }} </p>
-    	<button id="regresar" name="regresar" type="submit" data-request="onRedirect"  class="btn btn-primary">regresar</button>        	    
+    	<button id="regresar" name="regresar" type="submit" data-request="onRedirect"  class="btn btn-primary">regresar</button>
 {% else %}  
 	{% if error %}
 		<p> {{ error }} </p>
 	{% endif %}
-    	<button id="simpleContactSubmitButton" type="submit" class="btn btn-primary">Guardar</button>
+    	<button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
+    	<button id="btn_regresar" data-request="onRedirect" class="btn btn-success">Regresar</button>
     	{% if eliminar %}
     		<button id="simpleContactSubmitButton" type="submit" data-request="onDelete" data-request-confirm="Esta seguro de eliminar este registro?" class="btn btn-danger" data-request-update="result_contact: '#result_contact'">Eliminar</button>
 		{% endif %}
