@@ -42,6 +42,8 @@ function onCreate(){
             ['tipo' => input('rdbtipo'),
             'empresa' => input('empresa'),
             'nombres' => input('nombres'),
+            'celular' => input('celular'),
+            'cargo' => input('cargo'),
             'ciudad' => input('ciudad'),
             'direccion' => input('direccion'),
             'correo' => input('correo'),
@@ -110,8 +112,8 @@ function onCreate(){
 										<label><input type="radio" name="rdbtipo" value="internos" checked >Interno</label>
 									</div>
 				                </div>
-				                <div class="col-md-8" >
-				                	<label for="empresa">empresa:</label>
+				                <div class="col-md-8" id="div_empresa"  style="display:none">
+				                	<label for="empresa">Empresa:</label>
 				                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
 				               	</div>
 				            </div>
@@ -120,12 +122,20 @@ function onCreate(){
 				                    <label for="nombres">Nombres:</label>
 				                    <input type="text" id="nombres" name="nombres" class="form-control" required>
 				                </div>
+				                <div class="col-md-4" id="div_celular">
+				                    <label for="celular">Celular:</label>
+				                    <input type="text" id="celular" name="celular" class="form-control" >
+				                </div>
+				                <div class="col-md-4" id="div_cargo" style="display:none">
+				                    <label for="cargo">Cargo:</label>
+				                    <input type="text" id="cargo" name="cargo" class="form-control" >
+				                </div>
 				                <div class="col-md-4">
 				                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
 				                    <label for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</label>
 				                    <input type="text" id="direccion" name="direccion" class="form-control">
 				                </div>
-				                <div class="col-md-4">
+				                <div class="col-md-4" id="div_ciudad"  style="display:none">
 				                    <label for="ciudad">Ciudad:</label>
 				                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
 				                </div>
