@@ -113,8 +113,14 @@ forceSecure = 0
                 <div class="col-md-8">
                     {% page %}
                 </div>
-                <div class="col-md-3">
-                   
+                <div class="col-md-2">
+                    {%if user.name %}
+                        <div class="row">
+                            <div class="col-md-12"  id="div_calendar">                                
+                                {% partial 'calendar' %}
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
         </section>
 

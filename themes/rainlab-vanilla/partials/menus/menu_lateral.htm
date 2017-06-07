@@ -114,6 +114,26 @@
     </div>
   </div>
   {% endif %}
+  {%if can('eventos') %}
+  <div class="panel panel-default">
+    <div class="panel-heading boton_menu " role="tab" id="headingSeven">
+      <h3 class="panel-title"><i class="icon-calendar" aria-hidden="true"></i>
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Eventos
+        </a>
+      </h3>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+          <ul style="padding-left: 12px !important;">            
+            {%if can('eventos') %}          
+              <li><a href="{{ 'calendario/calendario'|page }}">Crear eventos</a></li>
+            {% endif %}
+      </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
 
 
