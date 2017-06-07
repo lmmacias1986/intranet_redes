@@ -7,14 +7,43 @@ is_hidden = 0
 <?php
 
 function onStart(){
-	$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(20);
+	$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(25);
 	$this['locales'] = $locales;
+	$this['resultados'] = count($locales);
+}
+
+function onRun(){
+	$locales = Db::table('envios_locales')
+	->where('creado_por','like','%'.input('palabra').'%')
+	->orwhere('destino','like','%'.input('palabra').'%')
+	->orwhere('prioridad','like','%'.input('palabra').'%')
+	->orwhere('estado','like','%'.input('palabra').'%')
+	->orderby('id','desc')->paginate(35);
+	$this['locales'] = $locales;
+	$this['resultados'] = count($locales);
+	$this['palabra'] = input('palabra');
 }
 
 ?>
 ==
 <div class="row">
-	<div class="col-md-12" >				
+	<div class="col-md-5">
+		<form data-request="onRun" data-request-update="locales: '#div_locales'">
+			<div class="row">
+                <div class="col-md-8">		
+                	<i class="icon-find" aria-hidden="true"></i>                	
+                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+               	</div>
+               	<div class="col-md-4">
+               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
+               	</div>	
+            </div>
+		</form>
+	</div>
+</div>
+<hr>
+<div class="row">	
+	<div class="col-md-12" id="div_locales">
 		{% partial 'locales' %}
 	</div>
 </div>

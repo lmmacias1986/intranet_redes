@@ -1,6 +1,6 @@
 [viewBag]
 ==
-
+{% if resultados > 0 %}
 <table class="table table-hover ">
     <thead> <tr> <th>Id</th><th>Fecha Envío</th><th>Creado por</th><th>Compañia</th> <th>Tipo</th> <th>Contenido</th> <th>Ciudad destino</th> <th>Transportadora</th><th>Acción</th></tr> </thead>
     <tbody>
@@ -11,3 +11,6 @@
     </tbody>
 </table>
 <tr>{{ internos.render|raw }}</tr>
+{% else %}
+	<h4>No se encontraron registros asociados a la palabra "{{ palabra }}"</h4>
+{% endif %}
