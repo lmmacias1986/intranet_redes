@@ -90,6 +90,10 @@ $("input:radio[name=rdbtipo]").on("click", function(){
         $("#ciudad").prop('disabled', false);
         $("#lb_direccion").hide();
         $("#lb_direccion_emp").show();
+        $("#div_empresa").show();
+        $("#div_cargo").show();
+        $("#div_ciudad").show();
+        $("#div_celular").hide();
     } else {
         $("#empresa").val('');
         $("#empresa").prop('disabled', 'disabled');
@@ -97,6 +101,10 @@ $("input:radio[name=rdbtipo]").on("click", function(){
         $("#ciudad").prop('disabled', 'disabled');
         $("#lb_direccion").show();
         $("#lb_direccion_emp").hide();
+        $("#div_empresa").hide();
+        $("#div_cargo").hide();
+        $("#div_ciudad").hide();
+        $("#div_celular").show();
     } 
 });
 
