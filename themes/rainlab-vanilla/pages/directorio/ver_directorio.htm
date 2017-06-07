@@ -71,7 +71,7 @@ function onEdit(){
 						{% endif %}
 		                </div>
 		                <div class="col-md-8" id="div_empresa" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
-		                	<label for="empresa">empresa:</label>
+		                	<label for="empresa">Empresa:</label>
 		                    <input type="text" id="empresa" name="empresa" value="{{ registro.empresa }}" class="form-control" {% if registro.tipo == "internos" %} disabled {% endif %}>
 		               	</div>
 		            </div>
