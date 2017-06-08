@@ -26,6 +26,8 @@ function onLocal(){
             ['estado' => input('estado'),
             'fecha_envio' => input('fecha_envio_lc'),
             'destino' => input('destino'),
+            'remitente' => input('remitente_lc'),
+            'numero_guia' => input('numero_guia_lc'),
             'descripcion' => input('descripcion'),
             'prioridad' => input('prioridad'),
             'creado_por' => input('username')
@@ -108,13 +110,14 @@ function onNacional(){
 		                    <input type="text" id="fecha_envio_lc" name="fecha_envio_lc" class="form-control" required>
 		                </div>
 		                <div class="col-md-6">
-		                    <label for="destino">destino:</label>
+		                    <label for="destino">Destino:</label>
 		                    <input type="text" id="destino" name="destino" class="form-control" required>
 		                </div>
-		                <div class="col-md-12">
-		                    <label for="descripcion">descripcion:</label>
-		                    <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
-		                </div>        
+		                <div class="col-md-4">
+		                    <label for="remitente_lc">Remitente:</label>
+		                    <input type="text" id="remitente_lc" name="remitente_lc" class="form-control" required>
+		                </div>
+		                      
 		                <div class="col-md-4">
 		                    <label for="prioridad">Prioridad:</label>
 		                    <select id="prioridad" name="prioridad" class="form-control" >
@@ -123,7 +126,15 @@ function onNacional(){
 		                    	<option value="Alta">Alta</option>
 		                    	<option value="Urgente">Urgente</option>				                    	
 		                    </select>
-		                </div>        				                
+		                </div>   
+		                <div class="col-md-4" >
+		                    <label for="numero_guia_lc">Número de guía:</label>
+		                    <input type="text" id="numero_guia_lc" name="numero_guia_lc" class="form-control" required>
+		                </div>     				                
+		                <div class="col-md-12">
+		                    <label for="descripcion">Descripcion:</label>
+		                    <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
+		                </div>  
 		            </div>   
 		            <hr>
 		            <div class="row">
