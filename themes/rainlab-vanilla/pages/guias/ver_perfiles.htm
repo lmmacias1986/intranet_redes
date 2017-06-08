@@ -8,6 +8,7 @@ function onStart()
 {
 	$portada = Db::table('portada_perfiles')->where('id','=',$this->param('id'))->first(); 
     $this['portada'] = $portada;
+    $this['id'] = $this->param('id');
 
     $perfiles = DB::table('perfil')->where('id_portada','=', $this->param('id'))->orderBy('id', 'desc')->paginate(10);
 	if(count($perfiles)==0){
@@ -75,8 +76,13 @@ function onSave()
 
 ?>
 ==
-{%if inGroup('comercial') %}
-	<div class="panel panel-primary"> 
+{% if can('guia_cliente') %}
+	<div class="row">
+		<div class="col-md-2 col-md-offset-10">
+			<a href="../imprimir_perfiles/{{ id }}" class="btn btn-info">Imprimir Perfiles</a>
+		</div>
+	</div>
+	<div class="panel panel-primary" id="imprimir"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
 	    </div> 

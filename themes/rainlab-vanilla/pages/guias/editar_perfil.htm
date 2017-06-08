@@ -10,6 +10,7 @@ is_hidden = 0
     function onStart(){
 		$perfil = DB::table('perfil')->where('id','=', $this->param('id'))->first();
     	$this['perfil'] = $perfil;
+        $this['id'] = $this->param('id');
 
         $observaciones_perf = DB::table('observaciones_perfil')->where('id_perfil','=', $this->param('id'))->orderBy('fecha', 'desc')->paginate(10);
         $this['observaciones_perf'] = $observaciones_perf;        
@@ -229,6 +230,11 @@ is_hidden = 0
 ?>
 ==
 {% if can('guia_cliente') %}
+<div class="row">
+    <div class="col-md-2 col-md-offset-10 ">
+        <a href="../imprimir_perfil/{{ id }}" class="btn btn-info pull-right">Imprimir Perfil</a>
+    </div>    
+</div>
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
     	<h3 class="panel-title" style="text-align:center"><b>EDITAR PERFIL DE CARGO</b></h3>

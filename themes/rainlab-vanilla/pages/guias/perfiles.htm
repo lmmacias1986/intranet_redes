@@ -67,7 +67,7 @@ function onSave()
 
 ?>
 ==
-{%if inGroup('comercial') %}
+{% if can('guia_cliente') %}
 	<div class="panel panel-primary"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
