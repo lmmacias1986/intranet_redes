@@ -35,7 +35,7 @@ function onStart()
 function onPerfiles(){
     return Redirect::to('perfiles/'.$this->param('id'));
 }
-function onSavecontratacion()
+function onSavecomercial()
 {   
     $validator = false;
     if (input('empresa') == ""){
@@ -163,7 +163,7 @@ function onSaveseleccion()
     $this['mensaje'] = "El modulo Selección fúe actualizado";
 }
 
-function onSavecontratacion2()
+function onSavecontratacion()
 {   
     Db::table('guia_cliente')->where('id', $this->param('id'))->update([
         'contacto_contratacion' => input('contacto_contratacion'),
@@ -256,7 +256,7 @@ $( function() {
 
 <div class="col-md-12" id="listado">
     {% if can('guia_cliente') or can('guia_comercial') %}   
-        <form data-request="onSavecontratacion" data-request-update="guia_actualizada: '#resultado_contratacion'">
+        <form data-request="onSavecomercial" data-request-update="guia_actualizada: '#resultado_comercial'">
             <div class="row">   
                 <div class="col-md-2" style="padding-top: 20px">
                     <a href="../guias" class="btn btn-success">Regresar</a>
@@ -389,12 +389,12 @@ $( function() {
             </div>
             <hr>
             <div class="row">
-                <div id="resultado_contratacion" class="col-md-9">
+                <div id="resultado_comercial" class="col-md-9">
                     {% partial 'guia_actualizada' %}
                 </div>
                 <div class="col-md-3">
                 {% if can('admin_guia') or can('guia_admin_comercial') %} 
-                    <button id="update_contratacion" type="submit" class="btn btn-primary pull-right">Actualizar Contratación</button>
+                    <button id="update_comercial" type="submit" class="btn btn-primary pull-right">Actualizar Info Gral</button>
                 {% endif %}        
                 </div>
             </div>
@@ -723,7 +723,7 @@ $( function() {
 
     {% if can('guia_cliente') or can('guia_contratacion') %}
         <div class="alert alert-info" role="alert"><p>CONTRATACIÓN</p></div>
-        <form data-request="onSavecontratacion2" data-request-update="guia_actualizada: '#resultado_contratacion2'">
+        <form data-request="onSavecontratacion" data-request-update="guia_actualizada: '#resultado_contratacion'">
             <div class="row">
                 <div class="col-md-4">
                     <span for="contacto_contratacion">Contacto contratación:</span>
@@ -843,7 +843,7 @@ $( function() {
             </div>
             <hr>
             <div class="row">
-                <div id="resultado_contratacion2" class="col-md-9">
+                <div id="resultado_contratacion" class="col-md-9">
                     {% partial 'guia_actualizada' %}
                 </div>
                 <div class="col-md-3">

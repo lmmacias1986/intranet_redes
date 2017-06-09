@@ -76,7 +76,7 @@ function onSave()
 
 ?>
 ==
-{% if can('guia_cliente') %}
+{% if can('admin_guia') or can('guia_seleccion') %}
 	<div class="row">
 		<div class="col-md-2">
 			<a href="../guia_detalle/{{ portada.id_guia }}" class="btn btn-success">Regresar</a>
@@ -311,5 +311,7 @@ function onSave()
 	</div>
 
 {% else %}
-    {% partial 'acceso' %}
+	{% if can('admin_guia') or can('guia_admin_seleccion') %}
+    	{% partial 'acceso' %}
+	{% endif %}    
 {% endif %}
