@@ -62,7 +62,7 @@ return [
     |
     */
 
-    'backendTimezone' => 'UTC',
+    'backendTimezone' => 'America/Bogota',
 
     /*
     |--------------------------------------------------------------------------
