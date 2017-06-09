@@ -1,7 +1,6 @@
 [viewBag]
 ==
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="font-size:12px !important">
-  {% if can('guia_cliente') %}
   <div class="panel panel-default">
     <div class="panel-heading boton_menu" role="tab" id="headingOne">
       <h3 class="panel-title">
@@ -14,12 +13,14 @@
       <div class="panel-body">
         	<ul style="padding-left: 12px !important;">
 				<li><a href="{{ 'guias/guias'|page }}">Consultar Guias</a></li>
-				<li><a href="{{ 'guias/guia_cliente'|page }}">Crear Guia Cliente</a></li>
+        {% if can('admin_guia') %}
+				  <li><a href="{{ 'guias/guia_cliente'|page }}">Crear Guia Cliente</a></li>
+        {% endif %}
 			</ul>
       </div>
     </div>
   </div>
-  {% endif %}
+  
   {%if can('incapacidades') %}
   <div class="panel panel-default">
     <div class="panel-heading boton_menu " role="tab" id="headingTwo">
