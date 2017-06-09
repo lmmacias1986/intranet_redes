@@ -255,7 +255,7 @@ $( function() {
 </script>
 
 <div class="col-md-12" id="listado">
-    {% if can('guia_cliente') or can('guia_contratacion') %}   
+    {% if can('guia_cliente') or can('guia_comercial') %}   
         <form data-request="onSavecontratacion" data-request-update="guia_actualizada: '#resultado_contratacion'">
             <div class="row">   
                 <div class="col-md-2" style="padding-top: 20px">
@@ -360,7 +360,7 @@ $( function() {
                     <span for="info_gestion_comercial">Información adicional (Gestión Comercial):</span>
                     <textarea class="form-control" id="info_gestion_comercial" name="info_gestion_comercial">{{ guia.info_gestion_comercial }}</textarea>
                 </div>
-                <hr>
+                
                 <div class="col-md-12">
                     <span for="info_servicio_cliente">Información adicional (Servicio al Cliente):</span>
                     <textarea class="form-control" id="info_servicio_cliente" name="info_servicio_cliente">{{ guia.info_servicio_cliente }}</textarea>
@@ -376,7 +376,7 @@ $( function() {
                     <span>Cúal?:</span>
                     <textarea class="form-control" id="neg_especiales" name="neg_especiales">{{ guia.neg_especiales }}</textarea>
                 </div>
-                {% if can('admin_guia') or can('guia_admin_contratacion') %} 
+                {% if can('admin_guia') or can('guia_admin_comercial') %} 
                 <div class="col-md-12">
                     <span>Profesiograma:</span>
                     {% if profesiograma.adjunto == "" %}
@@ -387,12 +387,13 @@ $( function() {
                 </div>
                 {% endif %}
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_contratacion" class="col-md-9">
                     {% partial 'guia_actualizada' %}
                 </div>
                 <div class="col-md-3">
-                {% if can('admin_guia') or can('guia_admin_contratacion') %} 
+                {% if can('admin_guia') or can('guia_admin_comercial') %} 
                     <button id="update_contratacion" type="submit" class="btn btn-primary pull-right">Actualizar Contratación</button>
                 {% endif %}        
                 </div>
@@ -421,6 +422,7 @@ $( function() {
                     <textarea class="form-control" id="info_dotacion" name="info_dotacion">{{ guia.info_dotacion }}</textarea>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_suministros" class="col-md-9">
                     {% partial 'guia_actualizada' %}
@@ -544,6 +546,7 @@ $( function() {
                     <textarea class="form-control" id="info_adiciona_atc" name="info_adiciona_atc">{{ guia.info_adiciona_atc }}</textarea>
                 </div>
             </div> 
+            <hr>
             <div class="row">
                 <div id="resultado_serviciocliente" class="col-md-9">
                     {% partial 'guia_actualizada' %}
@@ -587,6 +590,7 @@ $( function() {
                     <input type="text" id="tasa_riesgo" name="tasa_riesgo" value="{{ guia.tasa_riesgo}}" class="form-control">
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_hse" class="col-md-9">
                     {% partial 'guia_actualizada' %}
@@ -609,13 +613,15 @@ $( function() {
                         <a href="../ver_perfiles/{{ id_perfiles }}">Click aquí para consultar los perfiles de cargo asociados.</a>
                     </div>      
                 </div>
+                <hr>
             {% else %}
                 {% if can('admin_guia') or can('guia_admin_seleccion') %} 
                     <div class="row">
                         <div class="col-md-12">
                             <a href="../perfiles/{{ id_guia_actual }}">Click aquí para asociar los perfiles de cargo.</a>
-                        </div>      
+                        </div>
                     </div>
+                    <hr>
                 {% endif %}
             {% endif %}
             <div class="row">
@@ -694,6 +700,7 @@ $( function() {
                     <textarea class="form-control" id="info_adicional_seleccion" name="info_adicional_seleccion">{{ guia.info_adicional_seleccion }}</textarea>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_seleccion" class="col-md-7">
                     {% partial 'guia_actualizada' %}
@@ -833,8 +840,8 @@ $( function() {
                     <span for="info_adicional_contratacion">Información adicional contratación:</span>
                     <textarea id="info_adicional_contratacion" name="info_adicional_contratacion" class="form-control">{{ guia.info_adicional_contratacion }}</textarea>
                 </div>
-
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_contratacion2" class="col-md-9">
                     {% partial 'guia_actualizada' %}
@@ -901,6 +908,7 @@ $( function() {
                     <textarea id="info_adicional_nomina" name="info_adicional_nomina" class="form-control">{{ guia.info_adicional_nomina }}</textarea>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_nomina" class="col-md-9">
                     {% partial 'guia_actualizada' %}
@@ -971,6 +979,7 @@ $( function() {
                     <textarea id="info_gestion_pagos" name="info_gestion_pagos" class="form-control">{{ guia.info_gestion_pagos }}</textarea>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div id="resultado_contabilidad" class="col-md-9">
                     {% partial 'guia_actualizada' %}
