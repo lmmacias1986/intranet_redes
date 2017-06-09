@@ -78,7 +78,10 @@ function onSave()
 ==
 {% if can('guia_cliente') %}
 	<div class="row">
-		<div class="col-md-2 col-md-offset-10">
+		<div class="col-md-2">
+			<a href="../guia_detalle/{{ portada.id_guia }}" class="btn btn-success">Regresar</a>
+        </div>
+		<div class="col-md-2 col-md-offset-8">
 			<a href="../imprimir_perfiles/{{ id }}" class="btn btn-info">Imprimir Perfiles</a>
 		</div>
 	</div>
@@ -91,7 +94,7 @@ function onSave()
 	        	<div style="display:none"><input type="text" name="id_guia" id="id_guia" value="{{ portada.id_guia }}"/></div>
 	            <div class="row">		            	
 	            	<div class="col-md-6">
-	            		<a href="../guia_detalle/{{ portada.id_guia }}">Regresar a la guia del cliente</a>
+	            		
 	            	</div>		
 	            	{% if portada.id_guia !="" %}
 	            	<div class="col-md-6">
@@ -278,11 +281,13 @@ function onSave()
 	                </div>
 	            </div>
 	            <hr>
-	            <div class="row">
-	                <div id="resultado" class="col-md-12">
-	                    {% partial 'perfiles_opc' %}
-	                </div>
-	            </div>
+	            {% if can('admin_guia') or can('guia_admin_seleccion') %} 
+		            <div class="row">
+		                <div id="resultado" class="col-md-12">
+		                    {% partial 'perfiles_opc' %}
+		                </div>
+		            </div>
+		        {% endif %}
 	        </form>
 	    </div>
 	</div>

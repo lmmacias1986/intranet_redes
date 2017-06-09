@@ -1606,11 +1606,13 @@ is_hidden = 0
         	</div>
 
             <hr>
-            <div class="row">                
-                <div class="col-md-12" id="resultado">
-                    {% partial 'perfil_opc' %}
+            {% if can('admin_guia') or can('guia_admin_seleccion') %}
+                <div class="row">                
+                    <div class="col-md-12" id="resultado">
+                        {% partial 'perfil_opc' %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <hr>
             <div class="panel panel-danger"> 
                 <div class="panel-heading"> 
