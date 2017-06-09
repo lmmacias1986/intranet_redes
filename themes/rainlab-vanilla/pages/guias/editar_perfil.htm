@@ -229,12 +229,13 @@ is_hidden = 0
     }
 ?>
 ==
-{% if can('guia_cliente') %}
+{% if can('guia_seleccion') %}
 <div class="row">
     <div class="col-md-2 col-md-offset-10 ">
         <a href="../imprimir_perfil/{{ id }}" class="btn btn-info pull-right">Imprimir Perfil</a>
     </div>    
 </div>
+<hr>
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
     	<h3 class="panel-title" style="text-align:center"><b>EDITAR PERFIL DE CARGO</b></h3>

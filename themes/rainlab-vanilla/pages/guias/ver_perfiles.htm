@@ -85,6 +85,7 @@ function onSave()
 			<a href="../imprimir_perfiles/{{ id }}" class="btn btn-info">Imprimir Perfiles</a>
 		</div>
 	</div>
+	<hr>
 	<div class="panel panel-primary" id="imprimir"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
@@ -311,7 +312,5 @@ function onSave()
 	</div>
 
 {% else %}
-	{% if can('admin_guia') or can('guia_admin_seleccion') %}
-    	{% partial 'acceso' %}
-	{% endif %}    
+    {% partial 'acceso' %}
 {% endif %}
