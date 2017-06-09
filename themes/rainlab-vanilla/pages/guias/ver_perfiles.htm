@@ -80,8 +80,13 @@ function onSave()
 	<div class="row">
 		<div class="col-md-2">
 			<a href="../guia_detalle/{{ portada.id_guia }}" class="btn btn-success">Regresar</a>
-        </div>
-		<div class="col-md-2 col-md-offset-8">
+        </div>		
+		{% if portada.id_guia !="" %}
+		<div class="col-md-3  col-md-offset-5">
+			<a class="pull-right btn btn-primary" href="../profesiograma/{{ portada.id_guia }}" target="_blank" >Ver profesiograma</a>
+		</div>		
+		{% endif %}
+		<div class="col-md-2">
 			<a href="../imprimir_perfiles/{{ id }}" class="btn btn-info">Imprimir Perfiles</a>
 		</div>
 	</div>
@@ -93,17 +98,6 @@ function onSave()
 	    <div class="panel-body">	    
 	        <form data-request="onSave" data-request-update="perfiles_opc: '#resultado'">
 	        	<div style="display:none"><input type="text" name="id_guia" id="id_guia" value="{{ portada.id_guia }}"/></div>
-	            <div class="row">		            	
-	            	<div class="col-md-6">
-	            		
-	            	</div>		
-	            	{% if portada.id_guia !="" %}
-	            	<div class="col-md-6">
-	            		<a class="pull-right" href="../profesiograma/{{ portada.id_guia }}" target="_blank" >ver profesiograma</a>
-	            	</div>		
-	            	{% endif %}
-	            </div>
-	            <hr>
 	            <div class="row">
 	                <div class="col-md-6">
 	                    <span for="mision">Misión:</span>

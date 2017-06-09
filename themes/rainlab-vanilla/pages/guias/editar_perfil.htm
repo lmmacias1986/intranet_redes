@@ -231,32 +231,26 @@ is_hidden = 0
 ==
 {% if can('guia_seleccion') %}
 <div class="row">
-    <div class="col-md-2 col-md-offset-10 ">
+    <div class="col-md-2 ">
+        <a href="../ver_perfiles/{{ id_portada }}" class="btn btn-success">Regresar</a>
+    </div>    
+    <div class="col-md-3 col-md-offset-5 ">
+        <a href="../profesiograma/{{ empresa.id }}" target="_blank"  class="btn btn-primary pull-right">Ver Profesiograma</a>
+    </div>    
+    <div class="col-md-2 ">
         <a href="../imprimir_perfil/{{ id }}" class="btn btn-info pull-right">Imprimir Perfil</a>
     </div>    
 </div>
 <hr>
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
-    	<h3 class="panel-title" style="text-align:center"><b>EDITAR PERFIL DE CARGO</b></h3>
+    	<h3 class="panel-title" style="text-align:center"><b>EDITAR PERFIL DE CARGO</b> <span class="pull-right">Última actualización: {{ perfil.fecha_actualizacion }} </span></h3>
     </div> 
     <div class="panel-body">
     <!--div class="alert alert-info" role="alert"><p>COMERCIAL</p></div-->
         <form data-request="onSave" data-request-update="perfil_opc: '#resultado'">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="../ver_perfiles/{{ id_portada }}">Regresar a la portada</a>
-                    <div style="display:none"><input type="text" name="id_portada" id="id_portada" value="{{ id_portada }}"/></div>
-                </div>                	
-                <div class="col-md-4">
-                    <a href="../profesiograma/{{ empresa.id }}" target="_blank" >ver profesiograma</a>
-                </div>                  
-                <div class="col-md-4">
-                    <span>Última actualización: {{ perfil.fecha_actualizacion }} </span>
-                    <div style="display:none"><input type="text" name="id_portada" id="id_portada" value="{{ id_portada }}"/></div>
-                </div>                  
-            </div> 
-            <hr>           
+            <div style="display:none"><input type="text" name="id_portada" id="id_portada" value="{{ id_portada }}"/></div>
+                           
             <div class="row">
             	<div class="col-md-6">
             		<span>Empresa Usuaria</span>
@@ -1601,9 +1595,11 @@ is_hidden = 0
         			<span>Observacion Inicial</span>
         			<textarea name="observacion_inicial" id="observacion_inicial" disabled class="form-control">{{ perfil.observacion_inicial }}</textarea>
                 </div>
+                {% if can('admin_guia') or can('guia_admin_seleccion') %}    
                 <div class="col-md-12">
                     <button id="btn_observacion" name="btn_observacion" type="submit" data-request="onObservacion" class="btn btn-success pull-right">Agregar Observación</button>
         		</div>
+                {% endif %}
         	</div>
 
             <hr>

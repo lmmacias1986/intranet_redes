@@ -67,7 +67,7 @@ function onSave()
 
 ?>
 ==
-{% if can('guia_cliente') %}
+{% if can('admin_guia') or can('guia_seleccion') %}
 	<div class="panel panel-primary"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">ASOCIAR PERFILES DE CARGO</h3>
@@ -252,11 +252,13 @@ function onSave()
 	                </div>
 	            </div>
 	            <hr>
+	            {% if can('admin_guia') or can('guia_admin_seleccion') %} 
 	            <div class="row">
 	                <div id="resultado" class="col-md-12">
 	                    {% partial 'perfiles' %}
 	                </div>
 	            </div>
+	            {% endif %}
 	        </form>
 	    </div>
 	</div>
