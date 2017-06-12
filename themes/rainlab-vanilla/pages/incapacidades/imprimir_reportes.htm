@@ -1,0 +1,87 @@
+title = "imprimir_reportes"
+url = "/imprimir_reportes"
+layout = "formularios"
+description = "imprimir reportes de incapacidades"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+		$query = "select a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from incapacidades a, colaboradores b ";
+		$condiciones=" where a.cedula = b.cedula";
+		if(input('empresa') <> ""){
+			$condiciones.= " and b.empresa like '%" .input('empresa'). "%'";				
+		}
+		if(input('cedula') <> ""){
+			$condiciones.= " and a.cedula = '" .input('cedula'). "'";				
+		}
+		if(input('fecha_inicial') <> ""){
+			$condiciones.= " and a.fecha_inicial = '" .input('fecha_inicial'). "'";
+		}
+		if(input('eps') <> ""){
+			$condiciones.= " and a.eps like '%" .input('eps'). "%'";
+		}
+		if(input('tipo_incapacidad') <> ""){
+			$condiciones.= " and a.tipo_incapacidad = '" .input('tipo_incapacidad'). "'";
+		}
+		$query .= $condiciones;
+		$incapacidades = Db::select($query);
+
+		$query_pro = "select 'Si' as prorroga, a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from prorrogas a, colaboradores b ";
+		$condiciones=" where a.cedula = b.cedula";
+		if(input('empresa') <> ""){
+			$condiciones.= " and b.empresa like '%" .input('empresa'). "%'";				
+		}
+		if(input('cedula') <> ""){
+			$condiciones.= " and a.cedula = '" .input('cedula'). "'";				
+		}
+		if(input('fecha_inicial') <> ""){
+			$condiciones.= " and a.fecha_inicial = '" .input('fecha_inicial'). "'";
+		}
+		if(input('eps') <> ""){
+			$condiciones.= " and a.eps like '%" .input('eps'). "%'";
+		}
+		if(input('tipo_incapacidad') <> ""){
+			$condiciones.= " and a.tipo_incapacidad = '" .input('tipo_incapacidad'). "'";
+		}
+		$query_pro .= $condiciones;
+		$prorrogas = Db::select($query_pro);
+		$registros = array_merge($incapacidades,$prorrogas);
+
+		$this['incapacidades'] = $registros;
+		$this['resultados'] = count($registros);
+		
+	}
+?>
+==
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+$( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+</script>
+<script type="text/javascript">
+    function imprimir(div){
+    var ficha=document.getElementById(div);
+    var ventimp=window.open(' ','popimpr');
+    ventimp.document.write(ficha.innerHTML);
+    ventimp.document.close();
+    ventimp.print();
+    ventimp.close();
+}
+</script>
+{%if can('incapacidades') %}
+	<div class="row">		
+		<div class="col-md-12" id="resultados">
+			{% partial 'resultados_reporte' %}
+		</div>
+	</div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}
+
+
+
+

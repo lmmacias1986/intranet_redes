@@ -613,13 +613,13 @@ function onRedirect(){
     </tr>
     <tr>
         <td style="padding:3px" width="50%">
-            <label  style="font-weight:bold">Porcentaje de administración:</label>
-            <span>{{ guia.porcentaje_admin }}</span>
+            <label  style="font-weight:bold">Email contacto:</label>
+            <span>{{ guia.email_nomina }}</span>
         </td>
         <td style="padding:3px" width="50%">
-            <label  style="font-weight:bold">Recuencia de pago:</label>
-            <span>{{ guia.recuencia_pago }}</span>
-        </td>
+            <label  style="font-weight:bold">Teléfono contacto:</label>
+            <span>{{ guia.telefono_nomina }}</span>
+        </td>        
     </tr>
     <tr>
         <td style="padding:3px" width="50%">
@@ -642,9 +642,13 @@ function onRedirect(){
         </td>
     </tr>
     <tr>
-        <td style="padding:3px" colspan="2">
+        <td style="padding:3px" width="50%">
             <label  style="font-weight:bold">Manejo de mes:</label>
             <span>{{ guia.manejo_mes }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Frecuencia de pago:</label>
+            <span>{{ guia.frecuencia_pago }}</span>
         </td>
     </tr>
     <tr>

@@ -1,0 +1,99 @@
+title = "reportes"
+url = "/reportes"
+layout = "formularios"
+description = "reportes de incapacidades"
+is_hidden = 0
+==
+<?php
+	function onStart(){
+		$query = "select a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from incapacidades a, colaboradores b ";
+		$condiciones=" where a.cedula = b.cedula";
+		$query .= $condiciones;
+		$incapacidades = Db::select($query);
+
+		$query_pro = "select 'Si' as prorroga, a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from prorrogas a, colaboradores b ";
+		$condiciones=" where a.cedula = b.cedula";
+		$query_pro .= $condiciones;
+		$prorrogas = Db::select($query_pro);
+		$registros = array_merge($incapacidades,$prorrogas);
+
+		$this['incapacidades'] = $registros;
+		$this['resultados'] = count($registros);
+	}
+?>
+==
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+$( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
+} );
+</script>
+<script type="text/javascript">
+    function imprimir(div){
+    var ficha=document.getElementById(div);
+    var ventimp=window.open(' ','popimpr');
+    ventimp.document.write(ficha.innerHTML);
+    ventimp.document.close();
+    ventimp.print();
+    ventimp.close();
+}
+</script>
+{%if can('incapacidades') %}
+	<div class="row">
+		<div class="panel panel-primary"> 
+			<div class="panel-heading"> 
+				<h3 class="panel-title">REPORTE GENERAL DE INCAPACIDADES</h3>
+			</div> 
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h5><label>Filtros de busqueda:</label></h5>
+					</div>
+				</div>
+				<form action="imprimir_reportes" data-request-update="resultados_reporte: '#resultados'">
+					<div class="row">
+						<div class="col-md-4">
+							<span>Nombre de la empresa:</span>
+							<input type="text" name="empresa" id="empresa" placeholder="Empresa" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span>Número de documento:</span>
+							<input type="text" name="cedula" id="cedula" placeholder="Cédula" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span>Tipo de incapacidad:</span>
+							<select name="tipo_incapacidad" id="tipo_incapacidad" class="form-control">
+								<option value="">--Tipo--</option>
+								<option value="AT">AT</option>
+	                        	<option value="EG">EG</option>
+	                        	<option value="LM">LM</option>
+	                        	<option value="LP">LP</option>            	
+							</select>
+						</div>
+						<div class="col-md-4">
+							<span>EPS:</span>
+							<input type="text" name="eps" id="eps" placeholder="EPS" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span>Fecha Inicial:</span>
+							<input type="text" name="fecha_inicial" id="fecha_inicial" placeholder="Fecha Inicial" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<input type="submit" name="filtrar" id="filtrar" value ="Filtrar Reporte" class="btn btn-info pull-right" style="margin-top:20px" />
+						</div>
+						
+					</div>
+				</form>
+				
+			</div> 
+		</div>		
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}
+
+
+
+

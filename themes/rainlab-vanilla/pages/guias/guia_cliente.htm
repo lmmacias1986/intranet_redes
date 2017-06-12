@@ -118,8 +118,9 @@ function onSave()
              'info_adicional_contratacion' => input('info_adicional_contratacion'),
              'contacto_nomina' => input('contacto_nomina'),
              'cargo_nomina' => input('cargo_nomina'),
-             'porcentaje_admin' => input('porcentaje_admin'),
-             'recuencia_pago' => input('recuencia_pago'),
+             'email_nomina' => input('email_nomina'),
+             'telefono_nomina' => input('telefono_nomina'),
+             'frecuencia_pago' => input('frecuencia_pago'),
              'fecha_corte' => input('fecha_corte'),
              'dias_pago_nomina' => input('dias_pago_nomina'),
              'paz_salvo' => input('paz_salvo'),
@@ -666,30 +667,33 @@ $( "#fecha_inscripcion_cc" ).datepicker({ dateFormat: 'yy-mm-dd' });
                 <div class="col-md-4">
                     <span for="cargo_nomina">Cargo contacto:</span>
                     <input type="text" id="cargo_nomina" name="cargo_nomina" class="form-control">
-                </div>
+                </div>                
                 <div class="col-md-4">
-                    <span for="porcentaje_admin">Porcentaje de administración:</span>
-                    <input type="text" id="porcentaje_admin" name="porcentaje_admin" class="form-control">
+                    <span for="telefono_nomina">Teléfono contacto:</span>
+                    <input type="text" id="telefono_nomina" name="telefono_nomina" class="form-control">
                 </div>
-                
-                <div class="col-md-4">
-                    <span for="recuencia_pago">Recuencia de pago:</span>
-                    <select id="recuencia_pago" name="recuencia_pago" class="form-control">
+                <div class="col-md-6">
+                    <span for="email_nomina">Correo contacto:</span>
+                    <input type="text" id="email_nomina" name="email_nomina" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <span for="frecuencia_pago">Recuencia de pago:</span>
+                    <select id="frecuencia_pago" name="frecuencia_pago" class="form-control">
                     <option value="">--Seleccione--</option>
                     <option value="Semanal">Semanal</option>
                     <option value ="Quincenal">Quincenal</option>
                     <option value="Mensual">Mensual</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="fecha_corte">Fecha de corte de novedades:</span>
                     <input type="text" id="fecha_corte" name="fecha_corte" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="dias_pago_nomina">Días de pago nomina:</span>
                     <input type="text" id="dias_pago_nomina" name="dias_pago_nomina" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="paz_salvo">Utiliza paz y salvo:</span>
                     <select id="paz_salvo" name="paz_salvo" class="form-control">
                         <option value="">--Seleccione--</option>
@@ -697,11 +701,11 @@ $( "#fecha_inscripcion_cc" ).datepicker({ dateFormat: 'yy-mm-dd' });
                         <option value ="No">No</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="fecha_cierre_factura">Fecha cierre de factura:</span>
                     <input type="text" id="fecha_cierre_factura" name="fecha_cierre_factura" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="manejo_mes">Manejo de mes :</span>
                     <select id="manejo_mes" name="manejo_mes" class="form-control">
                         <option value="">--Seleccione--</option>

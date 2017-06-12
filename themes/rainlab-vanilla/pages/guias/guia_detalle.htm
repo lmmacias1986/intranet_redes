@@ -201,8 +201,9 @@ function onSavenomina()
     Db::table('guia_cliente')->where('id', $this->param('id'))->update([
         'contacto_nomina' => input('contacto_nomina'),
         'cargo_nomina' => input('cargo_nomina'),
-        'porcentaje_admin' => input('porcentaje_admin'),
-        'recuencia_pago' => input('recuencia_pago'),
+        'email_nomina' => input('email_nomina'),
+        'telefono_nomina' => input('telefono_nomina'),
+        'frecuencia_pago' => input('frecuencia_pago'),
         'fecha_corte' => input('fecha_corte'),
         'dias_pago_nomina' => input('dias_pago_nomina'),
         'paz_salvo' => input('paz_salvo'),
@@ -868,22 +869,27 @@ $( function() {
                     <input type="text" id="cargo_nomina" name="cargo_nomina" value="{{ guia.cargo_nomina }}" class="form-control">
                 </div>
                 <div class="col-md-4">
-                    <span for="porcentaje_admin">Porcentaje de administración:</span>
-                    <input type="text" id="porcentaje_admin" name="porcentaje_admin" value="{{ guia.porcentaje_admin }}" class="form-control">
+                    <span for="telefono_nomina">Teléfono contacto:</span>
+                    <input type="text" id="telefono_nomina" name="telefono_nomina" value="{{ guia.telefono_nomina }}" class="form-control">
                 </div>            
-                <div class="col-md-4">
-                    <span for="recuencia_pago">Recuencia de pago:</span>
-                    <input type="text" id="recuencia_pago" name="recuencia_pago" value="{{ guia.recuencia_pago }}" class="form-control">
+                <div class="col-md-6">
+                    <span for="email_nomina">Correo contacto:</span>
+                    <input type="text" id="email_nomina" name="email_nomina" value="{{ guia.email_nomina }}" class="form-control">
+                </div>            
+                
+                <div class="col-md-3">
+                    <span for="frecuencia_pago">Frecuencia de pago:</span>
+                    <input type="text" id="frecuencia_pago" name="frecuencia_pago" value="{{ guia.frecuencia_pago }}" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="fecha_corte">Fecha de corte de novedades:</span>
                     <input type="text" id="fecha_corte" name="fecha_corte" value="{{ guia.fecha_corte }}" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="dias_pago_nomina">Días de pago nomina:</span>
                     <input type="text" id="dias_pago_nomina" name="dias_pago_nomina" value="{{ guia.dias_pago_nomina }}" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="paz_salvo">Utiliza paz y salvo:</span>
                     <select id="paz_salvo" name="paz_salvo" class="form-control">
                         <option value="">--Seleccione--</option>
@@ -891,11 +897,11 @@ $( function() {
                         <option value ="No" {% if guia.paz_salvo =="No" %}selected{% endif %}>No</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="fecha_cierre_factura">Fecha cierre de factura:</span>
                     <input type="text" id="fecha_cierre_factura" name="fecha_cierre_factura" value="{{ guia.fecha_cierre_factura }}" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span for="manejo_mes">Manejo de mes :</span>
                     <select id="manejo_mes" name="manejo_mes" class="form-control">
                         <option value="">--Seleccione--</option>
