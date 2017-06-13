@@ -224,7 +224,7 @@ function onSave()
 }
 ?>
 ==
-{% if can('guia_cliente') %}
+{% if can('admin_guia') or can('guia_admin_seleccion') %}
 <div class="panel panel-primary"> 
     <div class="panel-heading">         
     	<h3 class="panel-title" style="text-align:center"><b>CREAR PERFIL DE CARGO</b></h3>

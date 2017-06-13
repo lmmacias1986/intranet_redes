@@ -230,7 +230,7 @@ is_hidden = 0
     }
 ?>
 ==
-{% if can('guia_seleccion') %}
+{% if can('guia_cliente') or can('guia_seleccion') %}
 <div class="row">
     <div class="col-md-2 ">
         <a href="../ver_perfiles/{{ id_portada }}" class="btn btn-success">Regresar</a>
