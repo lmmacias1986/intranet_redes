@@ -41,7 +41,7 @@ function onStart()
     }
     $this['estados'] = $estados;
     $this['prorroga'] = "no";
-
+    $this['id'] = $this->param('id');
     $lista_prorrogas = DB::table('prorrogas')
     ->where('id_padre','=', $this->param('id'))    
     ->orderby('id','desc')->get();
@@ -317,8 +317,11 @@ function calculo_dias(){
                 </div>   
                 <hr>
                 <div class="row">
-                    <div id="resultado" class="col-md-12">
+                    <div id="resultado" class="col-md-10">
                         {% partial 'inc_opciones' %}
+                    </div>
+                    <div class="col-md-2">
+                        <a href="../imprimir_incapacidad/{{ id }}" class="btn btn-info">Imprimir Reporte</a>
                     </div>
                 </div>
                 <div style="display:none">
