@@ -34,6 +34,13 @@
 		    	<th style="border:solid 1px #000">Prorroga</th> 
 		    	<th style="border:solid 1px #000">EPS</th>
 		    	<th style="border:solid 1px #000">Fecha Inicial</th>
+		    	<th style="border:solid 1px #000">Fecha Final</th>
+		    	<th style="border:solid 1px #000">Salario</th>
+		    	<th style="border:solid 1px #000">Valor prestación</th>
+		    	<th style="border:solid 1px #000">Gestión</th>
+		    	<th style="border:solid 1px #000">Valor reconocido</th>
+		    	<th style="border:solid 1px #000">Cod Dx</th>
+		    	<th style="border:solid 1px #000">Ciudad</th>
 		    </tr> </thead>
 		    <tbody>
 		        {% for incapacidad in incapacidades %}        	
@@ -45,6 +52,14 @@
 		            	<td style="border:solid 1px #000; text-align:center">{{ incapacidad.prorroga }}</td>
 		            	<td style="border:solid 1px #000">{{ incapacidad.eps }}</td>
 		            	<td style="border:solid 1px #000; text-align:center">{{ incapacidad.fecha_inicial }}</td>
+
+		            	<td style="border:solid 1px #000">{{ incapacidad.fecha_final }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.salario_basico }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.valor_prestacion }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.gestion }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.valor_reconocido }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.cod_dx }}</td>
+				    	<td style="border:solid 1px #000">{{ incapacidad.ciudad }}</td>
 		            </tr>           	
 		        {% endfor %}						        
 		    </tbody>

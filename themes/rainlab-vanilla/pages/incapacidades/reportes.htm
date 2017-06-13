@@ -5,42 +5,10 @@ description = "reportes de incapacidades"
 is_hidden = 0
 ==
 <?php
-	function onStart(){
-		$query = "select a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from incapacidades a, colaboradores b ";
-		$condiciones=" where a.cedula = b.cedula";
-		$query .= $condiciones;
-		$incapacidades = Db::select($query);
-
-		$query_pro = "select 'Si' as prorroga, a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from prorrogas a, colaboradores b ";
-		$condiciones=" where a.cedula = b.cedula";
-		$query_pro .= $condiciones;
-		$prorrogas = Db::select($query_pro);
-		$registros = array_merge($incapacidades,$prorrogas);
-
-		$this['incapacidades'] = $registros;
-		$this['resultados'] = count($registros);
-	}
+	
 ?>
 ==
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$( function() {
-$( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
-} );
-</script>
-<script type="text/javascript">
-    function imprimir(div){
-    var ficha=document.getElementById(div);
-    var ventimp=window.open(' ','popimpr');
-    ventimp.document.write(ficha.innerHTML);
-    ventimp.document.close();
-    ventimp.print();
-    ventimp.close();
-}
-</script>
 {%if can('incapacidades') %}
 	<div class="row">
 		<div class="panel panel-primary"> 
@@ -78,8 +46,14 @@ $( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
 							<input type="text" name="eps" id="eps" placeholder="EPS" class="form-control"/>		
 						</div>		
 						<div class="col-md-4">
-							<span>Fecha Inicial:</span>
-							<input type="text" name="fecha_inicial" id="fecha_inicial" placeholder="Fecha Inicial" class="form-control"/>		
+							<span for="gestion">Gestión:</span>
+	                        <select id="gestion" name="gestion" class="form-control">
+	                            <option value="">--Seleccione--</option>
+	                            <option value="Pagada">Pagada</option>
+	                            <option value="En tramite">En trámite</option>
+	                            <option value="Liquidada">Liquidada</option>
+	                            <option value="Negada">Negada</option>
+	                        </select>
 						</div>		
 						<div class="col-md-4">
 							<input type="submit" name="filtrar" id="filtrar" value ="Filtrar Reporte" class="btn btn-info pull-right" style="margin-top:20px" />

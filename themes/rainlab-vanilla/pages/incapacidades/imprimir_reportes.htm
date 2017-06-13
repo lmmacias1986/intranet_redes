@@ -1,12 +1,12 @@
 title = "imprimir_reportes"
 url = "/imprimir_reportes"
-layout = "formularios"
+layout = "perfil_cargo"
 description = "imprimir reportes de incapacidades"
 is_hidden = 0
 ==
 <?php
 	function onStart(){
-		$query = "select a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from incapacidades a, colaboradores b ";
+		$query = "select a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial, a.fecha_final, a.salario_basico, a.valor_prestacion, a.gestion, a.valor_reconocido, a.cod_dx, a.ciudad from incapacidades a, colaboradores b ";
 		$condiciones=" where a.cedula = b.cedula";
 		if(input('empresa') <> ""){
 			$condiciones.= " and b.empresa like '%" .input('empresa'). "%'";				
@@ -14,8 +14,8 @@ is_hidden = 0
 		if(input('cedula') <> ""){
 			$condiciones.= " and a.cedula = '" .input('cedula'). "'";				
 		}
-		if(input('fecha_inicial') <> ""){
-			$condiciones.= " and a.fecha_inicial = '" .input('fecha_inicial'). "'";
+		if(input('gestion') <> ""){
+			$condiciones.= " and a.gestion = '" .input('gestion'). "'";
 		}
 		if(input('eps') <> ""){
 			$condiciones.= " and a.eps like '%" .input('eps'). "%'";
@@ -26,7 +26,7 @@ is_hidden = 0
 		$query .= $condiciones;
 		$incapacidades = Db::select($query);
 
-		$query_pro = "select 'Si' as prorroga, a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.fecha_inicial from prorrogas a, colaboradores b ";
+		$query_pro = "select 'Si' as prorroga, a.cedula, b.nombres, b.apellidos,  b.empresa, a.eps, a.tipo_incapacidad, a.gestion, a.fecha_final, a.salario_basico, a.valor_prestacion, a.gestion, a.valor_reconocido, a.cod_dx, a.ciudad from prorrogas a, colaboradores b ";
 		$condiciones=" where a.cedula = b.cedula";
 		if(input('empresa') <> ""){
 			$condiciones.= " and b.empresa like '%" .input('empresa'). "%'";				
@@ -34,8 +34,8 @@ is_hidden = 0
 		if(input('cedula') <> ""){
 			$condiciones.= " and a.cedula = '" .input('cedula'). "'";				
 		}
-		if(input('fecha_inicial') <> ""){
-			$condiciones.= " and a.fecha_inicial = '" .input('fecha_inicial'). "'";
+		if(input('gestion') <> ""){
+			$condiciones.= " and a.gestion = '" .input('gestion'). "'";
 		}
 		if(input('eps') <> ""){
 			$condiciones.= " and a.eps like '%" .input('eps'). "%'";
@@ -54,14 +54,6 @@ is_hidden = 0
 ?>
 ==
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$( function() {
-$( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
-} );
-</script>
 <script type="text/javascript">
     function imprimir(div){
     var ficha=document.getElementById(div);
