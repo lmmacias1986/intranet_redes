@@ -85,7 +85,7 @@ function onSave()
                         <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
                     </div>   
                     <div class="col-md-12" style="display:none">
-                    	<input type="text" id="reportado_por" name="reportado_por" class="form-control" value="{{ user.username }}"/>
+                    	<input type="text" id="reportado_por" name="reportado_por" class="form-control" value="{{ user.name }} {{ user.surname }}"/>
                     </div> 
                 </div>   
                 <hr>
