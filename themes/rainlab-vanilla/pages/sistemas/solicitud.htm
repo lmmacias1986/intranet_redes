@@ -7,7 +7,7 @@ is_hidden = 0
 <?php
 function onStart(){
 	$solicitudes = DB::table('help_desk')
-    ->where('reportado_por','=', $this->user['username'])
+    ->where('reportado_por','=', $this->user['name'] . " " .$this->user['surname'])
     ->where('estado','<>', 'Resuelto')->orderby('actualizacion','desc')->paginate(10);
     if (count($solicitudes)>0){
         $this['solicitudes'] = $solicitudes;    
