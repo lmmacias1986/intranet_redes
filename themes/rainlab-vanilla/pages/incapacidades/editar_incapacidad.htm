@@ -182,6 +182,16 @@ function calculo_dias(){
         document.getElementById('valor_prestacion').value = total.toFixed(3)
     }   
  }
+ function epsarl(valor){
+    var value = valor.value;
+    if(value =="AT"){
+        document.getElementById('lbl-eps').style="display:none";
+        document.getElementById('lbl-arl').style="display:block";
+    }else{
+        document.getElementById('lbl-eps').style="display:block";
+        document.getElementById('lbl-arl').style="display:none";
+    }
+}
 </script>
 {% if can('incapacidades') %}
     <div class="panel panel-primary"> 
@@ -211,7 +221,7 @@ function calculo_dias(){
 
                     <div class="col-md-2">
                         <span for="tipo_incapacidad">Tipo:</span>
-                        <select id="tipo_incapacidad" name="tipo_incapacidad" class="form-control" >
+                        <select id="tipo_incapacidad" name="tipo_incapacidad" class="form-control" onchange="epsarl(this)">
                             <option value="">--Seleccione--</option>
                             <option value="AT" {% if incapacidad.tipo_incapacidad == "AT" %} selected {% endif %}>AT</option>
                             <option value="EG" {% if incapacidad.tipo_incapacidad == "EG" %} selected {% endif %}>EG</option>
@@ -240,7 +250,9 @@ function calculo_dias(){
                         <input type="text" id="dias" name="dias" readonly class="form-control" value="{{ incapacidad.dias }}">
                     </div>  
                     <div class="col-md-3">
-                        <span for="eps">EPS:</span>
+
+                        <span for="eps" id="lbl-eps" {% if incapacidad.tipo_incapacidad == "AT" %} style="display:none"{% endif %}>EPS:</span>
+                        <span for="eps" id="lbl-arl" {% if incapacidad.tipo_incapacidad != "AT" %} style="display:none"{% endif %}>ARL: </span>
                         <input type="text" id="eps" name="eps"  class="form-control" value="{{ incapacidad.eps }}">
                     </div>
                     <div class="col-md-3">

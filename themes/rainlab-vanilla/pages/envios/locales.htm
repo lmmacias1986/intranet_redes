@@ -1,35 +1,35 @@
-title = "locales"
+title = "Envios"
 url = "/locales"
 layout = "formularios"
-description = "listado de envios locales"
+description = "listado de envios"
 is_hidden = 0
 ==
 <?php
 
-function onStart(){
-	$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(25);
-	$this['locales'] = $locales;
-	$this['resultados'] = count($locales);
-}
+	function onStart(){
+		$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(25);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+	}
 
-function onRun(){
-	$locales = Db::table('envios_locales')
-	->where('creado_por','like','%'.input('palabra').'%')
-	->orwhere('destino','like','%'.input('palabra').'%')
-	->orwhere('prioridad','like','%'.input('palabra').'%')
-	->orwhere('estado','like','%'.input('palabra').'%')
-	->orderby('id','desc')->paginate(35);
-	$this['locales'] = $locales;
-	$this['resultados'] = count($locales);
-	$this['palabra'] = input('palabra');
-}
+	function onRun(){
+		$locales = Db::table('envios_locales')
+		->where('creado_por','like','%'.input('palabra').'%')
+		->orwhere('destino','like','%'.input('palabra').'%')
+		->orwhere('prioridad','like','%'.input('palabra').'%')
+		->orwhere('estado','like','%'.input('palabra').'%')
+		->orderby('id','desc')->paginate(35);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+		$this['palabra'] = input('palabra');
+	}
 
 ?>
 ==
 <div class="row">	
 	<div class="alert alert-info col-md-12" role="alert">
 		<div class="col-md-7">
-			<p>ENVIOS LOCALES</p>
+			<p>ENVIOS</p>
 		</div>
 		<div class="col-md-5">
 			<form data-request="onRun" data-request-update="locales: '#div_locales'">

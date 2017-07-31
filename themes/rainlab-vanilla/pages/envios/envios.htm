@@ -9,11 +9,11 @@ is_hidden = 0
 function onRedirect(){
 	return Redirect::to('locales');
 }
-function onLocal(){		
+function onSave(){		
 	$validator = false;
     if (input('estado') == ""){
         $this['error'] = "Debe seleccionar el estado del Envío.";
-    }elseif(input('fecha_envio_lc')==""){   
+    }elseif(input('fecha_envio')==""){   
         $this['error'] = "Debe ingresar la fecha del envío.";
     }elseif(input('destino')==""){   
         $this['error'] = "Debe indicar un destino del envío.";
@@ -23,37 +23,14 @@ function onLocal(){
 
     if ($validator) {
         $id = Db::table('envios_locales')->insertGetId(
-            ['estado' => input('estado'),
-            'fecha_envio' => input('fecha_envio_lc'),
+            ['envio' => input('envio'),
+            'estado' => input('estado'),
+            'fecha_envio' => input('fecha_envio'),
             'destino' => input('destino'),
-            'remitente' => input('remitente_lc'),
-            'numero_guia' => input('numero_guia_lc'),
+            'remitente' => input('remitente'),
+            'numero_guia' => input('numero_guia'),
             'descripcion' => input('descripcion'),
             'prioridad' => input('prioridad'),
-            'creado_por' => input('username')
-            ]
-        );  
-
-        $this['id'] = $id;
-        $this['mensaje_lc'] = "El envío fúe registrado correctamente";
-    }	
-
-	
-}
-function onNacional(){	
-	$validator = false;
-    if(input('fecha_envio')==""){   
-        $this['error'] = "Debe ingresar la fecha del envío.";
-    }elseif(input('ciudad_destino')==""){   
-        $this['error'] = "Debe indicar un destino del envío.";
-    }else{
-
-       $validator= true;
-    }
-    if($validator){
-        $id = Db::table('envios_nacionales')->insertGetId(
-            ['fecha_envio' => input('fecha_envio'),
-            'remitente' => input('remitente'),
             'compania' => input('compania'),
             'tipo_envio' => input('tipo_envio'),
             'contenido' => input('contenido'),
@@ -61,14 +38,13 @@ function onNacional(){
             'peso' => input('peso'),
             'ciudad_destino' => input('ciudad_destino'),
             'empresa_transportadora' => input('empresa_transportadora'),
-            'numero_guia' => input('numero_guia'),
-            'observacion' => input('observacion'),
-            'creado_por' =>input('username')
+            'creado_por' => input('username')
             ]
         );  
+
         $this['id'] = $id;
         $this['mensaje'] = "El envío fúe registrado correctamente";
-    }		
+    }	
 }
 
 ?>
@@ -77,27 +53,25 @@ function onNacional(){
 <div class="row">
 {%if can('admin_envios') %}
 	<div class="col-md-12">		
-		<div class="row">
-			<div class="col-md-12">
-                <label for="tipo_registro">Tipo de Envío:</label>
-                <div class="radio">
-					<label><input type="radio" name="opc_envios" value="locales" checked >Locales</label>						
-					<label><input type="radio" name="opc_envios" value="nacionales" >Nacionales</label>
-				</div>
-            </div>
-        </div>
-		<div class="panel panel-primary" id="form_locales">
+		<div class="panel panel-primary">
 		    <div class="panel-heading"> 
-		        <h3 class="panel-title">Registrar envío local.</h3>
+		        <h3 class="panel-title">Registrar envío.</h3>
 		    </div> 
 		    <div class="panel-body">
-		        <form data-request="onLocal" data-request-update="envios_lc: '#result_envios_lc'">		
+		        <form data-request="onSave" data-request-update="envios: '#result_envios'">
 		        <div class="col-md-12" style="display:none">
 		        	<input type="text" name="username" id="username" value="{{ user.name }} {{ user.surname }}"/>
 		        </div>			            		            
 		            <div class="row">
 		                <div class="col-md-3">
-		                    <label for="estado">Estado:</label>
+		                	<p for="tipo_registro">Envío:</p>
+			                <select id="envio" name="envio" class="form-control" >
+			                	<option value="Local">Local</option>
+			                	<option value="Nacional">Nacional</option>                	
+			                </select>         
+			            </div>
+			           	<div class="col-md-3">       
+		                    <p for="estado">Estado:</p>
 		                    <select id="estado" name="estado" class="form-control" >
 		                    	<option value="Nueva">Nueva</option>
 		                    	<option value="Atendida">Atendida</option>
@@ -106,67 +80,41 @@ function onNacional(){
 		                    </select>
 		                </div>
 		                <div class="col-md-3">
-		                    <label for="fecha_envio_lc">Fecha de envío:</label>
-		                    <input type="text" id="fecha_envio_lc" name="fecha_envio_lc" class="form-control" required>
+		                    <p for="fecha_envio_lc">Fecha de envío:</p>
+		                    <input type="text" id="fecha_envio" name="fecha_envio" class="form-control" required>
 		                </div>
-		                <div class="col-md-6">
-		                    <label for="destino">Destino:</label>
-		                    <input type="text" id="destino" name="destino" class="form-control" required>
-		                </div>
-		                <div class="col-md-4">
-		                    <label for="remitente_lc">Remitente:</label>
-		                    <input type="text" id="remitente_lc" name="remitente_lc" class="form-control" required>
-		                </div>
-		                      
-		                <div class="col-md-4">
-		                    <label for="prioridad">Prioridad:</label>
+		                <div class="col-md-3">
+		                    <p for="prioridad">Prioridad:</p>
 		                    <select id="prioridad" name="prioridad" class="form-control" >
 		                    	<option value="Baja">Baja</option>
 		                    	<option value="Normal">Normal</option>
 		                    	<option value="Alta">Alta</option>
 		                    	<option value="Urgente">Urgente</option>				                    	
 		                    </select>
-		                </div>   
-		                <div class="col-md-4" >
-		                    <label for="numero_guia_lc">Número de guía:</label>
-		                    <input type="text" id="numero_guia_lc" name="numero_guia_lc" class="form-control" required>
-		                </div>     				                
-		                <div class="col-md-12">
-		                    <label for="descripcion">Descripcion:</label>
-		                    <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
-		                </div>  
-		            </div>   
-		            <hr>
-		            <div class="row">
-		                <div id="result_envios_lc" class="col-md-12">
-		                    {% partial 'envios_lc' %}
 		                </div>
-		            </div>
-		        </form>
-		    </div>
-		</div>
-
-
-		<div class="panel panel-primary" id="form_nacionales" style="display:none"> 
-		    <div class="panel-heading"> 
-		        <h3 class="panel-title">Registrar envío nacional.</h3>
-		    </div> 
-		    <div class="panel-body">
-		        <form data-request="onNacional" data-request-update="envios: '#result_envios'">		
-		        <div class="col-md-12" style="display:none">
-		        	<input type="text" name="username" id="username" value="{{ user.name }} {{ user.surname }}"/>
-		        </div>			            		            
-		            <div class="row">
-		            	<div class="col-md-4">
-		                    <label for="fecha_envio">Fecha de envío:</label>
-		                    <input type="text" id="fecha_envio" name="fecha_envio" class="form-control" required>
+		                <div class="col-md-6">
+		                    <p for="destino">Destino:</p>
+		                    <input type="text" id="destino" name="destino" class="form-control" required>
 		                </div>
-		                <div class="col-md-4">
-		                    <label for="remitente">Remitente:</label>
+		                <div class="col-md-6">
+		                    <p for="remitente_lc">Remitente:</p>
 		                    <input type="text" id="remitente" name="remitente" class="form-control" required>
 		                </div>
-		                <div class="col-md-4">
-		                    <label for="compania">Compañia:</label>
+		                      
+		                   
+		                <div class="col-md-2" >
+		                    <p for="numero_guia_lc">Número de guía:</p>
+		                    <input type="text" id="numero_guia" name="numero_guia" class="form-control" required>
+		                </div>
+
+
+
+
+
+
+
+		                <div class="col-md-3">
+		                    <p for="compania">Compañia:</p>
 		                    <select id="compania" name="compania" class="form-control" >
 		                    	<option value="Redes Humanas">Redes Humanas</option>
 		                    	<option value="Sercontratos">Sercontratos</option>
@@ -175,8 +123,8 @@ function onNacional(){
 		                    </select>
 		                </div>
 		                
-		                <div class="col-md-4">
-		                    <label for="tipo_envio">Tipo de envío:</label>
+		                <div class="col-md-3">
+		                    <p for="tipo_envio">Tipo de envío:</p>
 		                    <select id="tipo_envio" name="tipo_envio" class="form-control" >
 		                    	<option value="Caja">Caja</option>
 		                    	<option value="Paquete">Paquete</option>
@@ -185,7 +133,7 @@ function onNacional(){
 		                    </select>
 		                </div>
 		                <div class="col-md-4">
-		                    <label for="contenido">Contenido:</label>
+		                    <p for="contenido">Contenido:</p>
 		                    <select id="contenido" name="contenido" class="form-control" >
 		                    	<option value="Bonos">Bonos</option>
 								<option value="Cartuchos de impresoras">Cartuchos de impresoras</option>
@@ -200,9 +148,15 @@ function onNacional(){
 								<option value="Respuestos">Respuestos</option>
 								<option value="Otro">Otro</option>
 		                    </select>
+		                </div>		                
+
+		                <div class="col-md-12" id="div_otros_contenidos" style="display:none">
+		                    <p for="otros_contenidos">Otros contenidos:</p>
+		                    <input type="text" id="otros_contenidos" name="otros_contenidos" class="form-control">
 		                </div>
-		                <div class="col-md-4">
-		                    <label for="peso">Peso aprox:</label>
+
+		                <div class="col-md-3">
+		                    <p for="peso">Peso aprox:</p>
 		                    <select id="peso" name="peso" class="form-control" >
 		                    	<option value="Mas de un 1KG">Mas de un 1KG</option>
 		                    	<option value="Entre 1 Y 10 KG">Entre 1 Y 10 KG</option>
@@ -211,30 +165,20 @@ function onNacional(){
 		                    </select>
 		                </div>
 
-		                <div class="col-md-12" id="div_otros_contenidos" style="display:none">
-		                    <label for="otros_contenidos">Otros contenidos:</label>
-		                    <input type="text" id="otros_contenidos" name="otros_contenidos" class="form-control">
-		                </div>
-
-		                <div class="col-md-4" >
-		                    <label for="ciudad_destino">Ciudad destino:</label>
+		                <div class="col-md-3" >
+		                    <p for="ciudad_destino">Ciudad destino:</p>
 		                    <input type="text" id="ciudad_destino" name="ciudad_destino" class="form-control">
 		                </div>
 
-		                <div class="col-md-4" >
-		                    <label for="empresa_transportadora">Empresa Transportadora:</label>
+		                <div class="col-md-6" >
+		                    <p for="empresa_transportadora">Empresa Transportadora:</p>
 		                    <input type="text" id="empresa_transportadora" name="empresa_transportadora" class="form-control" required>
 		                </div>
 
-		                <div class="col-md-4" >
-		                    <label for="numero_guia">Número de guía:</label>
-		                    <input type="text" id="numero_guia" name="numero_guia" class="form-control" required>
-		                </div>
-
 		                <div class="col-md-12">
-		                    <label for="observacion">Observación:</label>
-		                    <textarea id="observacion" name="observacion" class="form-control" required></textarea>
-		                </div>        				                
+		                    <p for="descripcion">Descripcion:</p>
+		                    <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
+		                </div>  
 		            </div>   
 		            <hr>
 		            <div class="row">
@@ -254,9 +198,6 @@ function onNacional(){
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-$( function() {
-$( "#fecha_envio_lc" ).datepicker({ dateFormat: 'yy-mm-dd' });
-} );
 $( function() {
 $( "#fecha_envio" ).datepicker({ dateFormat: 'yy-mm-dd' });
 } );

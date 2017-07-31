@@ -5,7 +5,7 @@
     <thead> <tr> <th>Num Guía</th> <th>Fecha Envío</th> <th>Creado por</th> <th>Destino</th> <th>Prioridad</th> <th>Estado</th><th>Acción</th></tr> </thead>
     <tbody>
         {% for local in locales %}        	
-            <tr><td>{{ local.numero_guia }}</td><td>{{ local.fecha_envio }}</td><td>{{ local.creado_por }}</td><td>{{ local.destino }}</td><td>{{ local.prioridad }}</td><td>{{ local.estado }}</td><td><a href="editar_envio_lc/{{ local.id }}" >Ver</a></td></tr>           	
+            <tr><td>{{ local.numero_guia }}</td><td>{{ local.fecha_envio }}</td><td>{{ local.creado_por }}</td><td>{{ local.destino }}</td><td>{{ local.prioridad }}</td><td>{{ local.estado }}</td><td><a href="editar_envio/{{ local.id }}" >Ver</a></td></tr>           	
         {% endfor %}
         
     </tbody>

@@ -2,7 +2,7 @@
 {% set currentCategorySlug = blogCategories.currentCategorySlug %}
 
 <div class="list-group">
-    {% for category in categories %}
+    {% for category in categories %}    
         {% set postCount = category.post_count %}
         <a
             href="{{ category.url }}"

@@ -153,6 +153,16 @@ function calculo_dias(){
  	} 	
  }
 
+function epsarl(valor){
+    var value = valor.value;
+    if(value =="AT"){
+        document.getElementById('lbl-eps').style="display:none";
+        document.getElementById('lbl-arl').style="display:block";
+    }else{
+        document.getElementById('lbl-eps').style="display:block";
+        document.getElementById('lbl-arl').style="display:none";
+    }
+}
 
 </script>
 
@@ -184,7 +194,7 @@ function calculo_dias(){
 
                     <div class="col-md-2">
                         <span for="tipo_incapacidad">Tipo:</span>
-                        <select id="tipo_incapacidad" name="tipo_incapacidad" class="form-control" >
+                        <select id="tipo_incapacidad" name="tipo_incapacidad" class="form-control" onchange="epsarl(this)">
                         	<option value="">--Seleccione--</option>
                         	<option value="AT">AT</option>
                         	<option value="EG">EG</option>
@@ -213,7 +223,8 @@ function calculo_dias(){
                         <input type="text" id="dias" name="dias" readonly class="form-control">
                     </div>  
                     <div class="col-md-3">
-                        <span for="eps">EPS:</span>
+                        <span for="eps" id="lbl-eps">EPS:</span>
+                        <span for="eps" id="lbl-arl" style="display:none">ARL:</span>
                         <input type="text" id="eps" name="eps"  class="form-control">
                     </div>
                     <div class="col-md-3">
