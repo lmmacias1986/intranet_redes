@@ -6,7 +6,7 @@
         {% set postCount = category.post_count %}
         <a
             href="{{ category.url }}"
-            class="list-group-item {{ category.slug == currentCategorySlug ? 'active' }}"
+            class="list-group-item {{ category.slug == currentCategorySlug ? 'active' }}  col-md-3 "
             >{{ category.name }}
             {% if postCount %}
                 <span class="badge">{{ postCount }}</span>

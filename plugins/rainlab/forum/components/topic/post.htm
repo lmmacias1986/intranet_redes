@@ -45,7 +45,7 @@
                     data-request-data="post: {{ post.id }}"
                     data-request-update="'{{ __SELF__ }}::post': '#post-{{ post.id }}'"
                     class="save">
-                    Save
+                    Guardar
                 </a>
 
                 <a
@@ -55,7 +55,7 @@
                     data-request-update="'{{ __SELF__ }}::post': '#post-{{ post.id }}'"
                     data-request-confirm="Are you sure?"
                     class="delete">
-                    Delete
+                    Eliminar
                 </a>
 
                 <a href="javascript:;"
@@ -63,7 +63,7 @@
                     data-request-data="post: {{ post.id }}, mode: 'view'"
                     data-request-update="'{{ __SELF__ }}::post': '#post-{{ post.id }}'"
                     class="cancel">
-                    Cancel
+                    Cancelar
                 </a>
             </div>
         {{ form_close() }}
@@ -88,7 +88,7 @@
                     class="quote"
                     data-request-data="post: {{ post.id }}"
                     data-quote-button>
-                    Quote
+                    Replicar
                 </a>
             {% endif %}
             {% if topic.canPost and post.canEdit and mode != 'edit' and mode != 'delete' %}
@@ -97,7 +97,7 @@
                     data-request="onUpdate"
                     data-request-data="post: {{ post.id }}"
                     data-request-update="'{{ __SELF__ ~ '::post' }}': '#post-{{ post.id }}'">
-                    Edit
+                    Editar
                 </a>
             {% endif %}
         </div>

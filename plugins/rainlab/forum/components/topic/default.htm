@@ -8,7 +8,7 @@
     {% endflash %}
 
     {% if returnUrl %}
-        <p>&larr; <a href="{{ returnUrl }}">Back to {{ channel.title }}</a></p>
+        <p>&larr; <a href="{{ returnUrl }}">Regresar a {{ channel.title }}</a></p>
     {% endif %}
 
     {% if topic %}
@@ -29,13 +29,13 @@
 
                 {% partial "@pagination" %}
 
-                <h4>Reply to this discussion</h4>
+                <h4>Responder a esta publicación</h4>
                 {% if not topic.canPost %}
                     <p>
                         You cannot edit posts or make replies:
-                        {% if not member %}You should be logged in before you can post.{% endif %}
+                        {% if not member %}Usted debe iniciar sesión para postear.{% endif %}
                         {% if member.is_banned %}Your account is banned.{% endif %}
-                        {% if topic.is_locked %}This topic is locked.{% endif %}
+                        {% if topic.is_locked %}Esta discusión esta bloqueada.{% endif %}
                     </p>
                 {% else %}
                     {% partial "@postform" %}
@@ -46,12 +46,12 @@
 
     {% elseif channel %}
 
-        <h4>Create a new discussion topic</h4>
+        <h4>Crear una nueva discusión</h4>
         {% partial "@createform" %}
 
     {% else %}
 
-        <p>Topic not found</p>
+        <p>No se encontraron resultados</p>
 
     {% endif %}
 </div>

@@ -17,11 +17,11 @@
 {% endif %}
 
 <p class="info">
-    Posted
-    {% if post.categories.count %} in
+    Posteado
+    {% if post.categories.count %} en
         {% for category in post.categories %}
             <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
         {% endfor %}
     {% endif %}
-    on {{ post.published_at|date('M d, Y') }}
+    el {{ post.published_at|date('M d, Y') }}
 </p>

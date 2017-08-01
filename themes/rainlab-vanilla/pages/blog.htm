@@ -2,11 +2,11 @@ title = "Blog"
 url = "/blog/:page?"
 layout = "default"
 description = "The main blog page, with all posts."
-hidden = "0"
+is_hidden = 0
 
 [blogPosts]
 pageNumber = "{{ :page }}"
-postsPerPage = "10"
+postsPerPage = 10
 noPostsMessage = "No posts found"
 sortOrder = "published_at desc"
 categoryPage = "blog/category"
@@ -14,14 +14,17 @@ postPage = "blog/post"
 
 [blogCategories]
 slug = "{{ :slug }}"
-displayEmpty = "0"
+displayEmpty = 0
 categoryPage = "blog/category"
 ==
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         {% partial 'blog/posts' %}
     </div>
-    <div class="col-md-4">
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
         {% partial 'blog/categories' %}
     </div>
 </div>

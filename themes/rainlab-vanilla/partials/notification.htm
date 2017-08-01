@@ -28,7 +28,7 @@ function onRun(){
     <button type="button" class="btn btn-danger btn_notificacion" data-toggle="collapse" data-target="#div_notifications"><span class="span_notificaciones">{{ total }}</span> - Notificaciones</button>
     <div id="div_notifications" class="collapse">
         {% for notification in notifications %}
-            <div class="col-md-12">                
+            <div class="col-md-12">
                 <div class="row div_notificacion">
                     {{ notification.titulo }}                
                     <br>
