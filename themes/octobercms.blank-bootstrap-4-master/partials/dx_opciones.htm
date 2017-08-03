@@ -1,0 +1,10 @@
+[viewBag]
+==
+{% if mensaje %}
+    <p> {{ mensaje }} </p>
+{% endif %}
+{% if error %}
+	<p> {{ error }} </p>
+{% endif %}
+	<button id="actualizar" name="actualizar" type="submit" class="btn btn-primary">Actualizar</button>
+	<button id="eliminar" name="eliminar" type="submit" data-request="onDelete" data-request-update="dx_opciones: '#resultado'" data-request-confirm="Esta seguro de eliminar este registro?" class="btn btn-danger">Eliminar</button>

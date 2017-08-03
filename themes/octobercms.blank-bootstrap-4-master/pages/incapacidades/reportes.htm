@@ -1,0 +1,73 @@
+title = "reportes"
+url = "/reportes"
+layout = "formularios"
+description = "reportes de incapacidades"
+is_hidden = 0
+==
+<?php
+	
+?>
+==
+
+{%if can('incapacidades') %}
+	<div class="row">
+		<div class="panel panel-primary"> 
+			<div class="panel-heading"> 
+				<h3 class="panel-title">REPORTE GENERAL DE INCAPACIDADES</h3>
+			</div> 
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h5><label>Filtros de busqueda:</label></h5>
+					</div>
+				</div>
+				<form action="imprimir_reportes" data-request-update="resultados_reporte: '#resultados'">
+					<div class="row">
+						<div class="col-md-4">
+							<span>Nombre de la empresa:</span>
+							<input type="text" name="empresa" id="empresa" placeholder="Empresa" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span>Número de documento:</span>
+							<input type="text" name="cedula" id="cedula" placeholder="Cédula" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span>Tipo de incapacidad:</span>
+							<select name="tipo_incapacidad" id="tipo_incapacidad" class="form-control">
+								<option value="">--Tipo--</option>
+								<option value="AT">AT</option>
+	                        	<option value="EG">EG</option>
+	                        	<option value="LM">LM</option>
+	                        	<option value="LP">LP</option>            	
+							</select>
+						</div>
+						<div class="col-md-4">
+							<span>EPS:</span>
+							<input type="text" name="eps" id="eps" placeholder="EPS" class="form-control"/>		
+						</div>		
+						<div class="col-md-4">
+							<span for="gestion">Gestión:</span>
+	                        <select id="gestion" name="gestion" class="form-control">
+	                            <option value="">--Seleccione--</option>
+	                            <option value="Pagada">Pagada</option>
+	                            <option value="En tramite">En trámite</option>
+	                            <option value="Liquidada">Liquidada</option>
+	                            <option value="Negada">Negada</option>
+	                        </select>
+						</div>		
+						<div class="col-md-4">
+							<input type="submit" name="filtrar" id="filtrar" value ="Filtrar Reporte" class="btn btn-info pull-right" style="margin-top:20px" />
+						</div>
+						
+					</div>
+				</form>
+				
+			</div> 
+		</div>		
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}
+
+
+
+

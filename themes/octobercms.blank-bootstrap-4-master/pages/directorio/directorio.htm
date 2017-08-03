@@ -1,0 +1,166 @@
+title = "directorio"
+url = "/directorio"
+layout = "formularios"
+description = "directorio de empresas y empleados"
+is_hidden = 0
+==
+<?php
+function onStart(){
+	$internos = Db::table('directorio')->where('tipo','=','internos')->orderby('nombres','asc')->paginate(20);
+	$this['internos'] = $internos;
+}
+function onRedirect(){
+	return Redirect::to('directorio');
+}
+
+function onFindinterno(){	
+	$resultados = Db::table('directorio')
+	->where('nombres','like','%'.input('palabra').'%')
+	->orwhere('correo','like','%'.input('palabra').'%')
+	->orwhere('direccion','like','%'.input('palabra').'%')
+	->orderby('nombres','asc')->get();	
+	$this['internos'] = $resultados;
+
+}
+
+function onCreate(){
+	$validator = false;
+    if (input('nombres') == ""){
+        $this['error'] = "Debe ingresar el nombre del contacto.";
+    }elseif(input('rdbtipo')==""){   
+        $this['error'] = "Debe seleccionar un tipo de registro.";
+    }elseif(input('telefono')==""){   
+        $this['error'] = "Debe indicar un teléfono para el contacto.";
+    }elseif(input('rdbtipo')=="empresa" and input('empresa')==""){
+    	$this['error'] = "Debe indicar el nombre de la empresa.";
+    }else{
+       $validator= true;
+    }
+
+    if ($validator) {
+        $id = Db::table('directorio')->insertGetId(
+            ['tipo' => input('rdbtipo'),
+            'empresa' => input('empresa'),
+            'nombres' => input('nombres'),
+            'celular' => input('celular'),
+            'cargo' => input('cargo'),
+            'ciudad' => input('ciudad'),
+            'direccion' => input('direccion'),
+            'correo' => input('correo'),
+            'telefono' => input('telefono'),
+            'ext' => input('ext')
+            ]
+        );  
+        $this['id'] = $id;
+        $this['mensaje'] = "El registro fúe creado correctamente";
+    }
+}
+
+?>
+==
+<div class="row">
+	<div class="col-md-7">		
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#redes_humanas" aria-controls="redes_humanas" role="tab" data-toggle="tab">Redes Humanas</a></li>
+			{%if can('recepcion') %}
+				<li role="presentation"><a href="directorioemp">Empresas</a></li>
+			{% endif %}
+			{%if can('admin_directorio') %}
+				<li role="presentation" class=""><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<div class="col-md-5">
+		<form data-request="onFindinterno" data-request-update="internos: '#resultados_internos'">
+			<div class="row">
+                <div class="col-md-8">		
+                	<i class="icon-find" aria-hidden="true"></i>                	
+                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+               	</div>
+               	<div class="col-md-4">
+               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
+               	</div>	
+            </div>
+		</form>
+	</div>
+	<hr>
+	<hr>
+	<div class="col-md-12">		
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="redes_humanas">
+				<div class="col-md-12" id="resultados_internos">
+					{% partial 'internos' %}
+				</div>		
+			</div>			
+			{%if can('admin_directorio') %}
+			<div role="tabpanel" class="tab-pane fade" id="crear">
+				<div class="panel panel-primary"> 
+				    <div class="panel-heading"> 
+				        <h3 class="panel-title">Ingresar Registro</h3>
+				    </div> 
+				    <div class="panel-body">
+				        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
+				            <div class="row">
+				                <div class="col-md-4">
+				                    <label for="tipo_registro">Tipo de Registro:</label>
+				                    <div class="radio">
+										<label><input type="radio" name="rdbtipo" value="empresa" >Empresa</label>
+										
+										<label><input type="radio" name="rdbtipo" value="internos" checked >Interno</label>
+									</div>
+				                </div>
+				                <div class="col-md-8" id="div_empresa"  style="display:none">
+				                	<label for="empresa">Empresa:</label>
+				                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
+				               	</div>
+				            </div>
+				            <div class="row">
+				                <div class="col-md-4">
+				                    <label for="nombres">Nombres:</label>
+				                    <input type="text" id="nombres" name="nombres" class="form-control" required>
+				                </div>
+				                <div class="col-md-4" id="div_celular">
+				                    <label for="celular">Celular:</label>
+				                    <input type="text" id="celular" name="celular" class="form-control" >
+				                </div>
+				                <div class="col-md-4" id="div_cargo" style="display:none">
+				                    <label for="cargo">Cargo:</label>
+				                    <input type="text" id="cargo" name="cargo" class="form-control" >
+				                </div>
+				                <div class="col-md-4">
+				                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
+				                    <label for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</label>
+				                    <input type="text" id="direccion" name="direccion" class="form-control">
+				                </div>
+				                <div class="col-md-4" id="div_ciudad"  style="display:none">
+				                    <label for="ciudad">Ciudad:</label>
+				                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
+				                </div>
+				                <div class="col-md-4">
+				                    <label for="correo">Correo:</label>
+				                    <input type="text" id="correo" name="correo" class="form-control" required>
+				                </div>        
+				                <div class="col-md-4">
+				                    <label for="telefono">Teléfono:</label>
+				                    <input type="text" id="telefono" name="telefono" class="form-control" required>
+				                </div>        
+				                <div class="col-md-2">
+				                    <label for="ext">Ext:</label>
+				                    <input type="text" id="ext" name="ext" class="form-control">
+				                </div>        
+				            </div>   
+				            <hr>
+				            <div class="row">
+				                <div id="result_contact" class="col-md-12">
+				                    {% partial 'result_contact' %}
+				                </div>
+				            </div>
+				        </form>
+				    </div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,730 @@
+title = "imprimir_guia"
+url = "/imprimir_guia/:id?"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+
+function onStart()
+{
+    $this['id_guia_actual'] = $this->param('id');
+    $guia = DB::table('guia_cliente')->where('id','=', $this->param('id'))->get();
+    $this['guia'] = $guia[0];
+    
+    $pruebas = Db::table('pruebas_psicotecnicas')->get();
+    $aplicadas = Db::table('pruebas_psicotecnicas_aplicadas')->where('id_guia','=', $this->param('id'))->get();
+    $this['aplicadas'] = $aplicadas;
+    
+
+    foreach ($pruebas as $key => $prueba) {
+        foreach ($aplicadas as $llave => $aplicada) {
+            if($aplicada->id_prueba == $prueba->id){
+                $pruebas[$key]->estado  = "checked";
+            }
+        }
+    }
+    $this['pruebas'] = $pruebas;
+    $this['id_guia'] = $this->param('id');
+}
+
+function onRedirect(){
+    return Redirect::to('guia_detalle/'.$this->param('id'));
+}
+?>
+
+==
+<script type="text/javascript">
+    function imprimir(div){
+    var ficha=document.getElementById(div);
+    var ventimp=window.open(' ','popimpr');
+    ventimp.document.write(ficha.innerHTML);
+    ventimp.document.close();
+    ventimp.print();
+    ventimp.close();
+}
+</script>
+
+{% if can('guia_cliente') %}
+<input type="button" class="btn btn-success" value="Imprimir" onclick="imprimir('guia')"/>
+<input type="button" class="btn btn-info" value="Regresar" data-request="onRedirect"/>
+<br>
+<div id="guia">
+<table width="100%" style="border: double 4px #000;">
+    <tr >
+        <td width="25%" style="padding:10px">
+            <img src="../themes/rainlab-vanilla/assets/images/logo_imp.png"/>
+        </td> 
+        <td width="25%" >
+            <label style="font-weight:bold">FORMATO GUIA DE CLIENTE:</label>
+       </td>
+       <td width="25%">
+            <label  style="font-weight:bold">No de registro:</label>
+            <span>{{ guia.id }}</span>
+       </td>
+       <td width="25%">
+            <label  style="font-weight:bold">Estado:</label>
+            <span>{{ guia.estado_registro }}</span>
+       </td>
+        
+    </tr>
+</table>
+<br>
+<table width="100%" style="border: solid 1px #000;" >
+    <tr>
+        <td width="50%" colspan="2" style="border: solid 1px #000;text-align:center" style="padding:10px">
+            <label style="font-weight:bold">CONTRATACIÓN</label>
+        </td>
+    </tr>
+    <tr>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Empresa:</label>
+            <span>{{ guia.empresa }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">No. Contrato:</label>
+            <span>{{ guia.no_contrato }}</span>
+       </td> 
+    </tr>
+    <tr>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">NIT:</label>
+            <span>{{ guia.nit }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">AIU:</label>
+            <span>{{ guia.aiu }}</span>
+       </td>
+    </tr>
+    <tr> 
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Representante Cta:</label>
+            <span>{{ guia.responsable_cta }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Act. Económica:</label>
+            <span>{{ guia.act_economica }}</span>
+       </td> 
+    </tr>
+
+
+    <tr> 
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Representante legal:</label>
+            <span>{{ guia.representante_legal }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Cédula:</label>
+            <span>{{ guia.cedula }}</span>
+       </td> 
+    </tr>
+
+    <tr> 
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Cargo representante:</label>
+            <span>{{ guia.cargo_representante }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Jefe RRHH:</label>
+            <span>{{ guia.jefe_rrhh }}</span>
+       </td> 
+    </tr>
+
+    <tr> 
+       <td width="50%" style="padding:3px" >
+            <label  style="font-weight:bold">Dirección:</label>
+            <span>{{ guia.direccion }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Ciudad:</label>
+            <span>{{ guia.ciudad }}</span>
+       </td> 
+    </tr>
+    <tr> 
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Teĺéfono:</label>
+            <span>{{ guia.telefono }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Fecha Inscripción CC:</label>
+            <span>{{ guia.fecha_inscripcion_cc }}</span>
+       </td> 
+    </tr>
+    <tr> 
+       <td width="50%" colspan="2" style="padding:3px">
+            <label  style="font-weight:bold">Web:</label>
+            <span>{{ guia.pagina_web }}</span>
+       </td>
+    </tr>
+    <tr> 
+       <td width="50%" colspan="2" style="padding:3px">
+            <label  style="font-weight:bold">Información adicional (Gestión Comercial):</label>
+            <span>{{ guia.info_gestion_comercial }}</span>
+       </td> 
+    </tr>
+    <tr> 
+       <td width="50%" colspan="2" style="padding:3px">
+            <label  style="font-weight:bold">Información adicional (Servicio al Cliente):</label>
+            <span>{{ guia.info_servicio_cliente }}</span>
+       </td> 
+    </tr>
+
+    <tr> 
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Negociaciones especiales:</label>
+            <span>{{ guia.cmb_neg_especiales }}</span>
+       </td>
+       <td width="50%" style="padding:3px">
+            <label  style="font-weight:bold">Cúal?:</label>
+            <span>{{ guia.neg_especiales }}</span>
+       </td> 
+    </tr>
+</table>
+<br>
+
+<table width="100%" style="border: solid 1px #000;">
+    <tr>
+        <td style="padding:3px; border: solid 1px #000;text-align:center" colspan="2" >
+            <label  style="font-weight:bold">SUMINISTROS</label>
+        </td>
+    </tr>
+    <tr> 
+       <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Tipo dotacion:</label>
+            <span>{{ guia.dotacion }}</span>
+       </td>
+       <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Quién entrega dotación?:</label>
+            <span>{{ guia.quien_entrega }}</span>
+       </td> 
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Información Adicional:</label>
+            <span>{{ guia.info_dotacion }}</span>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<table width="100%" style="border: solid 1px #000;" >
+    <tr> 
+        <td colspan="2" style="border: solid 1px #000;padding:3px;text-align:center" >
+            <label  style="font-weight:bold">SERVICIO AL CLIENTE</label>
+        </td>
+    </tr>
+    <tr> 
+       <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto:</label>
+            <span>{{ guia.contacto_atc }}</span>
+       </td>
+       <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Frecuencia de visita:</label>
+            <span>{{ guia.frecuencia_visita }}</span>
+       </td> 
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Se asigna facilitador?:</label>
+            <span>{{ guia.facilitador }}</span>
+        </td>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Facilitador:</label>
+            <span>{{ guia.cual_facilitador }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Horarios de atención:</label>
+            <span>{{ guia.horarios_atencion }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">->Sitio de atención 1:</label>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Contacto:</label>
+            <span>{{ guia.contacto_sitio_atc1 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Cargo:</label>
+            <span>{{ guia.cargo_sitio_atc1 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Correo:</label>
+            <span>{{ guia.correo_sitio_atc1 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Teléfono:</label>
+            <span>{{ guia.tel_sitio_atc1 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">->Sitio de atención 2:</label>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Contacto:</label>
+            <span>{{ guia.contacto_sitio_atc2 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Cargo:</label>
+            <span>{{ guia.cargo_sitio_atc2 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Correo:</label>
+            <span>{{ guia.correo_sitio_atc2 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Teléfono:</label>
+            <span>{{ guia.tel_sitio_atc2 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">-> Sitio de atención 3:</label>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Contacto:</label>
+            <span>{{ guia.contacto_sitio_atc3 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Cargo:</label>
+            <span>{{ guia.cargo_sitio_atc3 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px">
+            <label  style="font-weight:bold">Correo:</label>
+            <span>{{ guia.correo_sitio_atc3 }}</span>
+        </td>
+         <td style="padding:3px">
+            <label  style="font-weight:bold">Teléfono:</label>
+            <span>{{ guia.tel_sitio_atc3 }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Comentarios adicionales:</label>
+            <span>{{ guia.info_adiciona_atc }}</span>
+        </td>
+    </tr>
+</table>
+<br>
+               
+<table width="100%" style="border: solid 1px #000;padding:3px" >
+    <tr>
+        <td colspan="2" style="border: solid 1px #000;padding:3px;text-align:center" >
+            <label  style="font-weight:bold">HSE - SYSO</label>
+        </td>
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto SST:</label>
+            <span>{{ guia.contacto_salud }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargo del contacto:</label>
+            <span>{{ guia.cargo_contacto }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Email del contacto:</label>
+            <span>{{ guia.email_contacto }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Teléfono del contacto:</label>
+            <span>{{ guia.telefono_contacto }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">ARL base:</label>
+            <span>{{ guia.arl_base }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Tasa de riesgo:</label>
+            <span>{{ guia.tasa_riesgo }}</span>
+       </td> 
+    </tr>
+</table>
+
+<br>
+   
+<table width="100%" style="border: solid 1px #000;" >
+    <tr>
+        <td colspan="2" style="border: solid 1px #000;padding:3px;text-align:center" >
+            <label  style="font-weight:bold">SELECCIÓN</label>
+        </td>
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto selección:</label>
+            <span>{{ guia.contacto_seleccion }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargo del contacto:</label>
+            <span>{{ guia.cargo_seleccion }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Email del contacto:</label>
+            <span>{{ guia.email_seleccion }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Teléfono del contacto:</label>
+            <span>{{ guia.telefono_seleccion }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Celular:</label>
+            <span>{{ guia.celular_seleccion }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargos a proveer:</label>
+            <span>{{ guia.cargo_proveer }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Requiere informe:</label>
+            <span>{{ guia.require_informe }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cual?</label>
+            <span>{{ guia.cual_informe }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Restricción de familiares:</label>
+            <span>{{ guia.restriccion_familiares }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Horarios</label>
+            <span>{{ guia.horarios }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Entidad bancaria:</label>
+            <span>{{ guia.entidad_bancaria }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Pruebas psicotécnicas</label>
+            {% for prueba in pruebas %}
+                <span>{{ prueba.descripcion }}</span> - 
+            {% endfor %}
+       </td> 
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Información adicional selección:</label>
+            <span>{{ guia.info_adicional_seleccion }}</span>
+        </td>
+    </tr>
+</table>
+<br>
+   
+<table width="100%" style="border: solid 1px #000;" >
+    <tr>
+        <td colspan="2" style="border: solid 1px #000; padding:3px; text-align:center" >
+            <label  style="font-weight:bold">CONTRATACIÓN</label>
+        </td>
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto contratación:</label>
+            <span>{{ guia.contacto_contratacion }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargo del contacto:</label>
+            <span>{{ guia.cargo_contratacion }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Email concacto:</label>
+            <span>{{ guia.email_contratacion }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Telefono del contacto:</label>
+            <span>{{ guia.telefono_contratacion }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Pago exámen médico:</label>
+            <span>{{ guia.examen_medico }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Otros exámenes (Facturables):</label>
+            <span>{{ guia.otros_examenes }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Quién paga el exámen?:</label>
+            <span>{{ guia.quien_paga }}</span>
+       </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Laboratorio especificado:</label>
+            <span>{{ guia.laboratorio }}</span>
+       </td> 
+    </tr>
+    <tr> 
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Los trabajadores son asignados a diferentes centros de costo:</label>
+            <span>{{ guia.diferentes_centros_costo }}</span>
+       </td>
+    </tr>
+    <tr> 
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Descripción centros de costos:</label>
+            <span>{{ guia.descripcion_centro_costos }}</span>
+       </td>
+    </tr>
+    <tr> 
+        <td colspan="2">
+            <table width="100%" style="border: solid 1px #000;" >
+                <tr>
+                    <td colspan="3" style="border: solid 1px #000;padding:3px" >
+                        <label  style="font-weight:bold">->Contacto 2:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:3px">
+                        <label  style="font-weight:bold">Nombre Contacto 2:</label>
+                        <span>{{ guia.nombre_contacto2 }}</span>
+                    </td>
+                     <td style="padding:3px">
+                        <label  style="font-weight:bold">Teléfono:</label>
+                        <span>{{ guia.telefono_contacto2 }}</span>
+                    </td>
+                    <td style="padding:3px" >
+                        <label  style="font-weight:bold">Email:</label>
+                        <span>{{ guia.email_contacto2 }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td  colspan="3" style="border: solid 1px #000;padding:3px" >
+                        <label  style="font-weight:bold">->Contacto 3:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:3px">
+                        <label  style="font-weight:bold">Nombre Contacto 3:</label>
+                        <span>{{ guia.nombre_contacto3 }}</span>
+                    </td>
+                     <td style="padding:3px">
+                        <label  style="font-weight:bold">Teléfono:</label>
+                        <span>{{ guia.telefono_contacto3 }}</span>
+                    </td>
+                    <td style="padding:3px" >
+                        <label  style="font-weight:bold">Email:</label>
+                        <span>{{ guia.email_contacto3 }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border: solid 1px #000;padding:3px" >
+                        <label  style="font-weight:bold">->Contacto 4:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:3px">
+                        <label  style="font-weight:bold">Nombre Contacto 4:</label>
+                        <span>{{ guia.nombre_contacto4 }}</span>
+                    </td>
+                     <td style="padding:3px">
+                        <label  style="font-weight:bold">Teléfono:</label>
+                        <span>{{ guia.telefono_contacto4 }}</span>
+                    </td>
+                    <td style="padding:3px" >
+                        <label  style="font-weight:bold">Email:</label>
+                        <span>{{ guia.email_contacto4 }}</span>
+                    </td>
+                </tr>
+                    <tr>
+                    <td colspan="3" style="border: solid 1px #000;padding:3px" >
+                        <label  style="font-weight:bold">->Contacto 5:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:3px">
+                        <label  style="font-weight:bold">Nombre Contacto 5:</label>
+                        <span>{{ guia.nombre_contacto5 }}</span>
+                    </td>
+                     <td style="padding:3px">
+                        <label  style="font-weight:bold">Teléfono:</label>
+                        <span>{{ guia.telefono_contacto5 }}</span>
+                    </td>
+                    <td style="padding:3px">
+                        <label  style="font-weight:bold">Email:</label>
+                        <span>{{ guia.email_contacto5 }}</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr >
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Los trabajadores tienen clausulas adicionales al contrato por al:</label>
+            <span>{{ guia.clausulas_adicionales }}</span>
+        </td>
+    </tr>
+    <br>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Información adicional contratación:</label>
+            <span>{{ guia.info_adicional_contratacion }}</span>
+        </td>
+    </tr>
+</table>
+<br>
+<table width="100%" style="border: solid 1px #000;" >
+    <tr>
+        <td colspan="2" style="border: solid 1px #000; padding:3px;text-align:center" >
+            <label  style="font-weight:bold">NOMINAS:</label>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto nomina:</label>
+            <span>{{ guia.contacto_nomina }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargo contacto:</label>
+            <span>{{ guia.cargo_nomina }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Email contacto:</label>
+            <span>{{ guia.email_nomina }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Teléfono contacto:</label>
+            <span>{{ guia.telefono_nomina }}</span>
+        </td>        
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Fecha de corte de novedades:</label>
+            <span>{{ guia.fecha_corte }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Días de pago nomina:</label>
+            <span>{{ guia.dias_pago_nomina }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Utiliza paz y salvo:</label>
+            <span>{{ guia.paz_salvo }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Fecha cierre de factura:</label>
+            <span>{{ guia.fecha_cierre_factura }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Manejo de mes:</label>
+            <span>{{ guia.manejo_mes }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Frecuencia de pago:</label>
+            <span>{{ guia.frecuencia_pago }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Información adicional contratación:</label>
+            <span>{{ guia.info_adicional_nomina }}</span>
+        </td>
+    </tr>
+</table>
+<br>
+
+<table width="100%" style="border: solid 1px #000;" >
+    <tr>
+        <td  style="border: solid 1px #000;padding:3px; text-align:center" colspan="2">
+            <label  style="font-weight:bold">CONTABILIDAD:</label>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Dirección para envío de factura:</label>
+            <span>{{ guia.direccion_factura }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Régimen contributivo:</label>
+            <span>{{ guia.regimen_contributivo }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Gran contribuyente:</label>
+            <span>{{ guia.gran_contribuyente }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Autoretenedor:</label>
+            <span>{{ guia.autoretenedor }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Días de plazo vencimiento de facturación:</label>
+            <span>{{ guia.dias_plazo_vencimiento }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Días de radicación factura:</label>
+            <span>{{ guia.dias_radicacion_factura }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Contacto gestión de pagos:</label>
+            <span>{{ guia.contacto_gestion_pagos }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Cargo de contacto:</label>
+            <span>{{ guia.cargo_gestion_pagos }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Email contacto:</label>
+            <span>{{ guia.email_gestion_pagos }}</span>
+        </td>
+        <td style="padding:3px" width="50%">
+            <label  style="font-weight:bold">Teléfono contacto:</label>
+            <span>{{ guia.telefono_gestion_pagos }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:3px" colspan="2">
+            <label  style="font-weight:bold">Información adicional contabilidad</label>
+            <span>{{ guia.info_gestion_pagos }}</span>
+        </td>
+    </tr>
+</table>
+
+</div>
+{% else %}
+    {% partial 'acceso' %}
+{% endif %}

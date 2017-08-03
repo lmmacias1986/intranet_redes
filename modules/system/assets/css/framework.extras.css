@@ -438,13 +438,16 @@ table{
 
 .div_calendario{
  background-color: #e7e7e7;
-  padding-top: 10px;  
+  padding-top: 10px;    
+}
+#div_calendar{
+  margin-top: 15px;
 }
 
 .div_central{
   background-color: #FFF;
   padding-top: 10px; 
-  min-height: 800px;
+  min-height: 600px;
 }
 
 .div_gral_menu{
@@ -476,4 +479,12 @@ table{
 }
 .panel{
   border: 0px solid transparent;
+}
+
+.div_login{
+  background-color: #e7e7e7;
+  border:double 4px #999;
+  border-radius: 14px;
+  padding: 20px 20px;
+  margin-top: 30px;
 }

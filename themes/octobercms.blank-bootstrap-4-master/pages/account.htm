@@ -1,0 +1,16 @@
+title = "Account"
+url = "/account/:code?"
+layout = "formularios"
+description = "Sign in, registration and account management."
+hidden = "0"
+
+[account]
+redirect = "home"
+paramCode = "code"
+==
+{% component 'account' %}
+
+<hr />
+<div class="col-md-offset-3">
+<p><a href="{{ 'forgot-password'|page }}">Olvidó su password?</a></p>
+</div>
