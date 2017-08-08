@@ -19,11 +19,26 @@ redirect = "home"
       'assets/css/bootstrap.css',
       'assets/css/sb-admin.css',
       'assets/css/plugins/morris.css',
-      'assets/font-awesome/css/font-awesome.min.css'
+      'assets/font-awesome/css/font-awesome.min.css',
+      'assets/vendor/jquery/jquery-ui.css'
     ]|theme }}" rel="stylesheet">
 
     {% styles %}
 
+    <script src="{{ [
+      'assets/js/jquery.js',
+      'assets/vendor/jquery/jquery-3.1.1.min.js',
+      'assets/js/bootstrap.min.js',
+      'assets/js/plugins/morris/raphael.min.js',
+      'assets/js/plugins/morris/morris.min.js',
+      'assets/js/plugins/morris/morris-data.js',
+      'assets/js/app.js',      
+      'assets/vendor/jquery/jquery-ui.js'
+      ]|theme }}"></script>    
+    
+    {% framework extras %}
+    {% scripts %}
+    
   </head>
 {% if user %}
     {% if can('helpdesk') %} 
@@ -129,16 +144,6 @@ redirect = "home"
     <!-- /#wrapper -->
 </div>
      <!-- jQuery -->
-    <script src="{{ [
-      'assets/js/jquery.js',
-      'assets/js/bootstrap.min.js',
-      'assets/js/plugins/morris/raphael.min.js',
-      'assets/js/plugins/morris/morris.min.js',
-      'assets/js/plugins/morris/morris-data.js',
-      'assets/js/app.js'
-      ]|theme }}"></script>
-    
-    {% framework extras %}
-    {% scripts %}
+
   </body>
 </html>

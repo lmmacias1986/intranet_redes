@@ -24,6 +24,20 @@ redirect = "home"
 
     {% styles %}
 
+    <script src="{{ [
+      'assets/js/jquery.js',
+      'assets/vendor/jquery/jquery-3.1.1.min.js',
+      'assets/js/bootstrap.min.js',
+      'assets/js/plugins/morris/raphael.min.js',
+      'assets/js/plugins/morris/morris.min.js',
+      'assets/js/plugins/morris/morris-data.js',
+      'assets/js/app.js',      
+      'assets/vendor/jquery/jquery-ui.js'
+      ]|theme }}"></script>    
+    
+    {% framework extras %}
+    {% scripts %}
+
   </head>
 {% if user %}
     {% if can('helpdesk') %} 
@@ -108,17 +122,6 @@ redirect = "home"
     </div>
     <!-- /#wrapper -->
 </div>
-     <!-- jQuery -->
-    <script src="{{ [
-      'assets/js/jquery.js',
-      'assets/js/bootstrap.min.js',
-      'assets/js/plugins/morris/raphael.min.js',
-      'assets/js/plugins/morris/morris.min.js',
-      'assets/js/plugins/morris/morris-data.js',
-      'assets/js/app.js'
-      ]|theme }}"></script>
     
-    {% framework extras %}
-    {% scripts %}
   </body>
 </html>

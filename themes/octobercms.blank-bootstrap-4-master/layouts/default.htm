@@ -25,11 +25,26 @@ forceSecure = 0
     <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <script src="{{ [
+    'assets/js/jquery.js',
+    'assets/js/bootstrap.min.js',
+    'assets/js/app.js',
+    'assets/vendor/jquery/jquery-3.1.1.min.js',
+    'assets/vendor/jquery/jquery-ui.js'
+    ]|theme }}"></script>
+
+    {% framework extras %}
+    {% scripts %}
+
+    
+
     <link href="{{ [
       'assets/css/bootstrap.css',
       'assets/css/sb-admin.css',
       'assets/css/plugins/morris.css',
-      'assets/font-awesome/css/font-awesome.min.css'
+      'assets/font-awesome/css/font-awesome.min.css',
+      'assets/vendor/jquery/jquery-ui.css'
     ]|theme }}" rel="stylesheet">
 
     {% styles %}
@@ -148,14 +163,6 @@ forceSecure = 0
     <!-- /#wrapper -->
 </div>
  <!-- jQuery --> 
-<script src="{{ [
-  'assets/js/jquery.js',
-  'assets/js/bootstrap.min.js',
-  'assets/js/app.js'
-  ]|theme }}"></script>
-
-{% framework extras %}
-{% scripts %}
 
   </body>
 </html>
