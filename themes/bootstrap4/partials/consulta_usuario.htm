@@ -1,0 +1,20 @@
+[viewBag]
+==
+{% if error %}
+	<p> {{ error }} </p>
+{% else %}
+	<div class="col-md-6">
+	    <span for="nombres">Nombre completo:</span>
+	    <input type="text" id="nombres" name="nombres" readonly value="{{ datos_persona[0].nombres }} {{ datos_persona[0].apellidos }}" class="form-control">
+	</div>
+	<div class="col-md-6">
+	    <span for="empresa">Empresa:</span>
+	    <!--input type="text" id="empresa" name="empresa" readonly class="form-control" value="{{ empresa }}"-->
+	    <select id="empresa" name="empresa" class="form-control">
+	    	{% for empresa in datos_persona %}
+                <option value="{{ empresa.empresa }}">{{ empresa.empresa }}</option>
+            {% endfor %}
+	    </select>	     
+	</div>
+	<hr>
+{% endif %}

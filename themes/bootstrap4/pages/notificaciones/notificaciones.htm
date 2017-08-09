@@ -1,0 +1,74 @@
+title = "notificaciones"
+url = "/notificaciones/:id?"
+layout = "formularios"
+description = "muestra las notificaciones del usuario"
+is_hidden = 0
+==
+<?php
+function onStart(){
+	if($this->param('id')<>""){
+		$notification = DB::table('notification')
+		->join('help_desk', 'help_desk.id', '=', 'notification.id_solicitud')
+		->select('notification.*', 'help_desk.asunto','help_desk.descripcion')
+	    ->where('notification.id','=', $this->param('id'))
+	    ->where('notification.notificado_a','=', $this->user['username'])->first();
+	    $this['detalle'] = $notification;
+ 	    
+
+	    Db::table('notification')->where('id', $this->param('id'))->update([
+	        'estado' => 0,
+	        'updated_at' => date_format(date_create(), 'Y-m-d H:i:s')	        
+	        ]
+	    );
+
+	    $notifications = DB::table('notification')
+	    ->where('notificado_a','=', $this->user['username'])    
+	    ->where('id','<>', $this->param('id'))    
+	    ->take(10)
+	    ->orderBy('id', 'desc')->get();
+	    $this['notifications'] = $notifications;    
+	    $this['total'] = count($notifications) + 1;
+	}else{
+		$notifications = DB::table('notification')
+	    ->where('notificado_a','=', $this->user['username'])    
+	    ->take(10)
+	    ->orderBy('id', 'desc')->get();
+	    $this['notifications'] = $notifications;    
+	    $this['total'] = count($notifications);
+	}
+}
+?>
+==
+
+{% if total > 0 %}    
+    {% if detalle %}
+	<div class="panel panel-info">
+		<div class="panel-heading">{{ detalle.titulo }}</div>
+	  	<div class="panel-body">
+	  		<p><b>Asunto de la solicitud: </b>{{ detalle.asunto }}</p>	  		
+	  		<p><b>descripcion de la solicitud: </b>{{ detalle.descripcion }}</p>
+			<p><b>Notificación enviada por: </b>{{ detalle.notificado_por }}</p>
+			<p><b>Actualizado: </b>{{ detalle.updated_at }}</p>
+			<p><a href="../consultar_solicitud/{{ detalle.id_solicitud }}" class="btn btn-info">Ver solicitud</a></p>
+	  	</div>
+	</div>
+	{% endif %}
+
+	<div class="panel panel-danger">
+		<div class="panel-heading">Otras Notificaciones ( Ultimas 10 )</div>
+		<div class="panel-body">
+			<div id="div_notifications" class="col-md-12">
+		        {% for notification in notifications %}
+		            <div class="col-md-12">                
+		                <div class="row div_notificacion {% if notification.estado == 1 %} div_notificacion_pendiente {% endif %}">
+		                    {{ notification.titulo }} {% if notification.estado == 1 %} ( Sin revisar ){% endif %}
+		                    <br>
+		                    <a href="{{ notification.id }}">Ver</a>
+		                </div>    
+		            </div>
+		        {% endfor %}
+		    </div>    
+	  	</div>
+	</div>
+    
+{% endif %}

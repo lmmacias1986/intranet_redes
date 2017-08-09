@@ -1,0 +1,22 @@
+title = "ver_eventos"
+url = "/ver_eventos/:month?/:year?"
+layout = "default"
+description = "visualizar los eventos creados en el calendario"
+is_hidden = 0
+
+[MonthEvents]
+month = "{{ :month }}"
+year = "{{ :year }}"
+weekstart = 1
+color = "blue"
+loadstyle = 1
+title_max = 100
+usePermissions = 0
+category = "{{ :cat }}"
+dayspast = 0
+daysfuture = 60
+relations[] = "event"
+raw_data = 0
+descending = 0
+==
+{% component 'MonthEvents' %}

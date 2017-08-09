@@ -1,0 +1,21 @@
+[viewBag]
+==
+{% if mensaje %}
+    <p> {{ mensaje }} </p>
+    {% if perfiles=="si" %}
+    	<button id="perfiles" name="perfiles" type="submit" data-request="onPerfiles"  class="btn btn-primary">Crear Perfiles</button>
+    	<div style="display:none"><input type="text" name="id_guia" id="id_guia" value="{{ id }}"/></div>
+    {% endif %}
+    {% if redirect=="si" %}
+    	<button id="regresar" name="regresar" type="submit" data-request="onRedirect"  class="btn btn-primary">regresar</button>
+    {% endif %}
+    {% if profesiograma=="si" %}
+        <button id="profesiograma" name="profesiograma" type="submit" data-request="onProfesiograma"  class="btn btn-sucess">Adjuntar Profesiograma</button>
+    {% endif %}
+    
+{% else %}  
+	{% if error %}
+		<p> {{ error }} </p>
+	{% endif %}
+    	<button id="simpleContactSubmitButton" type="submit" class="btn btn-primary">Guardar</button>
+{% endif %}

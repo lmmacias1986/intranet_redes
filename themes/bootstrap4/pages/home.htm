@@ -1,0 +1,30 @@
+title = "REDES HUMANAS"
+url = "/"
+layout = "default"
+description = "Bienvenido a REDES HUMANAS"
+hidden = "0"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+postsPerPage = "10"
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog/category"
+postPage = "blog/post"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = "0"
+categoryPage = "blog/category"
+==
+<div class="row contenedor_noticias">
+	<div class="col-md-12 titulo_home">
+		<p>ACTUALIDAD - REDES HUMANAS </p>
+	</div>
+    <div class="col-md-12">
+        {% partial 'blog/posts' %}
+    </div>
+    <div class="col-md-12">
+        {% partial 'blog/categories' %}
+    </div>
+</div>

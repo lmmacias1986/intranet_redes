@@ -407,22 +407,8 @@ button.oc-loading:after {
 }
 
 .panel-title {
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
-
-table{
- font-size: 12px !important; 
-}
-
-
-
-
-
-
-
-
-
-
 
 
 .contenedor_fondo{  
@@ -487,4 +473,36 @@ table{
   border-radius: 14px;
   padding: 20px 20px;
   margin-top: 30px;
+}
+.titulo_home{
+  text-decoration: none;
+  border-bottom: double #ddd;
+  padding: 10px 10px 10px 10px;    
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: initial;
+  font-size: x-large;
+  height: 120px;
+  background-repeat-x: no-repeat;
+  background-position-x: right;
+  border-radius: 15px 15px 0px 0px;
+  background-image: url("/intranet_redes/themes/bootstrap4/assets/images/banner.jpg");
+}
+.titulo_home p{
+  color: #FFF;
+    margin-top: 70px;
+    text-align: right;
+    font-size: x-large;
+  
+}
+.contenedor_noticias{
+  border-radius: 15px;
+  border: double #ccc;
+  padding-bottom: 20px;
+}
+.titulo_post{
+  color:#e7e7e7 !important; font-size:22px !important; text-align:center;
+}
+.eventList li a{
+  font-size: 12px;
 }

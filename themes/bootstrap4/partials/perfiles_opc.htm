@@ -1,0 +1,12 @@
+[viewBag]
+==
+{% if mensaje %}
+    <p> {{ mensaje }} </p>
+{% endif %}
+
+{% if error %}
+	<p> {{ error }} </p>
+{% endif %}
+	<button id="actualizar" name="actualizar" type="submit" class="btn btn-primary">Actualizar</button>
+	<button id="perfiles" name="perfiles" type="submit" data-request="onPerfiles"  class="btn btn-success">Crear Perfiles</button>
+	<button id="eliminar" name="eliminar" type="submit" data-request="onDelete" data-request-update="perfiles_opc: '#resultado'" data-request-confirm="Esta seguro de eliminar este registro? tambien eliminará los perfiles asociados" class="btn btn-danger">Eliminar</button>

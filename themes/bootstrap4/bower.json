@@ -1,0 +1,24 @@
+{
+  "name": "hambern-blank-bootstrap-4",
+  "homepage": "https://hambergmedia.se",
+  "authors": [
+    "Hambern"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4",
+    "animate.css": "*",
+    "font-awesome": "*",
+    "holderjs": "*",
+    "wow": "*",
+    "plyr": "*"
+  }
+}
