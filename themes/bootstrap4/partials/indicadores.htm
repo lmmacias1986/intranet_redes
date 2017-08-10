@@ -46,7 +46,7 @@ function onStart(){
             <div class="panel-body cuerpo_indicadores">
                 {% for indicador in indicadores %}
                     <a href ="/intranet_redes/{{ indicador.link }}">
-                        <div class="col-md-6 col-sm-3 col-xs-6 div_indicadores"  style="background-color:{{ indicador.color }}">
+                        <div class="col-md-6 col-sm-3 col-xs-6 div_indicadores"  style="background-color:{{ indicador.color }};     padding-left: 0px !important;padding-right: 0px !important;">
                             {{ indicador.estado }}
                             <h3 style="margin:0px !important"><p>{{ indicador.contador }}</p></h3>
                         </div>
