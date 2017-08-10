@@ -8,24 +8,46 @@ is_hidden = 0
 	function onStart(){
 	    $this['colaboradores'] = Db::table('colaboradores')->paginate(20);
 	}
+	function onConsulta(){
+	    $colaboradores = DB::table('colaboradores')
+	    ->where('cedula','=', input('cedula'))
+	    ->orderBy('id', 'desc')->get();
+    	if(count($colaboradores)==0){
+    		$this['error'] = "No hay registros asociados a este número ede cédula.";
+    	}else{
+    		$this['colaboradores'] = $colaboradores;
+    	}
+
+	}
 ?>
 ==
 {% if can('incapacidades') %}
-	<div class="panel panel-primary"> 
-	    <div class="panel-heading"> 
-	        <h3 class="panel-title">CONSULTAR COLABORADOR</h3>
-	    </div> 
-	    <div class="panel-body">
-			<table class="table table-hover ">
-			    <thead> <tr> <th>Cédula</th> <th>Nombres</th> <th>Empresa</th> <th>Acción</th>  </tr> </thead>
-			    <tbody>
-			        {% for colaborador in colaboradores %}
-			            <tr><td>{{ colaborador.cedula }}</td><td>{{ colaborador.nombres }} {{ colaborador.apellidos }}</td><td>{{ colaborador.empresa }}</td><td><a href="editar_colaborador/{{ colaborador.id }}">Ver</a></td></tr>
-			        {% endfor %}
-			    </tbody>
-			</table>
-
-			{{ colaboradores.render|raw }}
+	<div class="row">
+		<div class="col-md-12">
+			<form data-request="onConsulta" data-request-update="colaboradores: '#resultado'">
+				<div class="col-md-4">
+					<label for="cedula">Cédula</label>
+					<input type="text" id="cedula" name="cedula" class="form-control"/>
+				</div>
+				<div class="col-md-4">
+					<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-info" style="margin-top:25px"/>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	<hr>
+	<div class="col-md-12">
+		<div class="panel panel-primary"> 
+		    <div class="panel-heading"> 
+		        <h3 class="panel-title">CONSULTAR COLABORADOR</h3>
+		    </div> 
+		    <div class="panel-body">	
+		    	<div id="resultado">
+					{% partial 'colaboradores' %}
+				</div>
+				{{ consulta.render|raw }}    					
+			</div>
 		</div>
 	</div>
 {% else %}

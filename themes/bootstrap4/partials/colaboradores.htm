@@ -1,0 +1,19 @@
+description = "colaboradores"
+
+[viewBag]
+
+==
+{% if colaboradores %}
+    <table class="table table-hover ">
+        <thead> <tr> <th>Cédula</th> <th>Nombre y apelldidos</th> <th>Empresa</th> <th>Acción</th>  </tr> </thead>
+        <tbody>
+            {% for colaborador in colaboradores %}
+                <tr><td>{{ colaborador.cedula }}</td><td>{{ colaborador.nombres }} {{ colaborador.apellidos }}</td><td>{{ colaborador.empresa }}</td><td><a href="editar_colaborador/{{ colaborador.id }}">Ver</a></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    {% if error %}
+    	<p>{{ error }}</p>
+    {% endif %}
+{% endif %}
