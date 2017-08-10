@@ -8,24 +8,59 @@ is_hidden = 0
 	function onStart(){
 	    $this['diagnosticos'] = Db::table('registro_diagnostico')->paginate(30);
 	}
+	function onConsulta(){
+		if(input('descripcion') == ""){
+			$diagnosticos = DB::table('registro_diagnostico')
+		    ->where('codigo','=', input('codigo'))		    
+		    ->orderBy('id', 'desc')->get();
+	    	if(count($diagnosticos)==0){
+	    		$this['error'] = "No hay registros asociados a estos datos.";
+	    	}else{
+	    		$this['diagnosticos'] = $diagnosticos;
+	    	}			
+		}else{
+			$diagnosticos = DB::table('registro_diagnostico')
+		    ->where('codigo','=', input('codigo'))
+		    ->orwhere('descripcion','like', '%'. input('descripcion') .'%')	    
+		    ->orderBy('id', 'desc')->get();
+	    	if(count($diagnosticos)==0){
+	    		$this['error'] = "No hay registros asociados a estos datos.";
+	    	}else{
+	    		$this['diagnosticos'] = $diagnosticos;
+	    	}
+		}	  
+
+	}
 ?>
 ==
 {% if can('parametros') %}
+	<div class="row">
+		<div class="col-md-12">
+			<form data-request="onConsulta" data-request-update="diagnosticos: '#resultado'">
+				<div class="col-md-2">
+					<label for="codigo">Código</label>
+					<input type="text" id="codigo" name="codigo" class="form-control"/>
+				</div>
+				<div class="col-md-4">
+					<label for="descripcion">Descripción</label>
+					<input type="text" id="descripcion" name="descripcion" class="form-control"/>
+				</div>
+				<div class="col-md-4">
+					<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-info" style="margin-top:25px"/>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	<hr>
 	<div class="panel panel-primary"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">DIAGNOSTICOS</h3>
 	    </div> 
 	    <div class="panel-body">
-			<table class="table table-hover ">
-			    <thead> <tr> <th>Código</th> <th>Descripción</th> <th>Acción</th>  </tr> </thead>
-			    <tbody>
-			        {% for dx in diagnosticos %}
-			            <tr><td>{{ dx.codigo }}</td><td>{{ dx.descripcion }}</td><td><a href="editar_dx/{{ dx.id }}">Ver</a></td></tr>
-			        {% endfor %}
-			    </tbody>
-			</table>
-
-			{{ diagnosticos.render|raw }}
+	    	<div id="resultado">
+				{% partial 'diagnosticos' %}
+			</div>			
 		</div>
 	</div>
 {% else %}

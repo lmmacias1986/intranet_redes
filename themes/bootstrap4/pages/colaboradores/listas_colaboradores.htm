@@ -13,7 +13,7 @@ is_hidden = 0
 	    ->where('cedula','=', input('cedula'))
 	    ->orderBy('id', 'desc')->get();
     	if(count($colaboradores)==0){
-    		$this['error'] = "No hay registros asociados a este número ede cédula.";
+    		$this['error'] = "No hay registros asociados a este número de cédula.";
     	}else{
     		$this['colaboradores'] = $colaboradores;
     	}
@@ -45,8 +45,7 @@ is_hidden = 0
 		    <div class="panel-body">	
 		    	<div id="resultado">
 					{% partial 'colaboradores' %}
-				</div>
-				{{ consulta.render|raw }}    					
+				</div>				
 			</div>
 		</div>
 	</div>
