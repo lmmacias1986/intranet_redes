@@ -1,0 +1,22 @@
+1502331038a:1:{s:26:"calendario/ver_eventos.htm";a:11:{s:8:"fileName";s:26:"calendario/ver_eventos.htm";s:7:"content";s:427:"title = "ver_eventos"
+url = "/ver_eventos/:month?/:year?"
+layout = "default"
+description = "visualizar los eventos creados en el calendario"
+is_hidden = 0
+
+[MonthEvents]
+month = "{{ :month }}"
+year = "{{ :year }}"
+weekstart = 1
+color = "blue"
+loadstyle = 1
+title_max = 100
+usePermissions = 0
+category = "{{ :cat }}"
+dayspast = 0
+daysfuture = 60
+relations[] = "event"
+raw_data = 0
+descending = 0
+==
+{% component 'MonthEvents' %}";s:5:"mtime";i:1502328764;s:6:"markup";s:29:"{% component 'MonthEvents' %}";s:4:"code";N;s:5:"title";s:11:"ver_eventos";s:3:"url";s:27:"/ver_eventos/:month?/:year?";s:6:"layout";s:7:"default";s:11:"description";s:47:"visualizar los eventos creados en el calendario";s:9:"is_hidden";s:1:"0";s:11:"MonthEvents";a:13:{s:5:"month";s:12:"{{ :month }}";s:4:"year";s:11:"{{ :year }}";s:9:"weekstart";s:1:"1";s:5:"color";s:4:"blue";s:9:"loadstyle";s:1:"1";s:9:"title_max";s:3:"100";s:14:"usePermissions";s:1:"0";s:8:"category";s:10:"{{ :cat }}";s:8:"dayspast";s:1:"0";s:10:"daysfuture";s:2:"60";s:9:"relations";a:1:{i:0;s:5:"event";}s:8:"raw_data";s:1:"0";s:10:"descending";s:1:"0";}}}

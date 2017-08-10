@@ -1,0 +1,101 @@
+1502331038a:1:{s:28:"guias/observacion_perfil.htm";a:9:{s:8:"fileName";s:28:"guias/observacion_perfil.htm";s:7:"content";s:1873:"title = "observacion_perfil.htm"
+url = "/observacion_perfil/:id?"
+layout = "perfil_cargo"
+is_hidden = 0
+==
+<?php
+	function onRegresar(){
+		 return Redirect::to('editar_perfil/'.$this->param('id'));
+	}
+	function onSave(){
+			$validator = false;
+	    if (input('observacion') == ""){
+	        $this['error'] = "Debe ingresar el contenido de la observación.";
+	    }else{
+	       $validator= true;
+	    }
+
+	    if ($validator) {
+	       	$id = Db::table('observaciones_perfil')->insertGetId([
+	            'id_perfil' => $this->param('id'),
+	            'usuario' => input('usuario'),
+	            'fecha' => date('Y-m-d'),	            
+	            'observacion' => input('observacion')
+	           ]
+	        );  
+	        $this['id'] = $id;
+	        $this['mensaje'] = "El registro fúe creado correctamente. ";
+		}
+	}
+?>
+==
+
+<div class="panel panel-primary"> 
+    <div class="panel-heading">         
+    	<h3 class="panel-title" style="text-align:center"><b>CREAR OBSERVACION</b></h3>
+    </div> 
+    <div class="panel-body">
+    <!--div class="alert alert-info" role="alert"><p>COMERCIAL</p></div-->
+        <form data-request="onSave" data-request-update="observacion_opc: '#resultado'">
+        	<div class="row">
+                <div class="col-md-12">
+     				<span>Observación</span>               
+     				<textarea name="observacion" id="observacion" class="form-control"></textarea>
+     				<span>registrada por: {{ user.name }} {{ user.surname}}</span>
+     				<div style="display:none"><input type="text" name="usuario" id="usuario" value="{{ user.name }} {{ user.surname}}"/></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12" id="resultado">
+                    {% partial 'observacion_opc' %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>";s:5:"mtime";i:1502328764;s:6:"markup";s:1046:"<div class="panel panel-primary"> 
+    <div class="panel-heading">         
+    	<h3 class="panel-title" style="text-align:center"><b>CREAR OBSERVACION</b></h3>
+    </div> 
+    <div class="panel-body">
+    <!--div class="alert alert-info" role="alert"><p>COMERCIAL</p></div-->
+        <form data-request="onSave" data-request-update="observacion_opc: '#resultado'">
+        	<div class="row">
+                <div class="col-md-12">
+     				<span>Observación</span>               
+     				<textarea name="observacion" id="observacion" class="form-control"></textarea>
+     				<span>registrada por: {{ user.name }} {{ user.surname}}</span>
+     				<div style="display:none"><input type="text" name="usuario" id="usuario" value="{{ user.name }} {{ user.surname}}"/></div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12" id="resultado">
+                    {% partial 'observacion_opc' %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>";s:4:"code";s:706:"	function onRegresar(){
+		 return Redirect::to('editar_perfil/'.$this->param('id'));
+	}
+	function onSave(){
+			$validator = false;
+	    if (input('observacion') == ""){
+	        $this['error'] = "Debe ingresar el contenido de la observación.";
+	    }else{
+	       $validator= true;
+	    }
+
+	    if ($validator) {
+	       	$id = Db::table('observaciones_perfil')->insertGetId([
+	            'id_perfil' => $this->param('id'),
+	            'usuario' => input('usuario'),
+	            'fecha' => date('Y-m-d'),	            
+	            'observacion' => input('observacion')
+	           ]
+	        );  
+	        $this['id'] = $id;
+	        $this['mensaje'] = "El registro fúe creado correctamente. ";
+		}
+	}";s:5:"title";s:22:"observacion_perfil.htm";s:3:"url";s:24:"/observacion_perfil/:id?";s:6:"layout";s:12:"perfil_cargo";s:9:"is_hidden";s:1:"0";}}

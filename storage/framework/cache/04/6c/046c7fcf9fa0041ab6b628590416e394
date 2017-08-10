@@ -1,0 +1,98 @@
+1502331038a:1:{s:18:"envios/locales.htm";a:10:{s:8:"fileName";s:18:"envios/locales.htm";s:7:"content";s:1567:"title = "Envios"
+url = "/locales"
+layout = "formularios"
+description = "listado de envios"
+is_hidden = 0
+==
+<?php
+
+	function onStart(){
+		$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(25);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+	}
+
+	function onRun(){
+		$locales = Db::table('envios_locales')
+		->where('creado_por','like','%'.input('palabra').'%')
+		->orwhere('destino','like','%'.input('palabra').'%')
+		->orwhere('prioridad','like','%'.input('palabra').'%')
+		->orwhere('estado','like','%'.input('palabra').'%')
+		->orderby('id','desc')->paginate(35);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+		$this['palabra'] = input('palabra');
+	}
+
+?>
+==
+<div class="row">	
+	<div class="alert alert-info col-md-12" role="alert">
+		<div class="col-md-7">
+			<p>ENVIOS</p>
+		</div>
+		<div class="col-md-5">
+			<form data-request="onRun" data-request-update="locales: '#div_locales'">
+				<div class="row">
+	                <div class="col-md-8">		
+	                	<i class="icon-find" aria-hidden="true"></i>                	
+	                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+	               	</div>
+	               	<div class="col-md-4">
+	               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
+	               	</div>	
+	            </div>
+			</form>
+		</div>
+	</div>	
+</div>
+
+<div class="row">	
+	<div class="col-md-12" id="div_locales">
+		{% partial 'locales' %}
+	</div>
+</div>
+
+
+";s:5:"mtime";i:1502328764;s:6:"markup";s:831:"<div class="row">	
+	<div class="alert alert-info col-md-12" role="alert">
+		<div class="col-md-7">
+			<p>ENVIOS</p>
+		</div>
+		<div class="col-md-5">
+			<form data-request="onRun" data-request-update="locales: '#div_locales'">
+				<div class="row">
+	                <div class="col-md-8">		
+	                	<i class="icon-find" aria-hidden="true"></i>                	
+	                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+	               	</div>
+	               	<div class="col-md-4">
+	               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
+	               	</div>	
+	            </div>
+			</form>
+		</div>
+	</div>	
+</div>
+
+<div class="row">	
+	<div class="col-md-12" id="div_locales">
+		{% partial 'locales' %}
+	</div>
+</div>";s:4:"code";s:610:"	function onStart(){
+		$locales = Db::table('envios_locales')->orderby('id','desc')->paginate(25);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+	}
+
+	function onRun(){
+		$locales = Db::table('envios_locales')
+		->where('creado_por','like','%'.input('palabra').'%')
+		->orwhere('destino','like','%'.input('palabra').'%')
+		->orwhere('prioridad','like','%'.input('palabra').'%')
+		->orwhere('estado','like','%'.input('palabra').'%')
+		->orderby('id','desc')->paginate(35);
+		$this['locales'] = $locales;
+		$this['resultados'] = count($locales);
+		$this['palabra'] = input('palabra');
+	}";s:5:"title";s:6:"Envios";s:3:"url";s:8:"/locales";s:6:"layout";s:11:"formularios";s:11:"description";s:17:"listado de envios";s:9:"is_hidden";s:1:"0";}}
