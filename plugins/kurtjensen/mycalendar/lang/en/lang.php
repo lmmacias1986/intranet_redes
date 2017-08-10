@@ -5,37 +5,6 @@ return [
 		'description' => 'Super simple calendar for displaying events.',
 		'user_btn' => 'Users',
 		'tab' => 'MyCalendar',
-<<<<<<< HEAD
-		'access_events' => 'events',
-		'access_categories' => 'categories',
-		'access_occurrences' => 'occurrences',
-		'access_settings' => 'settings',
-	],
-	'events' => [ // Events Controller
-		'menu_label' => 'Events',
-		'toolbar_new' => 'New Event',
-		'form_name' => 'Event',
-		'create_title' => 'Create Event',
-		'update_title' => 'Edit Event',
-		'preview_title' => 'Preview Event',
-		'list_title' => 'Manage Events',
-		'return' => 'Return to Events list',
-		'delete_confirm' => 'Do you really want to delete this event?',
-	],
-	'categories' => [ // Categories Controller
-		'menu_label' => 'Categories',
-		'toolbar_new' => 'New Category',
-		'form_name' => 'Category',
-		'create_title' => 'Create Category',
-		'update_title' => 'Edit Category',
-		'preview_title' => 'Preview Category',
-		'list_title' => 'Manage Categories',
-		'return' => 'Return to categories list',
-		'delete_confirm' => 'Do you really want to delete this category?',
-	],
-	'occurrences' => [ // Occurrences Controller
-		'menu_label' => 'Occurrences',
-=======
 		'access_events' => 'Eventos',
 		'access_categories' => 'Categorias',
 		'access_occurrences' => 'Ocurrencias',
@@ -65,7 +34,6 @@ return [
 	],
 	'occurrences' => [ // Occurrences Controller
 		'menu_label' => 'Ocurrencias',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 		'toolbar_new' => 'New Occurrence',
 		'form_name' => 'Occurrence',
 		'create_title' => 'Create Occurrence',
@@ -136,17 +104,6 @@ return [
 		'color_green' => 'green',
 		'color_blue' => 'blue',
 		'color_yellow' => 'yellow',
-<<<<<<< HEAD
-		'day_sun' => 'Sun',
-		'day_mon' => 'Mon',
-		'day_tue' => 'Tue',
-		'day_wed' => 'Wed',
-		'day_thu' => 'Thu',
-		'day_fri' => 'Fri',
-		'day_sat' => 'Sat',
-		'previous' => 'Previous',
-		'next' => 'Next',
-=======
 		'day_sun' => 'Dom',
 		'day_mon' => 'Lun',
 		'day_tue' => 'Mar',
@@ -156,7 +113,6 @@ return [
 		'day_sat' => 'Sab',
 		'previous' => 'Anterior',
 		'next' => 'Siguiente',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 	],
 	'month' => [ // Month Component
 		'name' => 'Month View',
@@ -181,17 +137,6 @@ return [
 		'color_green' => 'green',
 		'color_blue' => 'blue',
 		'color_yellow' => 'yellow',
-<<<<<<< HEAD
-		'day_sun' => 'Sun',
-		'day_mon' => 'Mon',
-		'day_tue' => 'Tue',
-		'day_wed' => 'Wed',
-		'day_thu' => 'Thu',
-		'day_fri' => 'Fri',
-		'day_sat' => 'Sat',
-		'previous' => 'Previous',
-		'next' => 'Next',
-=======
 		'day_sun' => 'Dom',
 		'day_mon' => 'Lun',
 		'day_tue' => 'Mar',
@@ -201,7 +146,6 @@ return [
 		'day_sat' => 'Sab',
 		'previous' => 'Anterior',
 		'next' => 'Siguiente',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 	],
 	'week' => [ // Week Component
 		'name' => 'Week View',
@@ -223,21 +167,6 @@ return [
 		'loadstyle_title' => 'Load Style Sheet',
 		'loadstyle_description' => 'Load the default CSS file.',
 		'opt_no' => 'No',
-<<<<<<< HEAD
-		'opt_yes' => 'Yes',
-		'label' => 'Event',
-		'id' => 'ID',
-		'title' => 'Title',
-		'is_published' => 'Published',
-		'user_id' => 'Creator',
-		'fname' => 'Creator First',
-		'lname' => 'Creator Last',
-		'date' => 'Date',
-		'time' => 'Time',
-		'text' => 'Details',
-		'link' => 'Link',
-		'categorys' => 'Categories',
-=======
 		'opt_yes' => 'Si',
 		'label' => 'Evento',
 		'id' => 'ID',
@@ -251,7 +180,6 @@ return [
 		'text' => 'Detalle',
 		'link' => 'Link',
 		'categorys' => 'Categorias',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 	],
 	'events_comp' => [ // Events Component
 		'name' => 'Events Data',
@@ -329,24 +257,6 @@ return [
 		'bs_cdn_title' => 'Use bootstrap CDN',
 		'bs_cdn_description' => 'Load bootstrap from CDN specified in settings.  If your theme already loads JS assets from "vendor/bootstrap" then you should say "NO".',
 		'opt_no' => 'No',
-<<<<<<< HEAD
-		'opt_yes' => 'Yes',
-		'btn_add' => 'Add Event',
-		'btn_edit' => 'Edit',
-		'btn_copy' => 'Copy',
-		'btn_delete' => 'Delete',
-		'btn_save' => 'Save',
-		'btn_preview' => 'Preview',
-		'btn_cancel' => 'Cancel / Go Back to List',
-		'saving' => 'Saving Event...',
-		'delete_conf' => 'Do you really want to delete this event?',
-		'every' => 'Every',
-		'repeat' => 'Repeat',
-		'btn_save' => 'Save',
-		'btn_save' => 'Save',
-		'btn_save' => 'Save',
-		'btn_save' => 'Save',
-=======
 		'opt_yes' => 'Si',
 		'btn_add' => 'Crear Event',
 		'btn_edit' => 'Editar',
@@ -363,7 +273,6 @@ return [
 		'btn_save' => 'Salvar',
 		'btn_save' => 'Salvar',
 		'btn_save' => 'Salvar',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 	],
 	'month_events' => [ // MonthEvents Component
 		'name' => 'Month View w/ Event Data',
@@ -450,17 +359,6 @@ return [
 			'-12:00' => '(GMT-12:00) International Date Line West',
 		],
 		'freq' => [
-<<<<<<< HEAD
-			'NONE' => 'None (run once)',
-			'HOURLY' => 'Hourly',
-			'DAILY' => 'Daily',
-			'WEEKDAYS' => 'Weekdays',
-			'WEEKENDS' => 'Weekends',
-			'WEEKLY' => 'Weekly',
-			'MONTHLY' => 'Monthly',
-			'YEARLY' => 'Yearly',
-			'SERIES' => 'Shift Series',
-=======
 			'NONE' => 'Una vez',
 			'HOURLY' => 'Cada hora',
 			'DAILY' => 'Diario',
@@ -470,7 +368,6 @@ return [
 			'MONTHLY' => 'Mensual',
 			'YEARLY' => 'Anual',
 			'SERIES' => 'Series',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 		],
 		'freq_units' => [
 			'HOURLY' => 'hour(s)',
@@ -487,18 +384,6 @@ return [
 		'FR' => 'Fri',
 		'SA' => 'Sat',
 		'ByDay' => [
-<<<<<<< HEAD
-			'SU' => 'Sunday',
-			'MO' => 'Monday',
-			'TU' => 'Tuesday',
-			'WE' => 'Wednesday',
-			'TH' => 'Thursday',
-			'FR' => 'Friday',
-			'SA' => 'Saturday',
-			'SU,MO,TU,WE,TH,FR,SA' => 'Day',
-			'MO,TU,WE,TH,FR' => 'Weekday',
-			'SU,SA' => 'Weekend day',
-=======
 			'SU' => 'Domingo',
 			'MO' => 'Lunes',
 			'TU' => 'Martes',
@@ -509,39 +394,10 @@ return [
 			'SU,MO,TU,WE,TH,FR,SA' => 'Día',
 			'MO,TU,WE,TH,FR' => 'Día semana',
 			'SU,SA' => 'Día fin de semana',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 		],
 		'on' => ['on_day' => 'On Date Above', 'on_the' => 'On The',
 		],
 		'day-pos' => [
-<<<<<<< HEAD
-			'1' => 'First',
-			'2' => 'Second',
-			'3' => 'Third',
-			'4' => 'Fourth',
-			'-1' => 'Last',
-			'-2' => 'Second to Last',
-		],
-		'month' => [
-			'1' => 'January',
-			'2' => 'February',
-			'3' => 'March',
-			'4' => 'April',
-			'5' => 'May',
-			'6' => 'June',
-			'7' => 'July',
-			'8' => 'August',
-			'9' => 'September',
-			'10' => 'October',
-			'11' => 'November',
-			'12' => 'December',
-		],
-		'ENDON' => 'End Date',
-		'Never' => 'Never ( Max ',
-		'Never_end' => ' occurrences )',
-		'After' => 'After',
-		'On_date' => 'On Date',
-=======
 			'1' => 'Primero',
 			'2' => 'Segundo',
 			'3' => 'Tercero',
@@ -568,6 +424,5 @@ return [
 		'Never_end' => ' occurrences )',
 		'After' => 'Despúes',
 		'On_date' => 'Hoy',
->>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
 	],
 ];
