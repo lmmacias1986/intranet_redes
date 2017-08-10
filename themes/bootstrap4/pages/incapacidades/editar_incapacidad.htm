@@ -28,6 +28,7 @@ function onStart()
 {
     $incapacidad = DB::table('incapacidades')->where('id','=', $this->param('id'))->first();
     $this['incapacidad'] = $incapacidad;  
+    $this['usuario'] = Db::table('colaboradores')->where('cedula','=', $incapacidad->cedula)->first();    
     $estados = Db::table('estado_caso')->get();     
     $aplicadas = Db::table('estado_caso_aplicado')->where('id_incapacidad','=', $this->param('id'))->get();
     $this['aplicadas'] = $aplicadas;
@@ -106,7 +107,7 @@ function onSave()
     if ($validator) {
         $dias_total = (input('dias_acumulados') - input('dias_temp')) + input('dias');
         Db::table('incapacidades')->where('id', $this->param('id'))->update(
-            ['cedula' => input('cedula'),
+            [
             'tipo_incapacidad' => input('tipo_incapacidad'),
             'prorroga' => input('prorroga'),
             'eps' => input('eps'),
@@ -205,12 +206,13 @@ function calculo_dias(){
                                 <span for="cedula">Cédula:</span>
                                 <input type="text" id="cedula" name="cedula" value="{{ incapacidad.cedula }}"class="form-control">
                             </div>
-                            <div class="col-md-2">
-                                <input type="submit" data-request-update="consulta_usuario:'#div_consulta'" data-request="onConsulta" class="btn btn-success" value="Consultar" style="margin-top: 20px;"/>
+                            <div class="col-md-4">
+                                <span for="nombres">Nombre completo:</span>
+                                <input type="text" id="nombres" name="nombres" readonly value="{{ usuario.nombres }} {{ usuario.apellidos }}" class="form-control">
                             </div>
-
-                            <div class="col-md-8" id="div_consulta">
-                                {% partial 'consulta_usuario' %}
+                            <div class="col-md-6">
+                                <span for="empresa">Empresa:</span>
+                                <input type="text" id="empresa" name="empresa" readonly class="form-control" value="{{ incapacidad.empresa }}">                                
                             </div>
                         </div>
                     </div>

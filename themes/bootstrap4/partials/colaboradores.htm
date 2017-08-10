@@ -12,6 +12,7 @@ description = "colaboradores"
             {% endfor %}
         </tbody>
     </table>
+    {{ colaboradores.render|raw }}
 {% else %}
     {% if error %}
     	<p>{{ error }}</p>

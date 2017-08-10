@@ -57,6 +57,7 @@ function onSave()
     if ($validator) {
         $id = Db::table('incapacidades')->insertGetId(
             ['cedula' => input('cedula'),
+            'empresa' => input('empresa'),
             'tipo_incapacidad' => input('tipo_incapacidad'),
             'prorroga' => input('prorroga'),
             'eps' => input('eps'),
