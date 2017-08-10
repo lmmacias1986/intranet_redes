@@ -85,84 +85,82 @@ function onCreate(){
 		</form>
 	</div>
 	<hr>
-	<hr>
-	<div class="col-md-12">		
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade in active" id="empresas">
-				{%if can('recepcion') %}
-				<div class="col-md-12" id="resultados_empresa">
-					{% partial 'empresas' %}
-				</div>	
-				{% endif %}			
-			</div>
-			{%if can('admin_directorio') %}
-			<div role="tabpanel" class="tab-pane fade" id="crear">
-				<div class="panel panel-primary"> 
-				    <div class="panel-heading"> 
-				        <h3 class="panel-title">Ingresar Registro</h3>
-				    </div> 
-				    <div class="panel-body">
-				        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
-				            <div class="row">
-				                <div class="col-md-4">
-				                    <label for="tipo_registro">Tipo de Registro:</label>
-				                    <div class="radio">
-										<label><input type="radio" name="rdbtipo" value="empresa" >Empresa</label>
-										
-										<label><input type="radio" name="rdbtipo" value="internos" checked >Interno</label>
-									</div>
-				                </div>
-				                <div class="col-md-8" id="div_empresa"  style="display:none">
-				                	<label for="empresa">Empresa:</label>
-				                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
-				               	</div>
-				            </div>
-				            <div class="row">
-				                <div class="col-md-4">
-				                    <label for="nombres">Nombres:</label>
-				                    <input type="text" id="nombres" name="nombres" class="form-control" required>
-				                </div>
-				                <div class="col-md-4" id="div_celular">
-				                    <label for="celular">Celular:</label>
-				                    <input type="text" id="celular" name="celular" class="form-control" >
-				                </div>
-				                <div class="col-md-4" id="div_cargo" style="display:none">
-				                    <label for="cargo">Cargo:</label>
-				                    <input type="text" id="cargo" name="cargo" class="form-control" >
-				                </div>
-				                <div class="col-md-4">
-				                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
-				                    <label for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</label>
-				                    <input type="text" id="direccion" name="direccion" class="form-control">
-				                </div>
-				                <div class="col-md-4" id="div_ciudad"  style="display:none">
-				                    <label for="ciudad">Ciudad:</label>
-				                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
-				                </div>
-				                <div class="col-md-4">
-				                    <label for="correo">Correo:</label>
-				                    <input type="text" id="correo" name="correo" class="form-control" required>
-				                </div>        
-				                <div class="col-md-4">
-				                    <label for="telefono">Teléfono:</label>
-				                    <input type="text" id="telefono" name="telefono" class="form-control" required>
-				                </div>        
-				                <div class="col-md-2">
-				                    <label for="ext">Ext:</label>
-				                    <input type="text" id="ext" name="ext" class="form-control">
-				                </div>        
-				            </div>   
-				            <hr>
-				            <div class="row">
-				                <div id="result_contact" class="col-md-12">
-				                    {% partial 'result_contact' %}
-				                </div>
-				            </div>
-				        </form>
-				    </div>
+	<div class="col-md-12">
+	<div class="panel panel-primary"> 
+		<div class="panel-heading"> 
+			<h3 class="panel-title">DIRECTORIO</h3>
+		</div> 
+		<div class="panel-body">	
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane fade in active" id="empresas">
+					{%if can('recepcion') %}
+					<div class="col-md-12" id="resultados_empresa">
+						{% partial 'empresas' %}
+					</div>	
+					{% endif %}			
 				</div>
+				{%if can('admin_directorio') %}
+				<div role="tabpanel" class="tab-pane fade" id="crear">
+			        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
+			            <div class="row">
+			                <div class="col-md-4">
+			                    <label for="tipo_registro">Tipo de Registro:</label>
+			                    <div class="radio">
+									<label><input type="radio" name="rdbtipo" value="empresa" >Empresa</label>
+									
+									<label><input type="radio" name="rdbtipo" value="internos" checked >Interno</label>
+								</div>
+			                </div>
+			                <div class="col-md-8" id="div_empresa"  style="display:none">
+			                	<label for="empresa">Empresa:</label>
+			                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
+			               	</div>
+			            </div>
+			            <div class="row">
+			                <div class="col-md-4">
+			                    <label for="nombres">Nombres:</label>
+			                    <input type="text" id="nombres" name="nombres" class="form-control" required>
+			                </div>
+			                <div class="col-md-4" id="div_celular">
+			                    <label for="celular">Celular:</label>
+			                    <input type="text" id="celular" name="celular" class="form-control" >
+			                </div>
+			                <div class="col-md-4" id="div_cargo" style="display:none">
+			                    <label for="cargo">Cargo:</label>
+			                    <input type="text" id="cargo" name="cargo" class="form-control" >
+			                </div>
+			                <div class="col-md-4">
+			                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
+			                    <label for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</label>
+			                    <input type="text" id="direccion" name="direccion" class="form-control">
+			                </div>
+			                <div class="col-md-4" id="div_ciudad"  style="display:none">
+			                    <label for="ciudad">Ciudad:</label>
+			                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
+			                </div>
+			                <div class="col-md-4">
+			                    <label for="correo">Correo:</label>
+			                    <input type="text" id="correo" name="correo" class="form-control" required>
+			                </div>        
+			                <div class="col-md-4">
+			                    <label for="telefono">Teléfono:</label>
+			                    <input type="text" id="telefono" name="telefono" class="form-control" required>
+			                </div>        
+			                <div class="col-md-2">
+			                    <label for="ext">Ext:</label>
+			                    <input type="text" id="ext" name="ext" class="form-control">
+			                </div>        
+			            </div>   
+			            <hr>
+			            <div class="row">
+			                <div id="result_contact" class="col-md-12">
+			                    {% partial 'result_contact' %}
+			                </div>
+			            </div>
+			        </form>					    
+				</div>
+				{% endif %}
 			</div>
-			{% endif %}
 		</div>
 	</div>
 </div>

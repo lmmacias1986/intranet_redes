@@ -3988,7 +3988,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #e7e7e7;
+  background-color: transparent;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -4003,8 +4003,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #eee;
-  border-color: #337ab7;
+  background-color: transparent;
+  
 }
 .nav .nav-divider {
   height: 1px;
@@ -4272,11 +4272,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-width: 1px 0 0;
 }
 .navbar-brand {
-  float: left;
+ /*float: left;*/
   height: 50px;
-  padding: 5px 10px;
-  font-size: 18px;
-  line-height: 20px;
+  padding: 20px 20px;
+  font-size: 20px;
+  line-height: 50px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -4589,15 +4589,15 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color: #e7e7e7;
-  border-color: #FFF;
+  background-color: #408eba;
+  border-color: #3a80a7;
 }
 .navbar-inverse .navbar-brand {
-  color: #9d9d9d;
+  color: #fff;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #fff;
+  color: #e7e7e7;
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {

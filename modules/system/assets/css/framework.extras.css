@@ -453,9 +453,7 @@ button.oc-loading:after {
 .icono_menu{
   border-radius: 15px;
 }
-.navbar-right {
-    margin-right: 0px !important;
-}
+
 .titulo_indicadores{
   background-color: #2c3b41 !important;
   color: #dddddd !important;
@@ -464,7 +462,7 @@ button.oc-loading:after {
   background-color: #2c3b41 !important;
 }
 .panel{
-  border: 0px solid transparent;
+  border:1px solid #3a80a7;
 }
 
 .div_login{
@@ -497,12 +495,19 @@ button.oc-loading:after {
 }
 .contenedor_noticias{
   border-radius: 15px;
-  border: double #ccc;
+  border: solid 1px #3a80a7;
   padding-bottom: 20px;
+  padding-top: 20px;
 }
 .titulo_post{
   color:#e7e7e7 !important; font-size:22px !important; text-align:center;
 }
 .eventList li a{
   font-size: 12px;
+}
+.table-hover{
+ font-size: 12px !important; 
+}
+.navbar-header{
+  background-color: #3a80a7;
 }

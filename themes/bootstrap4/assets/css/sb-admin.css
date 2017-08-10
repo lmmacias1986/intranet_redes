@@ -24,7 +24,7 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #fff;
+    background-color: #e7e7e7;
 }
 
 .huge {
@@ -57,13 +57,13 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
-    color: #1E427C;
+    color: #FFF;
 }
 
 .top-nav>li>a:hover,
 .top-nav>li>a:focus,
 {
-    color: #fff;
+    color: #1E427C;
     background-color: #000;
 }
 
