@@ -1,0 +1,82 @@
+[viewBag]
+==
+
+<ul class="nav navbar-nav side-nav">
+  {% if can('menu_guia') %}
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_guia"><i class="fa fa-fw fa-edit"></i> Guia del cliente<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_guia" class="collapse">
+          <li>
+              <a href="{{ 'guias/guias'|page }}">Consultar Guias</a>
+          </li>
+          {% if can('admin_guia') %}
+          <li>
+            <a href="{{ 'guias/guia_cliente'|page }}">Crear Guia Cliente</a>
+          </li>
+          {% endif %}
+      </ul>      
+  </li>
+   {% endif %}
+  {% if can('incapacidades') %}
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_incapacidad"><i class="fa fa-fw fa-table"></i> Incapacidades<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_incapacidad" class="collapse">
+          <li><a href="{{ 'incapacidades/consultar_incapacidades'|page }}">Consultar Incapacidad</a></li>
+          <li><a href="{{ 'incapacidades/crear_incapacidad'|page }}">Crear Incapacidad</a></li>
+          <li><a href="{{ 'incapacidades/reportes'|page }}">Reportes</a></li>
+          <li><a href="{{ 'parametros/listas_dx'|page }}">Consultar diagnósticos</a></li>
+          <li><a href="{{ 'parametros/crear_dx'|page }}">Crear diagnóstico</a></li>
+      </ul>      
+  </li>
+  {% endif %}
+  {% if can('incapacidades') %}
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_gestion"><i class="fa fa-fw fa-wrench"></i> Gestión Usuarios<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_gestion" class="collapse">
+        <li><a href="{{ 'colaboradores/listas_colaboradores'|page }}">Consultar usuario</a></li>    
+        <li><a href="{{ 'colaboradores/crear_colaborador'|page }}">Crear usuario</a></li> 
+      </ul>      
+  </li>
+  {% endif %}
+
+
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_help"><i class="fa fa-fw fa-desktop"></i> Help Desk<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_help" class="collapse">
+        {% if can('helpdesk') %}
+          <li><a href="{{ 'sistemas/control'|page }}">Abiertas</a></li> 
+          <li><a href="{{ 'sistemas/pendiente'|page }}">Pendientes</a></li> 
+          <li><a href="{{ 'sistemas/curso'|page }}">En curso</a></li> 
+          <li><a href="{{ 'sistemas/cerrado'|page }}">Cerrados</a></li> 
+          <li><a href="{{ 'sistemas/resuelto'|page }}">Resueltos</a></li> 
+        {% endif %}
+        <li><a href="{{ 'sistemas/solicitud'|page }}">Crear caso</a></li>   
+      </ul>      
+  </li>
+  <li>
+      <a href="{{ 'directorio/directorio'|page }}"><i class="fa fa-fw fa-file"></i> Directorio</a>
+  </li>
+  {% if can('envios') %}
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_envios"><i class="fa fa-fw fa-arrows-v"></i> Envios<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_envios" class="collapse">
+        {%if can('admin_envios') %}
+          <li><a href="{{ 'envios/envios'|page }}">Crear envío</a></li>
+          <li><a href="{{ 'envios/locales'|page }}">Consultar envíos</a></li>          
+        {% endif %}
+      </ul>      
+  </li>
+  {% endif %}
+  {% if can('eventos') %}
+  <li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_eventos"><i class="fa fa-fw fa-calendar"></i> Eventos<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="menu_eventos" class="collapse">
+        {%if can('eventos') %}
+          <li><a href="{{ 'calendario/calendario'|page }}">Crear evento</a></li>
+        {% endif %}
+        <li><a href="{{ 'calendario/ver_eventos'|page }}">Eventos</a></li>
+      </ul>
+  </li>
+  {% endif %}
+
+</ul>

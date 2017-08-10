@@ -1,6 +1,11 @@
 table.mycal {
         /* Calendar width Set Here */
+<<<<<<< HEAD
         width:500px;
+=======
+        /*width:500px;*/
+        width:100%;
+>>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
         table-layout:fixed;
         border-spacing: 0px;
     }
@@ -21,6 +26,10 @@ tr.days td a {
         color:inherit;
         font:inherit;
         font-weight:inherit;
+<<<<<<< HEAD
+=======
+        white-space: initial;
+>>>>>>> f41649dcad621b03ba56918b0bff4547163587ba
     }
     
 tr.daysHead th{

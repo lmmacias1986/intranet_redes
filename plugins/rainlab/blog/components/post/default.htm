@@ -1,27 +1,54 @@
 {% set post = __SELF__.post %}
 
-<div class="content">{{ post.content_html|raw }}</div>
 
-{% if post.featured_images.count %}
-    <div class="featured-images text-center">
-        {% for image in post.featured_images %}
-            <p>
-                <img
-                    data-src="{{ image.filename }}"
-                    src="{{ image.path }}"
-                    alt="{{ image.description }}"
-                    style="max-width: 100%" />
+<div class="row">   
+    <div class="col-md-12">     
+        <div class="panel panel-info"> 
+            <div class="panel-heading" style="background-color:#23185c !important"> 
+                <h3 class="panel-title titulo_post">{{ post.title|upper }}</h3>
+            </div> 
+            <div class="panel-body">    
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {% if post.featured_images.count %}
+                        <div class="featured-images text-center">
+                            {% for image in post.featured_images %}
+                                <p>
+                                    <img
+                                        data-src="{{ image.filename }}"
+                                        src="{{ image.path }}"
+                                        alt="{{ image.description }}"
+                                        style="max-width: 100%" />
+                                </p>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="featured-images text-center">
+                            <img class="media-object" src="http://placehold.it/300x300">
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ post.content_html|raw }}
+                </div>
+                <hr>
+                
+            </div>
+            <p class="info pull-right">
+                Posteado
+                {% if post.categories.count %} en
+                    {% for category in post.categories %}
+                        <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                {% endif %}
+                el {{ post.published_at|date('M d, Y') }}
             </p>
-        {% endfor %}
+        </div>      
     </div>
-{% endif %}
+</div>
 
-<p class="info">
-    Posteado
-    {% if post.categories.count %} en
-        {% for category in post.categories %}
-            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
-        {% endfor %}
-    {% endif %}
-    el {{ post.published_at|date('M d, Y') }}
-</p>
+
+
+
+
+
+

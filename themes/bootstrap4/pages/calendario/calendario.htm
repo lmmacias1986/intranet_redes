@@ -1,0 +1,14 @@
+title = "calendario"
+url = "/calendario"
+layout = "default"
+description = "formulario para registrar eventos en el calendario"
+is_hidden = 0
+
+[EventForm]
+allowpublish = 1
+ckeditor = 1
+bootstrapCDN = 1
+==
+{%if can('eventos') %}
+	{% component 'EventForm' %}
+{% endif %}
