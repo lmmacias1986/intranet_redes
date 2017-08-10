@@ -1,0 +1,17 @@
+{
+    "name": "kurtjensen/mycalendar",
+    "description": "KurtJensen's MyCalendar plugin for OctoberCMS",
+    "homepage": "http://firemankurt.com",
+    "keywords": ["october", "cms", "kurtjensen", "calendar", "events"],
+    "authors": [
+        {
+            "name": "Kurt Jensen",
+            "email": "kjensen@iaff106.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "simshaun/recurr": "^0.6.1"
+    }
+}
