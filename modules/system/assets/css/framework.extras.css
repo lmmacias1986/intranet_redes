@@ -511,3 +511,6 @@ button.oc-loading:after {
 .navbar-header{
   background-color: #3a80a7;
 }
+.div_central table {
+  font-size: 13px;
+}

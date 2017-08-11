@@ -90,7 +90,7 @@
 <!-- Ends -->
     <div class="row<?= (array_get($f, 'FREQ', 'NONE') == 'NONE' ? ' hidden' : '') ?> r_all r_hourly r_daily r_weekdays r_weekends r_weekly r_monthly r_yearly r_series form-inline">
         <div class="col-md-5 form-group">
-            <?= Form::label('Ends', 'Ends',['class'=>'control-label']) ?>
+            <?= Form::label('Ends', 'Fin',['class'=>'control-label']) ?>
             <?= Form::select('Ends', ['NEVER' => $this->t('Never').$this->maxCount().$this->t('Never_end'), 'AFTER' => $this->t('After'), 'DATE' => $this->t('On_date')], array_get($f, 'Ends'), ['class' => 'form-control custom-select  r_all r_hourly r_daily r_weekdays r_weekends r_weekly r_monthly r_yearly r_series', 'style'=>'width:80%;']) ?>
         </div>
 
@@ -98,7 +98,7 @@
         <div class="col-md-3<?= (array_get($f, 'Ends') == 'AFTER' ? '' : ' hidden') ?> e_all e_after form-group ">
             <?= Form::label('COUNT', '&nbsp;') ?>
             <?= Form::select('COUNT', $this->getOccuranceOptions(), array_get($f, 'COUNT'), ['class' => 'form-control custom-select']) ?>
-            <span class="inline-form-text"><strong>occurrence(s)</strong></span>
+            <span class="inline-form-text"><strong>Ocurrencia(s)</strong></span>
         </div>
 
 

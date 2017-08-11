@@ -63,7 +63,7 @@ class Category extends Model {
 
 		$list = self::orderBy('name')->lists('name', 'id');
 		if ($includeBlank) {
-			$list = [0 => '- Select One -'] + $list;
+			$list = [0 => '- Seleccione Una -'] + $list;
 		}
 
 		return self::$nameList = $list;
