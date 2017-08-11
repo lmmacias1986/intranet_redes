@@ -16,46 +16,78 @@ is_hidden = 0
     	}else{
     		$this['alertas'] = $incapacidades_alerta;
     	}
+
 	}
 
 	function onConsulta(){
-	    $incapacidades = DB::table('incapacidades')->where('cedula','=', input('cedula'))->orderBy('id', 'desc')->paginate(15);
+	    $incapacidades = DB::table('incapacidades')->where('cedula','=', input('cedula'))->orderBy('id', 'desc')->paginate(15);	    
     	if(count($incapacidades)==0){
     		$this['error'] = "No hay registros";
     	}else{
     		$this['incapacidades'] = $incapacidades;
     	}
-
 	}
 ?>
 ==
+
+<script>
+    $( function() {
+    $( "#desde" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#hasta" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    } );
+</script>
+
 {%if can('incapacidades') %}
 	<div class="row">
-		<div class="panel panel-primary"> 
-			<div class="panel-heading"> 
-				<h3 class="panel-title">CONSULTA DE INCAPACIDADES</h3>
-			</div> 
-			<div class="panel-body">
-				<form data-request="onConsulta" data-request-update="incapacidades: '#resultado'">
-					<div class="col-md-4">
-						<label for="cedula">Cédula</label>
-						<input type="text" id="cedula" name="cedula" class="form-control"/>
-					</div>
-					<div class="col-md-4">
-						<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-primary" style="margin-top:25px"/>
-					</div>
-					<div id="resultado">
-						{% partial 'incapacidades' %}
-					</div>
-					{{ incapacidades.render|raw }}
-				</form>
-			</div> 
+		<div class="col-md-4">
+			<div class="row">
+				<div class="panel panel-primary"> 
+					<div class="panel-heading"> 
+						<h3 class="panel-title">CONSULTA DE INCAPACIDADES</h3>
+					</div> 
+					<div class="panel-body">
+						<form data-request="onConsulta" data-request-update="incapacidades: '#resultado'">
+							<div class="col-md-8">
+								<label for="cedula">Cédula</label>
+								<input type="text" id="cedula" name="cedula" class="form-control"/>
+							</div>
+							<div class="col-md-4">
+								<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-primary" style="margin-top:25px"/>
+							</div>										
+						</form>
+					</div> 
+				</div>
+			</div>
 		</div>
-
+		<div class="col-md-8">			
+				<div class="panel panel-primary"> 
+					<div class="panel-heading"> 
+						<h3 class="panel-title">REPORTE DE INCAPACIDADES</h3>
+					</div> 
+					<div class="panel-body">
+						<form  method="post" action="descargas">
+							<div class="col-md-4">
+								<label for="desde">Desde</label>
+								<input type="text" id="desde" name="desde" class="form-control"/>
+							</div>
+							<div class="col-md-4">
+								<label for="hasta">Hasta</label>
+								<input type="text" id="hasta" name="hasta" class="form-control"/>
+							</div>
+							<div class="col-md-4">
+								<input type="submit" id="descargar" name="descargar" value="Descargar" class=" btn btn-primary" style="margin-top:25px"/>								
+							</div>							
+						</form>
+					</div> 
+				</div>			
+		</div>
 		<!--div class="alert alert-info" role="alert"><p>CONSULTA DE INCAPACIDADES</p></div-->
 		
 	</div>
-	
+
+	<!-- tabla de resultados -->
+	<div id="resultado"></div>	
+
 	<div class="row">
 		<div class="panel panel-danger"> 
 			<div class="panel-heading"> 

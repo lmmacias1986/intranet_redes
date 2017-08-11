@@ -1,0 +1,63 @@
+title = "descargas"
+url = "/descargas"
+layout = "formularios"
+is_hidden = 0
+==
+<?php
+function onStart(){
+
+
+	if (input('desde') =="" || input('hasta') =="" ){
+		return Redirect::to('consultar_incapacidades');
+	}else{
+
+		$incapacidades = DB::table('incapacidades')
+		->whereBetween('created', [input('desde'), input('hasta')])
+		->orderBy('id', 'asc')->get();	
+		if(count($incapacidades)==0){
+			return Redirect::to('consultar_incapacidades');
+		}else{
+			$prorrogas = DB::table('prorrogas')
+			->whereBetween('created', [input('desde'), input('hasta')])
+			->orderBy('id', 'asc')->get();
+			
+			$csv_array = array();
+			$csv_row = array();
+
+			foreach ($incapacidades as $key) {
+		  		$csv_array[] = $key;
+		  	}
+
+			if(count($incapacidades)>0){
+				foreach ($prorrogas as $key) {
+		  			$csv_array[] = $key;
+		  		}
+			}
+				    			  	
+		  	$fp = fopen( 'php://temp/maxmemory:'. (12*1024*1024) , 'r+' );			
+		  	foreach ($csv_array as $value) {		  		
+		  		foreach ($value as $val) {
+		  			$csv_row[] = $val;		  			
+		  		};
+		  		//fputcsv($fp, str_replace(array("\r", "\n"), '',$csv_row));	
+		  		fputcsv($fp, array_map('utf8_decode',array_values(str_replace(array("\r", "\n"), '',$csv_row))), ',', '"');
+		  		unset($csv_row);
+		  	};
+		  	rewind( $fp );
+		  	$output = stream_get_contents( $fp );
+			fclose($fp);
+
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; filename=reporte-'. time() .'.csv' );
+			header('Content-Length: '. strlen($output) );
+			echo $output;
+			exit;
+		}
+	}
+				
+}
+
+
+?>
+
+==

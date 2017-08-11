@@ -5,7 +5,7 @@ description = "consulta de colaboradores"
 is_hidden = 0
 ==
 <?php
-	function onStart(){
+	function onStart(){		
 	    $this['colaboradores'] = Db::table('colaboradores')->paginate(20);
 	}
 	function onConsulta(){

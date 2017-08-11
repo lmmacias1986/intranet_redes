@@ -1,14 +1,23 @@
 [viewBag]
 ==
 {% if incapacidades %}
-    <table class="table table-hover ">
-        <thead> <tr> <th>Tipo</th> <th>Fecha inicio</th> <th>Fecha Final</th><th>Días</th><th>EPS</th> <th>Creación</th> <th>Acción</th>  </tr> </thead>
-        <tbody>
-            {% for incapacidad in incapacidades %}
-                <tr><td>{{ incapacidad.tipo_incapacidad }}</td><td>{{ incapacidad.fecha_inicial }}</td><td> {{ incapacidad.fecha_final }}</td><td>{{ incapacidad.dias }}</td><td>{{ incapacidad.eps }}</td><td>{{ incapacidad.created|date('d/m/Y') }}</td><td><a href="editar_incapacidad/{{ incapacidad.id }}">Ver</a></td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="panel panel-info"> 
+            <div class="panel-heading"> 
+                <h3 class="panel-title">RESULTADOS</h3>
+            </div> 
+            <div class="panel-body">
+                <table class="table table-hover ">
+                    <thead> <tr> <th>Tipo</th> <th>Fecha inicio</th> <th>Fecha Final</th><th>Días</th><th>EPS</th> <th>Creación</th> <th>Acción</th>  </tr> </thead>
+                    <tbody>
+                        {% for incapacidad in incapacidades %}
+                            <tr><td>{{ incapacidad.tipo_incapacidad }}</td><td>{{ incapacidad.fecha_inicial }}</td><td> {{ incapacidad.fecha_final }}</td><td>{{ incapacidad.dias }}</td><td>{{ incapacidad.eps }}</td><td>{{ incapacidad.created|date('d/m/Y') }}</td><td><a href="editar_incapacidad/{{ incapacidad.id }}">Ver</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>            
+            </div>
+        </div>
+    </div>
 {% else %}
     {% if error %}
     	<p>EL número de cédula no tiene registros de incapacidades.</p>
