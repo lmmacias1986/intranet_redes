@@ -22,12 +22,11 @@ function onConsulta(){
     if (input('cedula') == ""){
         $this['error'] = "Debe ingresar el número del documento.";
     }else{
-        $usuario = Db::table('colaboradores')->where('cedula','=', trim(strtoupper(input('cedula'))))->first();
+        $usuario = Db::table('colaboradores')->where('cedula','=', trim(strtoupper(input('cedula'))))->get();
         if (count($usuario)==0 ){
-            $this['error'] = "Este número de cédula no esta registrado.";            
+            $this['error'] = "Este número de cédula no esta registrado.";
         }else{
-            $this['nombres'] = $usuario->nombres ." ".$usuario->apellidos;
-            $this['empresa'] = $usuario->empresa;
+            $this['datos_persona'] = $usuario;                        
         } 
     }
 }
@@ -52,6 +51,8 @@ function onSave()
    $validator = false;
     if (input('cedula') == ""){
         $this['error'] = "Debe ingresar el número del documento.";
+    }elseif (input('grupo_empresarial') == ""){
+        $this['error'] = "Debe seleccionar un grupo empresarial.";
     }elseif(input('tipo_incapacidad')==""){   
         $this['error'] = "Debe seleccionar el tipo de incapacidad.";
     }elseif(input('dias')=="NaN" || input('dias')=="" ){   
@@ -80,6 +81,8 @@ function onSave()
         Db::table('prorrogas')->insertGetId(
             ['id_padre' => $this->param('id'),
             'cedula' => input('cedula'),
+            'empresa' => input('empresa'),
+            'grupo_empresarial' => input('grupo_empresarial'),
             'tipo_incapacidad' => input('tipo_incapacidad'),
             'prorroga' => input('prorroga'),
             'eps' => input('eps'),
@@ -119,17 +122,6 @@ $( "#fecha_inicial" ).datepicker({ dateFormat: 'yy-mm-dd' });
 $( function() {
 $( "#fecha_final" ).datepicker({ dateFormat: 'yy-mm-dd' });
 } );
-/*
-function soloNumeros(event, _float){
-    event = event || window.event;
-    var charCode = event.keyCode || event.which;
-    var first = (charCode <= 57 && charCode >= 49);
-    if(_float){
-        var element = event.srcElement || event.target;
-        return first || (element.value.indexOf('.') == -1 ? charCode == 46 : false);
-    }
-    return first;
-}*/
 function soloNumeros(evt){ 
     var nav4 = window.Event ? true : false; 
     var key = nav4 ? evt.which : evt.keyCode; 
@@ -176,12 +168,21 @@ function calculo_dias(){
                                 <span for="cedula">Cédula:</span>
                                 <input type="text" id="cedula" name="cedula" readonly value="{{ incapacidad.cedula }}"class="form-control">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <input type="submit" data-request-update="consulta_usuario:'#div_consulta'" data-request="onConsulta" class="btn btn-success" value="Consultar" style="margin-top: 20px;"/>
                             </div>
-
-                            <div class="col-md-8" id="div_consulta">
+                            <div class="col-md-6" id="div_consulta">
                                 {% partial 'consulta_usuario' %}
+                            </div>
+                            <div class="col-md-3">
+                                <span for="grupo_empresarial">Grupo Empresarial:</span>
+                                <select id="grupo_empresarial" name="grupo_empresarial" class="form-control">
+                                    <option value=""{% if incapacidad.grupo_empresarial == "" %} selected {% endif %}>--Seleccione--</option>
+                                    <option value="Redes Humanas" {% if incapacidad.grupo_empresarial == "Redes Humanas" %} selected {% endif %}>Redes Humanas</option>
+                                    <option value="Sercontratos" {% if incapacidad.grupo_empresarial == "Sercontratos" %} selected {% endif %}>Sercontratos</option>
+                                    <option value="Synergo" {% if incapacidad.grupo_empresarial == "Synergo" %} selected {% endif %}>Synergo</option>
+                                    <option value="Redes envios" {% if incapacidad.grupo_empresarial == "Redes envios" %} selected {% endif %}>Redes envios</option>
+                                </select>
                             </div>
                         </div>
                     </div>

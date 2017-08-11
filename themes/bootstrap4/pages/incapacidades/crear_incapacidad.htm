@@ -19,9 +19,7 @@ function onConsulta(){
     	if (count($usuario)==0 ){
             $this['error'] = "Este número de cédula no esta registrado.";
         }else{
-            $this['datos_persona'] = $usuario;            
-            /*$this['nombres'] = $usuario->nombres ." ".$usuario->apellidos;
-            $this['empresa'] = $usuario->empresa;*/
+            $this['datos_persona'] = $usuario;                        
         } 
     }
 }
@@ -30,6 +28,8 @@ function onSave()
     $validator = false;
     if (input('cedula') == ""){
         $this['error'] = "Debe ingresar el número del documento.";
+    }elseif (input('grupo_empresarial') == ""){        
+        $this['error'] = "Debe seleccionar un grupo empresarial.";
     }elseif(input('tipo_incapacidad')==""){   
         $this['error'] = "Debe seleccionar el tipo de incapacidad.";
     }elseif(input('dias')=="NaN" || input('dias')=="" ){   
@@ -58,6 +58,7 @@ function onSave()
         $id = Db::table('incapacidades')->insertGetId(
             ['cedula' => input('cedula'),
             'empresa' => input('empresa'),
+            'grupo_empresarial' => input('grupo_empresarial'),
             'tipo_incapacidad' => input('tipo_incapacidad'),
             'prorroga' => input('prorroga'),
             'eps' => input('eps'),
@@ -169,13 +170,23 @@ function epsarl(valor){
             		            <span for="cedula">Cédula:</span>
             		            <input type="text" id="cedula" name="cedula" class="form-control">
             		        </div>
-            		        <div class="col-md-2">
+            		        <div class="col-md-1">
             		        	<input type="submit" data-request-update="consulta_usuario:'#div_consulta'" data-request="onConsulta" class="btn btn-success" value="Consultar" style="margin-top: 20px;"/>
             		        </div>
 
-            		        <div class="col-md-8" id="div_consulta">
+            		        <div class="col-md-6" id="div_consulta">
             		        	{% partial 'consulta_usuario' %}
             		        </div>
+                            <div class="col-md-3">
+                                <span for="grupo_empresarial">Grupo Empresarial:</span>
+                                <select id="grupo_empresarial" name="grupo_empresarial" class="form-control">
+                                    <option value="">--Seleccione--</option>
+                                    <option value="Redes Humanas">Redes Humanas</option>                                    
+                                    <option value="Sercontratos">Sercontratos</option>
+                                    <option value="Synergo">Synergo</option>
+                                    <option value="Redes envios">Redes envios</option>
+                                </select>
+                            </div>
             			</div>
             		</div>
             		<hr>
@@ -253,6 +264,18 @@ function epsarl(valor){
                             <option value="Inactiva">Inactiva</option>
                         </select>
                     </div>
+                                         
+                    <div class="col-md-2">
+                        <span for="cod_dx">Diagnóstico:</span>
+                        <input type="text" id="cod_dx" name="cod_dx" class="form-control">
+                    </div>  
+                    <div class="col-md-2">
+                        <button id="verificar" name="verificar" type="submit" data-request="onDx" data-request-update="desc_dx: '#div_dx'" class="btn btn-success" style="margin-top:20px">Verificar</button>
+                    </div>  
+                    <div class="col-md-12" id="div_dx">                        
+                        {% partial 'desc_dx' %}
+                    </div>                  
+                    
                     <div class="col-md-4">
                         <span >Estados del caso:</span>
                         <ul>
@@ -263,20 +286,8 @@ function epsarl(valor){
                             </li>
                         {% endfor %}
                         </ul>
-                    </div>                         
-                    <div class="col-md-2">
-                        <span for="cod_dx">Diagnóstico:</span>
-                        <input type="text" id="cod_dx" name="cod_dx" class="form-control">
-                    </div>  
-                    <div class="col-md-2">
-                        <button id="verificar" name="verificar" type="submit" data-request="onDx" data-request-update="desc_dx: '#div_dx'" class="btn btn-success" style="margin-top:20px">Verificar</button>
-                    </div>  
-                    <div class="col-md-8" id="div_dx">
-                        
-                        {% partial 'desc_dx' %}
-                    </div>                  
-                    
-                    <div class="col-md-12">
+                    </div>    
+                    <div class="col-md-8">                        
                         <span for="observaciones">Observaciones:</span>
                         <textarea id="observaciones" name="observaciones" class="form-control"></textarea>
                     </div>

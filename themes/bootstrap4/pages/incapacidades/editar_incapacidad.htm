@@ -80,6 +80,8 @@ function onSave()
     $validator = false;
     if (input('cedula') == ""){
         $this['error'] = "Debe ingresar el número del documento.";
+    }elseif (input('grupo_empresarial') == ""){
+        $this['error'] = "Debe seleccionar un grupo empresarial.";
     }elseif(input('tipo_incapacidad')==""){   
         $this['error'] = "Debe seleccionar el tipo de incapacidad.";
     }elseif(input('dias')=="NaN" || input('dias')=="" ){   
@@ -89,7 +91,7 @@ function onSave()
     }elseif(input('salario_basico')==""){
         $this['error'] = "debe ingresar el salario para realizar los cálculos necesarios.";
     }elseif(input('salario_basico')==""){
-        $this['error'] = "debe ingresar el salario para realizar los cálculos necesarios. (utilice punto(.) como separador de miles)";
+        $this['error'] = "debe ingresar el salario para realizar los cálculos necesarios. (Use el punto(.) como separador de miles)";
     }elseif(input('cod_dx')==""){
         $this['error'] = "debe ingresar un codigo de diagnóstico (verifiquelo si requiere)";
     }else{
@@ -108,6 +110,7 @@ function onSave()
         $dias_total = (input('dias_acumulados') - input('dias_temp')) + input('dias');
         Db::table('incapacidades')->where('id', $this->param('id'))->update(
             [
+            'grupo_empresarial' => input('grupo_empresarial'),
             'tipo_incapacidad' => input('tipo_incapacidad'),
             'prorroga' => input('prorroga'),
             'eps' => input('eps'),
@@ -206,13 +209,23 @@ function calculo_dias(){
                                 <span for="cedula">Cédula:</span>
                                 <input type="text" id="cedula" name="cedula" value="{{ incapacidad.cedula }}"class="form-control">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <span for="nombres">Nombre completo:</span>
                                 <input type="text" id="nombres" name="nombres" readonly value="{{ usuario.nombres }} {{ usuario.apellidos }}" class="form-control">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <span for="empresa">Empresa:</span>
                                 <input type="text" id="empresa" name="empresa" readonly class="form-control" value="{{ incapacidad.empresa }}">                                
+                            </div>
+                            <div class="col-md-3">
+                                <span for="grupo_empresarial">Grupo Empresarial:</span>
+                                <select id="grupo_empresarial" name="grupo_empresarial" class="form-control">
+                                    <option value=""{% if incapacidad.grupo_empresarial == "" %} selected {% endif %}>--Seleccione--</option>
+                                    <option value="Redes Humanas" {% if incapacidad.grupo_empresarial == "Redes Humanas" %} selected {% endif %}>Redes Humanas</option>
+                                    <option value="Sercontratos" {% if incapacidad.grupo_empresarial == "Sercontratos" %} selected {% endif %}>Sercontratos</option>
+                                    <option value="Synergo" {% if incapacidad.grupo_empresarial == "Synergo" %} selected {% endif %}>Synergo</option>
+                                    <option value="Redes envios" {% if incapacidad.grupo_empresarial == "Redes envios" %} selected {% endif %}>Redes envios</option>
+                                </select>
                             </div>
                         </div>
                     </div>

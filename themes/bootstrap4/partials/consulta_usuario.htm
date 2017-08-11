@@ -3,6 +3,7 @@
 {% if error %}
 	<p> {{ error }} </p>
 {% else %}
+<div class="row">
 	<div class="col-md-6">
 	    <span for="nombres">Nombre completo:</span>
 	    <input type="text" id="nombres" name="nombres" readonly value="{{ datos_persona[0].nombres }} {{ datos_persona[0].apellidos }}" class="form-control">
@@ -16,5 +17,6 @@
             {% endfor %}
 	    </select>	     
 	</div>
-	<hr>
+</div>
+	
 {% endif %}
