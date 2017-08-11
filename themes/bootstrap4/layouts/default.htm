@@ -49,9 +49,7 @@ descending = 0
     ]|theme }}"></script>
 
     {% framework extras %}
-    {% scripts %}
-
-    
+    {% scripts %}   
 
     <link href="{{ [
       'assets/css/bootstrap.css',
@@ -132,7 +130,16 @@ descending = 0
                     {%if user.name %}                    
                         {% partial "menus/menu_lateral" %}                        
                     {% endif %}   
-                </div>   
+                </div>
+                {%if user.name %}                              
+                    <div class="col-md-12">
+                      {% if can('helpdesk') %}                                        
+                          {% partial "indicadores"%}
+                      {% else %}                            
+                          {% partial 'notification' %}
+                      {% endif %}                          
+                    </div>
+                {% endif %}                       
              </div>               
         </div>
 
@@ -170,15 +177,7 @@ descending = 0
                         </div>                        
                     </div>
                 {% endif %}         
-                {%if user.name %}                              
-                    <div class="col-md-12">
-                      {% if can('helpdesk') %}                                        
-                          {% partial "indicadores"%}
-                      {% else %}                            
-                          {% partial 'notification' %}
-                      {% endif %}                          
-                    </div>
-                {% endif %}                    
+                
             </div>
         </div>
     </div>

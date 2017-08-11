@@ -26,7 +26,6 @@ descending = 0
     <meta name="description" content="{{ this.page.meta_description }}">
     <meta name="title" content="{{ this.page.meta_title }}">
     <meta name="author" content="Redes Humanas">
-    <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link href="{{ [
@@ -123,7 +122,17 @@ descending = 0
                         {% partial "menus/menu_lateral" %}                        
                     {% endif %}   
                 </div>                   
-             </div>               
+             </div> 
+
+            {%if user.name %}                              
+                <div class="col-md-12">
+                  {% if can('helpdesk') %}                                        
+                      {% partial "indicadores"%}
+                  {% else %}                            
+                      {% partial 'notification' %}
+                  {% endif %}                          
+                </div>
+            {% endif %}                                  
         </div>
 
         <div class="col-md-8">                       
@@ -160,15 +169,7 @@ descending = 0
                         </div>                        
                     </div>
                 {% endif %}         
-                {%if user.name %}                              
-                    <div class="col-md-12">
-                      {% if can('helpdesk') %}                                        
-                          {% partial "indicadores"%}
-                      {% else %}                            
-                          {% partial 'notification' %}
-                      {% endif %}                          
-                    </div>
-                {% endif %}                    
+       
             </div>
         </div>
     </div>

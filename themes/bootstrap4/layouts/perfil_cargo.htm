@@ -12,31 +12,28 @@ redirect = "home"
     <meta name="description" content="{{ this.page.meta_description }}">
     <meta name="title" content="{{ this.page.meta_title }}">
     <meta name="author" content="Redes Humanas">
-    <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="{{ [
+    'assets/js/jquery.js',
+    'assets/js/bootstrap.min.js',
+    'assets/js/app.js',
+    'assets/vendor/jquery/jquery-3.1.1.min.js',
+    'assets/vendor/jquery/jquery-ui.js'
+    ]|theme }}"></script>
+
+    {% framework extras %}
+    {% scripts %}   
+
     <link href="{{ [
       'assets/css/bootstrap.css',
       'assets/css/sb-admin.css',
       'assets/css/plugins/morris.css',
-      'assets/font-awesome/css/font-awesome.min.css'
+      'assets/font-awesome/css/font-awesome.min.css',
+      'assets/vendor/jquery/jquery-ui.css'
     ]|theme }}" rel="stylesheet">
 
     {% styles %}
-
-    <script src="{{ [
-      'assets/js/jquery.js',
-      'assets/vendor/jquery/jquery-3.1.1.min.js',
-      'assets/js/bootstrap.min.js',
-      'assets/js/plugins/morris/raphael.min.js',
-      'assets/js/plugins/morris/morris.min.js',
-      'assets/js/plugins/morris/morris-data.js',
-      'assets/js/app.js',      
-      'assets/vendor/jquery/jquery-ui.js'
-      ]|theme }}"></script>    
-    
-    {% framework extras %}
-    {% scripts %}
 
   </head>
 {% if user %}
@@ -66,14 +63,15 @@ redirect = "home"
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
+                <div class="navbar-header col-md-2">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ 'home'|page }}"><img src="{{ 'assets/images/logo_imp.png'|theme }}" class="img-responsive"/></a>                
+                    <!--a class="navbar-brand" href="{{ 'home'|page }}"><img src="{{ 'assets/images/logo_imp.png'|theme }}" class="img-responsive"/></a-->                
+                    <a class="navbar-brand" href="{{ 'home'|page }}"><b>Redes</b> <span>Humanas</span></a>
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">                
@@ -99,7 +97,28 @@ redirect = "home"
     </div>
     
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2"> 
+            <div class="row">
+                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->            
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    {%if user.name %}                    
+                        {% partial "menus/menu_lateral" %}                        
+                    {% endif %}   
+                </div>       
+
+                {%if user.name %}                              
+                    <div class="col-md-12">
+                      {% if can('helpdesk') %}                                        
+                          {% partial "indicadores"%}
+                      {% else %}                            
+                          {% partial 'notification' %}
+                      {% endif %}                          
+                    </div>
+                {% endif %}                                
+             </div>               
+        </div>
+
+        <div class="col-md-10">                       
             <div class="row">           
                 {%if user.name %}   
                 <div id="page-wrapper" class="div_central">                
