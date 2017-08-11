@@ -12,12 +12,14 @@ function onStart(){
 	}else{
 
 		$incapacidades = DB::table('incapacidades')
+		->select('id', 'cedula','empresa', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'cod_dx', 'estado', 'observaciones', 'ciudad', 'created', 'dias_acumulados' )
 		->whereBetween('created', [input('desde'), input('hasta')])
-		->orderBy('id', 'asc')->get();	
+		->orderBy('id', 'asc')->get();
 		if(count($incapacidades)==0){
 			return Redirect::to('consultar_incapacidades');
 		}else{
 			$prorrogas = DB::table('prorrogas')
+			->select('id', 'cedula','empresa', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'cod_dx', 'estado', 'observaciones', 'ciudad', 'created')
 			->whereBetween('created', [input('desde'), input('hasta')])
 			->orderBy('id', 'asc')->get();
 			
