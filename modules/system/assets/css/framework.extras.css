@@ -514,3 +514,7 @@ button.oc-loading:after {
 .div_central table {
   font-size: 13px;
 }
+.fa-angle-right{
+  margin-left: -10px;
+  margin-right: 10px;
+}

@@ -132,14 +132,22 @@ ul.alert-dropdown {
         /*padding-bottom: 40px;*/
     }
 
-    .side-nav>li>a {
-        width: 225px;
+    .side-nav>li {
+        width: 100%;
     }
 
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
         background-color: #000 !important;
+        width: 100%;
+    }
+
+    .side-nav li a ul li:hover,
+    .side-nav li a ul li:focus {
+        outline: none;
+        background-color: #000 !important;
+        width: 100%;
     }
 }
 
