@@ -132,7 +132,7 @@ descending = 0
                     {% endif %}   
                 </div>
                 {%if user.name %}                              
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="div_notifica">
                       {% if can('helpdesk') %}                                        
                           {% partial "indicadores"%}
                       {% else %}                            
