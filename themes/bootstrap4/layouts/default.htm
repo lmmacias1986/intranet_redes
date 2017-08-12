@@ -102,8 +102,7 @@ descending = 0
                 <ul class="nav navbar-right top-nav">                
                     <li class="dropdown">
                         {% if user %}
-
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.name }} {{ user.surname }} <b class="caret"></b></a>                    
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-user"></i> {{ user.name }} {{ user.surname }} <b class="caret"></b></a>                    
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="{{ 'account'|page }}"><i class="fa fa-fw fa-user"></i> Mi Cuenta</a>
