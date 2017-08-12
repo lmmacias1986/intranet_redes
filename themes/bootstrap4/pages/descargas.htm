@@ -6,24 +6,32 @@ is_hidden = 0
 <?php
 function onStart(){
 
+
 	if (input('desde') =="" || input('hasta') =="" ){
 		return Redirect::to('consultar_incapacidades');
 	}else{
 
 		$incapacidades = DB::table('incapacidades')
-		->select('id', 'cedula','empresa', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'cod_dx', 'estado', 'observaciones', 'ciudad', 'created', 'dias_acumulados' )
+		->select('incapacidades.cedula','incapacidades.empresa','colaboradores.nombres','colaboradores.apellidos', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'incapacidades.cod_dx','registro_diagnostico.descripcion', 'estado', 'observaciones', 'ciudad', 'created', 'dias_acumulados')
+		->join('colaboradores', 'incapacidades.cedula', '=', 'colaboradores.cedula')
+		->join('registro_diagnostico', 'incapacidades.cod_dx', '=', 'registro_diagnostico.codigo')
 		->whereBetween('created', [input('desde'), input('hasta')])
-		->orderBy('id', 'asc')->get();
+		->orderBy('incapacidades.created', 'desc')->get();
+
 		if(count($incapacidades)==0){
 			return Redirect::to('consultar_incapacidades');
 		}else{
 			$prorrogas = DB::table('prorrogas')
-			->select('id', 'cedula','empresa', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'cod_dx', 'estado', 'observaciones', 'ciudad', 'created')
+			->select('prorrogas.cedula','prorrogas.empresa','colaboradores.nombres','colaboradores.apellidos', 'grupo_empresarial', 'tipo_incapacidad', 'prorroga', 'eps', 'dias', 'fecha_inicial', 'fecha_final', 'salario_basico', 'valor_prestacion', 'gestion', 'valor_reconocido', 'prorrogas.cod_dx','registro_diagnostico.descripcion', 'estado', 'observaciones', 'ciudad', 'created')
+			->join('colaboradores', 'prorrogas.cedula', '=', 'colaboradores.cedula')
+			->join('registro_diagnostico', 'prorrogas.cod_dx', '=', 'registro_diagnostico.codigo')
 			->whereBetween('created', [input('desde'), input('hasta')])
-			->orderBy('id', 'asc')->get();
+			->orderBy('prorrogas.created', 'asc')->get();
 			
 			$csv_array = array();
 			$csv_row = array();
+
+			$csv_array[]=["cedula","empresa","nombres","apellidos", "grupo_empresarial", "tipo_incapacidad", "prorroga", "eps", "dias", "fecha_inicial", "fecha_final", "salario_basico", "valor_prestacion", "gestion", "valor_reconocido", "cod_dx","descripcion", "estado", "observaciones", "ciudad", "created", "dias_acumulados"];
 
 			foreach ($incapacidades as $key) {
 		  		$csv_array[] = $key;
