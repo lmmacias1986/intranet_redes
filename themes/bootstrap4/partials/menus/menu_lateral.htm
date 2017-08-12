@@ -31,7 +31,7 @@
   {% endif %}
   {% if can('incapacidades') %}
   <li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#menu_gestion"><i class="fa fa-fw fa-wrench"></i> Gestión Usuarios<i class="fa fa-fw fa-caret-down"></i></a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_gestion"><i class="fa fa-fw fa-users"></i> Gestión Usuarios<i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="menu_gestion" class="collapse">
         <li><a href="{{ 'colaboradores/listas_colaboradores'|page }}">Consultar usuario</a></li>    
         <li><a href="{{ 'colaboradores/crear_colaborador'|page }}">Crear usuario</a></li> 
@@ -41,7 +41,7 @@
 
 
   <li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#menu_help"><i class="fa fa-fw fa-desktop"></i> Help Desk<i class="fa fa-fw fa-caret-down"></i></a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_help"><i class="fa fa-fw fa-wrench"></i> Help Desk<i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="menu_help" class="collapse">
         {% if can('helpdesk') %}
           <li><a href="{{ 'sistemas/control'|page }}">Abiertas</a></li> 
@@ -54,11 +54,11 @@
       </ul>      
   </li>
   <li>
-      <a href="{{ 'directorio/directorio'|page }}"><i class="fa fa-fw fa-file"></i> Directorio</a>
+      <a href="{{ 'directorio/directorio'|page }}"><i class="fa fa-fw fa-phone"></i> Directorio</a>
   </li>
   {% if can('envios') %}
   <li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#menu_envios"><i class="fa fa-fw fa-arrows-v"></i> Envios<i class="fa fa-fw fa-caret-down"></i></a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#menu_envios"><i class="fa fa-fw fa-paper-plane-o"></i> Envios<i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="menu_envios" class="collapse">
         {%if can('admin_envios') %}
           <li><a href="{{ 'envios/envios'|page }}">Crear envío</a></li>

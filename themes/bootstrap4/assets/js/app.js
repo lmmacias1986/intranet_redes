@@ -124,7 +124,7 @@ function soloNumeros(evt){
 
 function actualizar_notificaciones(id){
     if (id==1){
-        $('#btn_update1').click();            
+        $('#btn_update1').click();
     }else{
         $('#btn_update0').click();    
     }    
