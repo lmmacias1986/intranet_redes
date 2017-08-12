@@ -376,6 +376,7 @@ button.oc-loading:after {
   padding: 5px 10px 5px 10px;
 }
 .div_notificacion{
+  color:#e7e7e7;
   font-size: 12px;
   border-bottom: 1px solid #DDD;
   padding: 0px 10px 0px 10px;

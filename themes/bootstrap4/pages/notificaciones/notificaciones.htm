@@ -11,10 +11,9 @@ function onStart(){
 		->join('help_desk', 'help_desk.id', '=', 'notification.id_solicitud')
 		->select('notification.*', 'help_desk.asunto','help_desk.descripcion')
 	    ->where('notification.id','=', $this->param('id'))
-	    ->where('notification.notificado_a','=', $this->user['username'])->first();
+	    ->where('notification.notificado_a','=', $this->user['name'] . " " .$this->user['surname'])->first();
 	    $this['detalle'] = $notification;
  	    
-
 	    Db::table('notification')->where('id', $this->param('id'))->update([
 	        'estado' => 0,
 	        'updated_at' => date_format(date_create(), 'Y-m-d H:i:s')	        
@@ -22,7 +21,7 @@ function onStart(){
 	    );
 
 	    $notifications = DB::table('notification')
-	    ->where('notificado_a','=', $this->user['username'])    
+	    ->where('notificado_a','=', $this->user['name'] . " " .$this->user['surname'])    
 	    ->where('id','<>', $this->param('id'))    
 	    ->take(10)
 	    ->orderBy('id', 'desc')->get();
@@ -30,7 +29,7 @@ function onStart(){
 	    $this['total'] = count($notifications) + 1;
 	}else{
 		$notifications = DB::table('notification')
-	    ->where('notificado_a','=', $this->user['username'])    
+	    ->where('notificado_a','=', $this->user['name'] . " " .$this->user['surname'])    
 	    ->take(10)
 	    ->orderBy('id', 'desc')->get();
 	    $this['notifications'] = $notifications;    
