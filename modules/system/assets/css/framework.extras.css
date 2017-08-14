@@ -1,7 +1,7 @@
 html{
-  height: 100%;
-  overflow-y: hidden;
+  height: 100%;  
 }
+
 body.oc-loading,
 body.oc-loading * {
   cursor: wait !important;
@@ -542,7 +542,6 @@ button.oc-loading:after {
 }
 .div_izquierdo{
   background-color: #222;
-  height:100%;
 }
 #div_notifica{
   margin-top: 20px;
@@ -581,7 +580,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 .titulo_noticia a{
   color: #FFF;
 }
-.div_10{
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
+
+
+@media (min-width: 768px) {
+  html{
+    overflow-y: hidden;    
+  }
+  .div_10{
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  .div_izquierdo{
+   height:100%;
+  }
 }
