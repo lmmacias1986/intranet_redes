@@ -49,6 +49,7 @@ function onSave()
 ?>
 ==
 {%if user.name %}
+<div class="row">
     <div class="panel panel-primary"> 
         <div class="panel-heading"> 
             <h3 class="panel-title">REGISTRO DE SOLICITUDES HELP DESK</h3>
@@ -119,6 +120,7 @@ function onSave()
     {%else%}
         <label>No tiene solicitudes pendientes.</label>
     {% endif %}
+</div>
 {% else %}
     {% partial 'acceso' %}
 {% endif %}

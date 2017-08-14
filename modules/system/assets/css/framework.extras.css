@@ -1,3 +1,6 @@
+html{
+  height: 100%;
+}
 body.oc-loading,
 body.oc-loading * {
   cursor: wait !important;
@@ -433,8 +436,7 @@ button.oc-loading:after {
 
 .div_central{
   background-color: #FFF;
-  padding-top: 10px; 
-  min-height: 600px;
+  padding-top: 10px;   
 }
 
 .div_gral_menu{
@@ -495,6 +497,7 @@ button.oc-loading:after {
   
 }
 .contenedor_noticias{
+  background-color: #fff;
   border-radius: 15px;
   border: solid 1px #3a80a7;
   padding-bottom: 20px;
@@ -502,6 +505,12 @@ button.oc-loading:after {
 }
 .titulo_post{
   color:#e7e7e7 !important; font-size:22px !important; text-align:center;
+}
+
+.post-list .media{
+  border: solid 1px #ccc;
+  border-radius: 14px;
+  padding: 5px;
 }
 .eventList li a{
   font-size: 12px;
@@ -512,10 +521,27 @@ button.oc-loading:after {
 .navbar-header{
   background-color: #3a80a7;
 }
+
 .div_central table {
   font-size: 13px;
+
 }
 .fa-angle-right{
   margin-left: -10px;
   margin-right: 10px;
+}
+.div_izquierdo{
+  background-color: #222;
+  height:100%;
+}
+#div_notifica{
+  margin-top: 20px;
+}
+.div_derecho{
+  background-color: #e7e7e7;
+  height:100%;
+}
+
+.div_principal{
+  height:100%;
 }

@@ -5,10 +5,13 @@
  */
 
 /* Global Styles */
-
+html{
+    height: 100%;
+}
 body {
     margin-top: 100px;
-    background-color: #222;
+    background-color: #e7e7e7;
+    height: 100%;
 }
 
 @media(min-width:768px) {

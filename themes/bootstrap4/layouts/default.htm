@@ -83,7 +83,7 @@ descending = 0
 {% else %}
     <body>
 {% endif %}
-<div class="container-fluid">
+<div class="container-fluid div_principal">
     <div class="row">
         <div class="col-md-12">
             <!-- Navigation -->
@@ -121,8 +121,8 @@ descending = 0
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-2"> 
+    <div class="row div_principal">
+        <div class="col-md-2 div_izquierdo"> 
             <div class="row">
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->            
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -162,13 +162,13 @@ descending = 0
                 {% endif %} 
             </div>
         </div>
-        <div class="col-md-2">            
+        <div class="col-md-2 div_derecho">            
             <div class="row">
                 {%if user.name %}                
                     <div class="col-md-12"  id="div_calendar">    
                         <div class="panel panel-danger"> 
-                            <div class="panel-heading"> 
-                                <h3 class="panel-title" style="    color: #1E427C;text-align:center">Calendario Eventos</h3>
+                            <div class="panel-heading" style="background-color:#222!important"> 
+                                <h3 class="panel-title" style="color: #ddd;text-align:center"><i class="fa fa-calendar" aria-hidden="true"></i> Calendario Eventos</h3>
                             </div> 
                             <div class="panel-body" style="padding:0px 10px 10px 0px !important">
                               {% component 'ListEvents' %}

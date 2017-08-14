@@ -47,12 +47,14 @@ is_hidden = 0
 					</div> 
 					<div class="panel-body">
 						<form data-request="onConsulta" data-request-update="incapacidades: '#resultado'">
-							<div class="col-md-8">
-								<label for="cedula">Cédula</label>
-								<input type="text" id="cedula" name="cedula" class="form-control"/>
+							<div class="col-md-8">								
+								<input type="text" id="cedula" name="cedula" class="form-control" placeholder="Cédula"/>
 							</div>
 							<div class="col-md-4">
-								<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-primary" style="margin-top:25px"/>
+								<button type="submit" id="consultar" name="consultar" class="btn btn-info" >
+			               			<i class="fa fa-fw fa-search" aria-hidden="true"></i>Buscar
+			               		</button>
+								<!--input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-primary" style="margin-top:25px"/-->
 							</div>										
 						</form>
 					</div> 
@@ -66,16 +68,16 @@ is_hidden = 0
 					</div> 
 					<div class="panel-body">
 						<form  method="post" action="descargas">
-							<div class="col-md-4">
-								<label for="desde">Desde</label>
-								<input type="text" id="desde" name="desde" class="form-control"/>
+							<div class="col-md-4">								
+								<input type="text" id="desde" name="desde" class="form-control" placeholder="Desde"/>
+							</div>
+							<div class="col-md-4">								
+								<input type="text" id="hasta" name="hasta" class="form-control" placeholder="Hasta"/>
 							</div>
 							<div class="col-md-4">
-								<label for="hasta">Hasta</label>
-								<input type="text" id="hasta" name="hasta" class="form-control"/>
-							</div>
-							<div class="col-md-4">
-								<input type="submit" id="descargar" name="descargar" value="Descargar" class=" btn btn-primary" style="margin-top:25px"/>								
+								<button type="submit" id="descargar" name="descargar" class="btn btn-info" >
+			               			<i class="fa fa-fw fa-cloud-download" aria-hidden="true"></i>Descargar
+			               		</button>
 							</div>							
 						</form>
 					</div> 

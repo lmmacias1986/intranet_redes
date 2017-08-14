@@ -35,32 +35,29 @@ is_hidden = 0
 ==
 {% if can('parametros') %}
 	<div class="row">
-		<div class="col-md-12">
-			<form data-request="onConsulta" data-request-update="diagnosticos: '#resultado'">
-				<div class="col-md-2">
-					<label for="codigo">Código</label>
-					<input type="text" id="codigo" name="codigo" class="form-control"/>
-				</div>
-				<div class="col-md-4">
-					<label for="descripcion">Descripción</label>
-					<input type="text" id="descripcion" name="descripcion" class="form-control"/>
-				</div>
-				<div class="col-md-4">
-					<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-info" style="margin-top:25px"/>
-				</div>
-				
-			</form>
-		</div>
-	</div>
-	<hr>
-	<div class="panel panel-primary"> 
-	    <div class="panel-heading"> 
-	        <h3 class="panel-title">DIAGNOSTICOS</h3>
-	    </div> 
-	    <div class="panel-body">
-	    	<div id="resultado">
-				{% partial 'diagnosticos' %}
-			</div>			
+		<div class="panel panel-primary"> 
+		    <div class="panel-heading"> 
+		        <h3 class="panel-title">DIAGNOSTICOS</h3>
+		    </div> 						    
+		    <div class="panel-body">
+		    	<form data-request="onConsulta" data-request-update="diagnosticos: '#resultado'">
+					<div class="col-md-2">
+						<label for="codigo">Código</label>
+						<input type="text" id="codigo" name="codigo" class="form-control"/>
+					</div>
+					<div class="col-md-4">
+						<label for="descripcion">Descripción</label>
+						<input type="text" id="descripcion" name="descripcion" class="form-control"/>
+					</div>
+					<div class="col-md-4">
+						<input type="submit" id="consultar" name="consultar" value="Consultar" class=" btn btn-info" style="margin-top:25px"/>
+					</div>
+					
+				</form>		
+		    	<div id="resultado">
+					{% partial 'diagnosticos' %}
+				</div>			
+			</div>
 		</div>
 	</div>
 {% else %}

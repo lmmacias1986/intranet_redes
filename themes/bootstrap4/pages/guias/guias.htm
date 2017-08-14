@@ -31,6 +31,7 @@ is_hidden = 0
 ?>
 ==
 {% if can('menu_guia') %}
+<div class="row">
 	<div class="panel panel-primary"> 
 	    <div class="panel-heading"> 
 	        <h3 class="panel-title">CONSULTA DE GUIAS</h3>
@@ -45,7 +46,10 @@ is_hidden = 0
 			    		<input type="text" name="nombre_buscar" id="nombre_buscar" placeholder="Buscar por nombre de empresa" class="form-control"/>
 			    	</div>		
 			    	<div class="col-md-2">
-			    		<input type="submit" name="buscar_btn" id="buscar_btn" class="btn btn-primary"  value ="Buscar"/>
+		               	<button type="submit" id="buscar_btn" name="buscar_btn" class="btn btn-info" >
+	               			<i class="fa fa-fw fa-search" aria-hidden="true"></i>Buscar
+	               		</button>
+			    		<!--input type="submit" name="buscar_btn" id="buscar_btn" class="btn btn-primary"  value ="Buscar"/-->
 			    	</div>		
 			    </form>
 	    	</div>
@@ -57,7 +61,7 @@ is_hidden = 0
 			</div>
 		</div>
 	</div>
-
+</div>
 	{{ guias.render|raw }}
 {% else %}
 	{% partial 'acceso' %}

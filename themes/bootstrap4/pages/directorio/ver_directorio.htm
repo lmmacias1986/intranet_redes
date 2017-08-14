@@ -53,75 +53,73 @@ function onEdit(){
 
 ?>
 ==
-<div class="row">	
-	<div class="col-md-12">		
-		<div class="panel panel-primary"> 
-		    <div class="panel-heading"> 
-		        <h3 class="panel-title">Editar Registro</h3>
-		    </div> 
-		    <div class="panel-body">
-		        <form data-request="onEdit" data-request-update="result_contact: '#result_contact'">
-		            <div class="row">
-		                <div class="col-md-4">
-		                {%if can('admin_directorio') %}
-		                    <label for="tipo_registro">Tipo de Registro:</label>
-		                    <div class="radio">
-								<label><input type="radio" name="rdbtipo" value="empresa" {% if registro.tipo == "empresa" %}checked {% endif %}>Empresa</label>
-								
-								<label><input type="radio" name="rdbtipo" value="internos" {% if registro.tipo == "internos" %} checked {% endif %}>Internos</label>
-							</div>
-						{% endif %}
+<div class="row">
+	<div class="panel panel-primary"> 
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">Editar Registro</h3>
+	    </div> 
+	    <div class="panel-body">
+	        <form data-request="onEdit" data-request-update="result_contact: '#result_contact'">
+	            <div class="row">
+	                <div class="col-md-4">
+	                {%if can('admin_directorio') %}
+	                    <label for="tipo_registro">Tipo de Registro:</label>
+	                    <div class="radio">
+							<label><input type="radio" name="rdbtipo" value="empresa" {% if registro.tipo == "empresa" %}checked {% endif %}>Empresa</label>
+							
+							<label><input type="radio" name="rdbtipo" value="internos" {% if registro.tipo == "internos" %} checked {% endif %}>Internos</label>
+						</div>
+					{% endif %}
+	                </div>
+	                <div class="col-md-8" id="div_empresa" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
+	                	<span for="empresa">Empresa:</span>
+	                    <input type="text" id="empresa" name="empresa" value="{{ registro.empresa }}" class="form-control" {% if registro.tipo == "internos" %} disabled {% endif %}>
+	               	</div>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-4">
+	                    <span for="nombres">Nombres:</span>
+	                    <input type="text" id="nombres" name="nombres" class="form-control" value="{{ registro.nombres }}" required>
+	                </div>
+	                <div class="col-md-4" id="div_celular" {% if registro.tipo == "empresa" %}style="display:none"{% endif %}>
+	                    <span for="celular">Celular:</span>
+	                    <input type="text" id="celular" name="celular" class="form-control"  value="{{ registro.celular }}">
+	                </div>
+	                <div class="col-md-4" id="div_cargo" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
+	                    <span for="cargo">Cargo:</span>
+	                    <input type="text" id="cargo" name="cargo" class="form-control"  value="{{ registro.cargo }}">
+	                </div>
+	                <div class="col-md-4">
+	                	<span for="direccion" id="lb_direccion" {% if registro.tipo == "empresa" %}style="display:none"{% endif %}>Dependencia o Ciudad:</span>
+			            <span for="direccion" id="lb_direccion_emp" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>Dirección:</span>
+                		    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
 		                </div>
-		                <div class="col-md-8" id="div_empresa" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
-		                	<label for="empresa">Empresa:</label>
-		                    <input type="text" id="empresa" name="empresa" value="{{ registro.empresa }}" class="form-control" {% if registro.tipo == "internos" %} disabled {% endif %}>
-		               	</div>
-		            </div>
-		            <div class="row">
-		                <div class="col-md-4">
-		                    <label for="nombres">Nombres:</label>
-		                    <input type="text" id="nombres" name="nombres" class="form-control" value="{{ registro.nombres }}" required>
+		                <div class="col-md-4" id="div_ciudad" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
+		                    <span for="ciudad" >Ciudad:</span>
+		                    <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ registro.ciudad }}" {% if registro.tipo == "internos" %} disabled {% endif %}>
 		                </div>
-		                <div class="col-md-4" id="div_celular" {% if registro.tipo == "empresa" %}style="display:none"{% endif %}>
-		                    <label for="celular">Celular:</label>
-		                    <input type="text" id="celular" name="celular" class="form-control"  value="{{ registro.celular }}">
-		                </div>
-		                <div class="col-md-4" id="div_cargo" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
-		                    <label for="cargo">Cargo:</label>
-		                    <input type="text" id="cargo" name="cargo" class="form-control"  value="{{ registro.cargo }}">
-		                </div>
-		                <div class="col-md-4">
-		                	<label for="direccion" id="lb_direccion" {% if registro.tipo == "empresa" %}style="display:none"{% endif %}>Dependencia o Ciudad:</label>
-				            <label for="direccion" id="lb_direccion_emp" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>Dirección:</label>
-	                		    <input type="text" id="direccion" name="direccion" class="form-control" value="{{ registro.direccion }}">
-			                </div>
-			                <div class="col-md-4" id="div_ciudad" {% if registro.tipo == "internos" %}style="display:none"{% endif %}>
-			                    <label for="ciudad" >Ciudad:</label>
-			                    <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ registro.ciudad }}" {% if registro.tipo == "internos" %} disabled {% endif %}>
-			                </div>
-		                <div class="col-md-4">
-		                    <label for="correo">Correo:</label>
-		                    <input type="text" id="correo" name="correo" class="form-control" value="{{ registro.correo }}" required>
-		                </div>        
-		                <div class="col-md-4">
-		                    <label for="telefono">Teléfono:</label>
-		                    <input type="text" id="telefono" name="telefono" class="form-control" value="{{ registro.telefono }}" required>
-		                </div>        
-		                <div class="col-md-2">
-		                    <label for="ext">Ext:</label>
-		                    <input type="text" id="ext" name="ext" class="form-control" value="{{ registro.ext }}" >
-		                </div>        
-		            </div>   
-		            <hr>
-		            {%if can('admin_directorio') %}
-		            <div class="row">
-		                <div id="result_contact" class="col-md-12">
-		                    {% partial 'result_contact' %}
-		                </div>
-		            </div>
-		            {% endif %}
-		        </form>
-		    </div>
-		</div>		
-	</div>
+	                <div class="col-md-4">
+	                    <span for="correo">Correo:</span>
+	                    <input type="text" id="correo" name="correo" class="form-control" value="{{ registro.correo }}" required>
+	                </div>        
+	                <div class="col-md-4">
+	                    <span for="telefono">Teléfono:</span>
+	                    <input type="text" id="telefono" name="telefono" class="form-control" value="{{ registro.telefono }}" required>
+	                </div>        
+	                <div class="col-md-2">
+	                    <span for="ext">Ext:</span>
+	                    <input type="text" id="ext" name="ext" class="form-control" value="{{ registro.ext }}" >
+	                </div>        
+	            </div>   
+	            <hr>
+	            {%if can('admin_directorio') %}
+	            <div class="row">
+	                <div id="result_contact" class="col-md-12">
+	                    {% partial 'result_contact' %}
+	                </div>
+	            </div>
+	            {% endif %}
+	        </form>
+	    </div>
+	</div>		
 </div>

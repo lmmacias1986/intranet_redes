@@ -27,29 +27,29 @@ is_hidden = 0
 ?>
 ==
 <div class="row">	
-	<div class="alert alert-info col-md-12" role="alert">
-		<div class="col-md-7">
-			<p>ENVIOS</p>
-		</div>
-		<div class="col-md-5">
-			<form data-request="onRun" data-request-update="locales: '#div_locales'">
-				<div class="row">
-	                <div class="col-md-8">		
-	                	<i class="icon-find" aria-hidden="true"></i>                	
-	                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
-	               	</div>
-	               	<div class="col-md-4">
-	               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
-	               	</div>	
-	            </div>
-			</form>
-		</div>
-	</div>	
-</div>
-
-<div class="row">	
-	<div class="col-md-12" id="div_locales">
-		{% partial 'locales' %}
+	<div class="panel panel-primary">
+	    <div class="panel-heading"> 
+	        <h3 class="panel-title">ENVIOS</h3>
+	    </div> 
+	    <div class="panel-body">
+			<div class="col-md-12">
+				<form data-request="onRun" data-request-update="locales: '#div_locales'">
+					<div class="row">
+		                <div class="col-md-4">		
+		                	<input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+		               	</div>
+		               	<div class="col-md-4">
+		               		<button type="submit" id="buscar" name="buscar" class="btn btn-info" >
+		               			<i class="fa fa-fw fa-search" aria-hidden="true"></i>Buscar
+		               		</button>
+		               	</div>	
+		            </div>
+				</form>
+			</div>
+			<div class="col-md-12" id="div_locales">
+				{% partial 'locales' %}
+			</div>
+		</div>	
 	</div>
 </div>
 

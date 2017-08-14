@@ -42,6 +42,7 @@ function onSave()
 ?>
 ==
 {% if can('parametros') %}
+<div class="row">
     <div class="panel panel-primary"> 
         <div class="panel-heading"> 
             <h3 class="panel-title">EDITAR DIAGNOSTICO</h3>
@@ -68,6 +69,7 @@ function onSave()
             </form>
         </div>
     </div>
+</div>
 {% else %}
     {% partial 'acceso' %}
 {% endif %}

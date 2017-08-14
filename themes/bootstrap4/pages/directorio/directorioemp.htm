@@ -59,38 +59,39 @@ function onCreate(){
 ?>
 ==
 <div class="row">
-	<div class="col-md-7">		
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" ><a href="directorio" aria-controls="redes_humanas">Redes Humanas</a></li>
-			{%if can('helpdesk') %}
-				<li role="presentation" class="active"><a href="#empresas" aria-controls="empresas" role="tab" data-toggle="tab">Empresas</a></li>
-			{% endif %}
-			{%if can('helpdesk') %}
-				<li role="presentation" ><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
-			{% endif %}
-		</ul>
-	</div>
-	<div class="col-md-5">
-		<form data-request="onFindempresa" data-request-update="empresas: '#resultados_empresa'">
-			<div class="row">
-                <div class="col-md-8">		
-                	<i class="icon-find" aria-hidden="true"></i>                	
-                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
-               	</div>
-               	<div class="col-md-4">
-               		<input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar">
-               	</div>	
-            </div>
-		</form>
-	</div>
-	<hr>
-	<div class="col-md-12">
 	<div class="panel panel-primary"> 
 		<div class="panel-heading"> 
 			<h3 class="panel-title">DIRECTORIO</h3>
 		</div> 
 		<div class="panel-body">	
+			<div class="col-md-7">		
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" ><a href="directorio" aria-controls="redes_humanas">Redes Humanas</a></li>
+					{%if can('helpdesk') %}
+						<li role="presentation" class="active"><a href="#empresas" aria-controls="empresas" role="tab" data-toggle="tab">Empresas</a></li>
+					{% endif %}
+					{%if can('helpdesk') %}
+						<li role="presentation" ><a href="#crear" aria-controls="crear" role="tab" data-toggle="tab">Crear Registro</a></li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="col-md-5">
+				<form data-request="onFindempresa" data-request-update="empresas: '#resultados_empresa'">
+					<div class="row">
+		                <div class="col-md-8">		
+		                	<i class="icon-find" aria-hidden="true"></i>                	
+		                    <input type="text" id="palabra" name="palabra" class="form-control" placeholder="Buscar">
+		               	</div>
+		               	<div class="col-md-4">
+		               		<button type="submit" id="buscar" name="buscar" class="btn btn-info" >
+		               			<i class="fa fa-fw fa-search" aria-hidden="true"></i>Buscar
+		               		</button>
+		               		<!--input type="submit" id="buscar" name="buscar" class="btn btn-info" Value="Buscar"-->
+		               	</div>	
+		            </div>
+				</form>
+			</div>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane fade in active" id="empresas">
 					{%if can('recepcion') %}
@@ -100,11 +101,11 @@ function onCreate(){
 					{% endif %}			
 				</div>
 				{%if can('admin_directorio') %}
-				<div role="tabpanel" class="tab-pane fade" id="crear">
+				<div role="tabpanel" class="tab-pane fade" id="crear"  style="margin-top:60px">		
 			        <form data-request="onCreate" data-request-update="result_contact: '#result_contact'">
 			            <div class="row">
 			                <div class="col-md-4">
-			                    <label for="tipo_registro">Tipo de Registro:</label>
+			                    <span for="tipo_registro">Tipo de Registro:</span>
 			                    <div class="radio">
 									<label><input type="radio" name="rdbtipo" value="empresa" >Empresa</label>
 									
@@ -112,42 +113,42 @@ function onCreate(){
 								</div>
 			                </div>
 			                <div class="col-md-8" id="div_empresa"  style="display:none">
-			                	<label for="empresa">Empresa:</label>
+			                	<span for="empresa">Empresa:</span>
 			                    <input type="text" id="empresa" name="empresa" class="form-control" disabled>
 			               	</div>
 			            </div>
 			            <div class="row">
 			                <div class="col-md-4">
-			                    <label for="nombres">Nombres:</label>
+			                    <span for="nombres">Nombres:</span>
 			                    <input type="text" id="nombres" name="nombres" class="form-control" required>
 			                </div>
 			                <div class="col-md-4" id="div_celular">
-			                    <label for="celular">Celular:</label>
+			                    <span for="celular">Celular:</span>
 			                    <input type="text" id="celular" name="celular" class="form-control" >
 			                </div>
 			                <div class="col-md-4" id="div_cargo" style="display:none">
-			                    <label for="cargo">Cargo:</label>
+			                    <span for="cargo">Cargo:</span>
 			                    <input type="text" id="cargo" name="cargo" class="form-control" >
 			                </div>
 			                <div class="col-md-4">
-			                    <label for="direccion" id="lb_direccion">Dependencia o Ciudad:</label>
-			                    <label for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</label>
+			                    <span for="direccion" id="lb_direccion">Dependencia o Ciudad:</span>
+			                    <span for="direccion" id="lb_direccion_emp" style="display:none">Dirección:</span>
 			                    <input type="text" id="direccion" name="direccion" class="form-control">
 			                </div>
 			                <div class="col-md-4" id="div_ciudad"  style="display:none">
-			                    <label for="ciudad">Ciudad:</label>
+			                    <span for="ciudad">Ciudad:</span>
 			                    <input type="text" id="ciudad" name="ciudad" class="form-control" disabled>
 			                </div>
 			                <div class="col-md-4">
-			                    <label for="correo">Correo:</label>
+			                    <span for="correo">Correo:</span>
 			                    <input type="text" id="correo" name="correo" class="form-control" required>
 			                </div>        
 			                <div class="col-md-4">
-			                    <label for="telefono">Teléfono:</label>
+			                    <span for="telefono">Teléfono:</span>
 			                    <input type="text" id="telefono" name="telefono" class="form-control" required>
 			                </div>        
 			                <div class="col-md-2">
-			                    <label for="ext">Ext:</label>
+			                    <span for="ext">Ext:</span>
 			                    <input type="text" id="ext" name="ext" class="form-control">
 			                </div>        
 			            </div>   
