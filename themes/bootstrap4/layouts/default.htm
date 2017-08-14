@@ -142,46 +142,51 @@ descending = 0
              </div>               
         </div>
 
-        <div class="col-md-8">                       
-            <div class="row">           
-                {%if user.name %}   
-                <div id="page-wrapper" class="div_central">                
-                    <div class="container-fluid">                       
-                        {% page %}                                                    
-                    </div>
-                </div>
-                {% else %}
-                <div class="col-md-6 col-md-offset-3 div_login">
-                    <div class="row">
-                        {% component 'account' %}
-                        <div class="col-md-12">
-                            <img src="{{ 'assets/images/october.png'|theme }}" class="img-responsive pull-right"/>
-                        </div>    
-                    </div>                    
-                </div>
-                {% endif %} 
-            </div>
-        </div>
-        <div class="col-md-2 div_derecho">            
+        <div class="col-md-10" style="background-color:#e7e7e7">  
             <div class="row">
-                {%if user.name %}                
-                    <div class="col-md-12"  id="div_calendar">    
-                        <div class="panel panel-danger"> 
-                            <div class="panel-heading" style="background-color:#222!important"> 
-                                <h3 class="panel-title" style="color: #ddd;text-align:center"><i class="fa fa-calendar" aria-hidden="true"></i> Calendario Eventos</h3>
-                            </div> 
-                            <div class="panel-body" style="padding:0px 10px 10px 0px !important">
-                              {% component 'ListEvents' %}
-                            </div>
-                        </div>                        
+                <div class="col-md-9">           
+                    <div class="row">
+                    {%if user.name %}   
+                    <div id="page-wrapper" class="div_central">                
+                        <div class="container-fluid">                       
+                            {% page %}                                                    
+                        </div>
                     </div>
-                {% endif %}         
-                
+                    {% else %}
+                    <div class="col-md-6 col-md-offset-3 div_login">
+                        <div class="row">
+                            {% component 'account' %}
+                            <div class="col-md-12">
+                                <img src="{{ 'assets/images/october.png'|theme }}" class="img-responsive pull-right"/>
+                            </div>    
+                        </div>                    
+                    </div>
+                    {% endif %} 
+                    </div>                    
+                </div>                
+                <div class="col-md-3 div_derecho">            
+                    <div class="row">
+                        {%if user.name %}                
+                            <div class=""  id="div_calendar">    
+                                <div class="panel panel-danger"> 
+                                    <div class="panel-heading" style="background-color:#222!important"> <a href="ver_eventos">
+                                        <h3 class="panel-title" style="color: #ddd;text-align:center"><i class="fa fa-calendar" aria-hidden="true"></i> Calendario Eventos</h3></a>
+                                    </div> 
+                                    <div class="panel-body" style="padding:0px 10px 10px 0px !important">
+                                      {% component 'ListEvents' %}
+                                    </div>
+                                </div>                        
+                            </div>
+                        {% endif %}         
+                        
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
     <!-- /#wrapper -->
 </div>
+
  <!-- jQuery --> 
 
   </body>

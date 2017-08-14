@@ -10,5 +10,14 @@ ckeditor = 1
 bootstrapCDN = 1
 ==
 {%if can('eventos') %}
-	{% component 'EventForm' %}
+<div class="row">
+	<div class="panel panel-primary"> 
+		<div class="panel-heading"> 
+			<h3 class="panel-title">REGISTRAR EVENTOS</h3>
+		</div> 
+		<div class="panel-body">
+			{% component 'EventForm' %}
+		</div>
+	</div>
+</div>	
 {% endif %}

@@ -13,7 +13,7 @@ is_hidden = 0
 ?>
 ==
 {% if can('helpdesk') %}
-    
+    <div class="row">
         <div class="panel panel-primary"> 
             <div class="panel-heading"> 
                 <h3 class="panel-title">Solicitudes Nuevas (Estado: Abierto)</h3>
@@ -35,4 +35,5 @@ is_hidden = 0
                 {% endif %}    
             </div>
         </div>    
+    </div>  
 {% endif %}
