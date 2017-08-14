@@ -1,5 +1,6 @@
 html{
   height: 100%;
+  overflow-y: hidden;
 }
 body.oc-loading,
 body.oc-loading * {
@@ -579,4 +580,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 }
 .titulo_noticia a{
   color: #FFF;
+}
+.div_10{
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 }
