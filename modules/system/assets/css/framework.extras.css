@@ -524,6 +524,7 @@ button.oc-loading:after {
 }
 .eventList li a{
   font-size: 12px;
+  color: #e7e7e7;
 }
 .table-hover{
  font-size: 12px !important; 
@@ -547,7 +548,6 @@ button.oc-loading:after {
   margin-top: 20px;
 }
 .div_derecho{
-  background-color: #e7e7e7;
   height:100%;
 }
 

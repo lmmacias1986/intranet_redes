@@ -2,7 +2,7 @@
 {% set devents = __SELF__.monthEvents %}
 {% set dprops = __SELF__.monthProperties %}
 {% set trailDay = 0 %}
-<table class="mycal"{% if __SELF__.data_request %} data-request-data="year:{{ __SELF__.year }}, month:{{ __SELF__.monthNum }}"{% endif %}>
+<table class="mycal page_calendario"{% if __SELF__.data_request %} data-request-data="year:{{ __SELF__.year }}, month:{{ __SELF__.monthNum }}"{% endif %}>
     <thead>
         <tr>
             <th colspan="2" class="text-right">

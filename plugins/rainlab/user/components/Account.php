@@ -152,10 +152,10 @@ class Account extends ComponentBase
 
             /*
              * Redirect to the intended page after successful sign in
+             $this->property('redirect')
              */
-            $redirectUrl = $this->pageUrl($this->property('redirect'))
+            $redirectUrl = $this->pageUrl("home")
                 ?: $this->property('redirect');
-
             if ($redirectUrl = input('redirect', $redirectUrl)) {
                 return Redirect::intended($redirectUrl);
             }

@@ -1,7 +1,18 @@
-description = "12 columnas"
+description = "login"
+
+[Esroyo\UserProfile\Components\Account account]
+redirect = "home"
+paramCode = "code"
+forceSecure = 0
+
+[menuUserWidget]
+redirect = "home"
+paramCode = "code"
+forceSecure = 0
+accountPage = "account"
 
 [session]
-security = "user"
+security = "all"
 redirect = "home"
 ==
 <!DOCTYPE html>
@@ -14,17 +25,6 @@ redirect = "home"
     <meta name="author" content="Redes Humanas">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <script src="{{ [
-    'assets/js/jquery.js',
-    'assets/js/bootstrap.min.js',
-    'assets/js/app.js',
-    'assets/vendor/jquery/jquery-3.1.1.min.js',
-    'assets/vendor/jquery/jquery-ui.js'
-    ]|theme }}"></script>
-
-    {% framework extras %}
-    {% scripts %}   
-
     <link href="{{ [
       'assets/css/bootstrap.css',
       'assets/css/sb-admin.css',
@@ -35,6 +35,20 @@ redirect = "home"
 
     {% styles %}
 
+    <script src="{{ [
+      'assets/js/jquery.js',
+      'assets/vendor/jquery/jquery-3.1.1.min.js',
+      'assets/js/bootstrap.min.js',
+      'assets/js/plugins/morris/raphael.min.js',
+      'assets/js/plugins/morris/morris.min.js',
+      'assets/js/plugins/morris/morris-data.js',
+      'assets/js/app.js',      
+      'assets/vendor/jquery/jquery-ui.js'
+      ]|theme }}"></script>    
+    
+    {% framework extras %}
+    {% scripts %}
+    
   </head>
 {% if user %}
     {% if can('helpdesk') %} 
@@ -57,7 +71,7 @@ redirect = "home"
 {% else %}
     <body>
 {% endif %}
-<div class="container-fluid">
+<div class="container-fluid div_principal">
     <div class="row">
         <div class="col-md-12">
             <!-- Navigation -->
@@ -96,37 +110,9 @@ redirect = "home"
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-2 div_izquierdo"> 
-            <div class="row">
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->            
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    {%if user.name %}                    
-                        {% partial "menus/menu_lateral" %}                        
-                    {% endif %}   
-                </div>       
-
-                {%if user.name %}                              
-                    <div class="col-md-12" id="div_notifica">
-                      {% if can('helpdesk') %}                                        
-                          {% partial "indicadores"%}
-                      {% else %}                            
-                          {% partial 'notification' %}
-                      {% endif %}                          
-                    </div>
-                {% endif %}                                
-             </div>               
-        </div>
-
-        <div class="col-md-10 div_10">                       
+    <div class="row div_principal">
+        <div class="col-md-12 ">                       
             <div class="row">           
-                {%if user.name %}   
-                <div id="page-wrapper" class="div_central">                
-                    <div class="container-fluid">                       
-                        {% page %}                                                    
-                    </div>
-                </div>
-                {% else %}
                 <div class="col-md-6 col-md-offset-3 div_login">
                     <div class="row">
                         {% component 'account' %}
@@ -135,12 +121,13 @@ redirect = "home"
                         </div>    
                     </div>                    
                 </div>
-                {% endif %} 
             </div>
-        </div>
-    </div>
+        </div>        
+    </div>    
     <!-- /#wrapper -->
 </div>
-    
+
+     <!-- jQuery -->
+
   </body>
 </html>
