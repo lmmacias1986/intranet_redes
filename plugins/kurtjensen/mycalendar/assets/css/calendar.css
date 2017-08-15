@@ -6,18 +6,21 @@ table.mycal {
         background-color: #333;
     }
 
+
 tr.days td {
         /* Calendar Day Height set here. This changes overall height
          of calendar depending on the number of weeks in month. */
         height:6em;
         text-align: left;
         vertical-align: text-top;
-        border: 1px grey solid;
+        border: 1px gray solid;
         overflow:hidden;
         white-space: nowrap;
         padding: 2px;
     }
-
+tr.days td:hover{
+    background-color: #222;
+}
 tr.days td a {
         color:inherit;
         font:inherit;
@@ -25,6 +28,13 @@ tr.days td a {
         white-space: initial;
     }
     
+tr.days td a:hover {
+        color:#ff920a;
+        font:inherit;
+        font-weight:inherit;
+        white-space: initial;
+    }
+
 tr.daysHead th{
         text-align: center;
         height:1em;

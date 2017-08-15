@@ -45,8 +45,14 @@ function onSave()
 	}else{
         $cedula = Db::table('colaboradores')->where('cedula','=', trim(strtoupper(input('cedula'))))->first();
         $codigo = Db::table('registro_diagnostico')->where('codigo','=', trim(strtoupper(input('cod_dx'))))->first();
+        $duplicado = Db::table('incapacidades')
+        ->where('cedula','=', trim(strtoupper(input('cedula'))))
+        ->where('fecha_inicial','=', input('fecha_inicial'))
+        ->first();
         if (count($cedula)==0 ){
         	$this['error'] = "Este número de cédula NO esta registrado en la base de datos.";            
+        }else if(count($duplicado)>0){
+            $this['error'] = "Ya existe una incapacidad con esta fecha de inicio.";
         }else if(count($codigo)==0 ){
         	$this['error'] = "Este código de diagnóstico NO esta registrado en la base de datos.";                    	
         }else{
