@@ -58,38 +58,36 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
         echo "    ";
         echo $this->env->getExtension('CMS')->assetsFunction('js');
         echo $this->env->getExtension('CMS')->displayBlock('scripts');
-        // line 23
-        echo "
-    
+        echo "   
 
     <link href=\"";
-        // line 26
+        // line 24
         echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter(array(0 => "assets/css/bootstrap.css", 1 => "assets/css/sb-admin.css", 2 => "assets/css/plugins/morris.css", 3 => "assets/font-awesome/css/font-awesome.min.css", 4 => "assets/vendor/jquery/jquery-ui.css"));
-        // line 32
+        // line 30
         echo "\" rel=\"stylesheet\">
 
     ";
-        // line 34
+        // line 32
         echo $this->env->getExtension('CMS')->assetsFunction('css');
         echo $this->env->getExtension('CMS')->displayBlock('styles');
-        // line 35
+        // line 33
         echo "
   </head>
 ";
-        // line 37
+        // line 35
         if ((isset($context["user"]) ? $context["user"] : null)) {
-            // line 38
+            // line 36
             echo "    ";
             if (call_user_func_array($this->env->getFunction('can')->getCallable(), array("helpdesk"))) {
                 echo " 
         <body onLoad='setInterval(\"actualizar_notificaciones(1)\",60000);'>
     ";
             } else {
-                // line 41
+                // line 39
                 echo "        <body onLoad='setInterval(\"actualizar_notificaciones(0)\",60000);'>
     ";
             }
-            // line 43
+            // line 41
             echo "        <div style=\"display:none\">
             <button
                 data-request=\"onStart\"
@@ -104,18 +102,18 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
         </div>
 ";
         } else {
-            // line 56
+            // line 54
             echo "    <body>
 ";
         }
-        // line 58
-        echo "<div class=\"container-fluid\">
+        // line 56
+        echo "<div class=\"container-fluid div_principal\">
     <div class=\"row\">
         <div class=\"col-md-12\">
             <!-- Navigation -->
             <nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class=\"navbar-header\">
+                <div class=\"navbar-header col-md-2\">
                     <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-ex1-collapse\">
                         <span class=\"sr-only\">Toggle navigation</span>
                         <span class=\"icon-bar\"></span>
@@ -123,22 +121,18 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
                         <span class=\"icon-bar\"></span>
                     </button>
                     <a class=\"navbar-brand\" href=\"";
-        // line 71
+        // line 69
         echo $this->env->getExtension('Cms\Twig\Extension')->pageFilter("home");
-        echo "\"><img src=\"";
-        echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter("assets/images/logo_imp.png");
-        echo "\" class=\"img-responsive\"/></a>                
+        echo "\"><b>Redes</b> <span>Humanas</span></a>           
                 </div>
                 <!-- Top Menu Items -->
                 <ul class=\"nav navbar-right top-nav\">                
                     <li class=\"dropdown\">
                         ";
-        // line 76
+        // line 74
         if ((isset($context["user"]) ? $context["user"] : null)) {
-            // line 77
-            echo "
-                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\"></i> ";
-            // line 78
+            // line 75
+            echo "                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-fw fa-user\"></i> ";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array()), "html", null, true);
             echo " ";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["user"]) ? $context["user"] : null), "surname", array()), "html", null, true);
@@ -146,7 +140,7 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
                             <ul class=\"dropdown-menu\">
                                 <li>
                                     <a href=\"";
-            // line 81
+            // line 78
             echo $this->env->getExtension('Cms\Twig\Extension')->pageFilter("account");
             echo "\"><i class=\"fa fa-fw fa-user\"></i> Mi Cuenta</a>
                                 </li>
@@ -157,12 +151,12 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
                             </ul>                       
                         ";
         } else {
-            // line 89
+            // line 86
             echo "                             ";
             $context['__cms_component_params'] = [];
             echo $this->env->getExtension('CMS')->componentFunction("menuUserWidget"            , $context['__cms_component_params']            );
             unset($context['__cms_component_params']);
-            // line 90
+            // line 87
             echo "                        ";
         }
         echo "                                                        
@@ -172,130 +166,136 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
         </div>
     </div>
     
-    <div class=\"row\">
-        <div class=\"col-md-2\"> 
+    <div class=\"row div_principal\">
+        <div class=\"col-md-2 div_izquierdo\"> 
             <div class=\"row\">
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->            
                 <div class=\"collapse navbar-collapse navbar-ex1-collapse\">
                     ";
-        // line 102
+        // line 99
         if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
             echo "                    
                         ";
-            // line 103
+            // line 100
             $context['__cms_partial_params'] = [];
             echo $this->env->getExtension('CMS')->partialFunction("menus/menu_lateral"            , $context['__cms_partial_params']            );
             unset($context['__cms_partial_params']);
             echo "                        
                     ";
         }
-        // line 104
+        // line 101
         echo "   
-                </div>   
-             </div>               
-        </div>
-
-        <div class=\"col-md-8\">                       
-            <div class=\"row\">           
-                ";
-        // line 111
-        if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
-            echo "   
-                <div id=\"page-wrapper\" class=\"div_central\">                
-                    <div class=\"container-fluid\">                       
-                        ";
-            // line 114
-            echo $this->env->getExtension('CMS')->pageFunction();
-            echo "                                                    
-                    </div>
                 </div>
                 ";
-        } else {
-            // line 118
-            echo "                <div class=\"col-md-6 col-md-offset-3 div_login\">
-                    <div class=\"row\">
-                        ";
-            // line 120
-            $context['__cms_component_params'] = [];
-            echo $this->env->getExtension('CMS')->componentFunction("account"            , $context['__cms_component_params']            );
-            unset($context['__cms_component_params']);
-            // line 121
-            echo "                        <div class=\"col-md-12\">
-                            <img src=\"";
-            // line 122
-            echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter("assets/images/october.png");
-            echo "\" class=\"img-responsive pull-right\"/>
-                        </div>    
-                    </div>                    
-                </div>
-                ";
-        }
-        // line 126
-        echo " 
-            </div>
-        </div>
-        <div class=\"col-md-2\">            
-            <div class=\"row\">
-                ";
-        // line 131
-        if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
-            echo "                
-                    <div class=\"col-md-12\"  id=\"div_calendar\">    
-                        <div class=\"panel panel-danger\"> 
-                            <div class=\"panel-heading\"> 
-                                <h3 class=\"panel-title\" style=\"    color: #1E427C;text-align:center\">Calendario Eventos</h3>
-                            </div> 
-                            <div class=\"panel-body\" style=\"padding:0px 10px 10px 0px !important\">
-                              ";
-            // line 138
-            $context['__cms_component_params'] = [];
-            echo $this->env->getExtension('CMS')->componentFunction("ListEvents"            , $context['__cms_component_params']            );
-            unset($context['__cms_component_params']);
-            // line 139
-            echo "                            </div>
-                        </div>                        
-                    </div>
-                ";
-        }
-        // line 142
-        echo "         
-                ";
-        // line 143
+        // line 103
         if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
             echo "                              
-                    <div class=\"col-md-12\">
+                    <div class=\"col-md-12\" id=\"div_notifica\">
                       ";
-            // line 145
+            // line 105
             if (call_user_func_array($this->env->getFunction('can')->getCallable(), array("helpdesk"))) {
                 echo "                                        
                           ";
-                // line 146
+                // line 106
                 $context['__cms_partial_params'] = [];
                 echo $this->env->getExtension('CMS')->partialFunction("indicadores"                , $context['__cms_partial_params']                );
                 unset($context['__cms_partial_params']);
-                // line 147
+                // line 107
                 echo "                      ";
             } else {
                 echo "                            
                           ";
-                // line 148
+                // line 108
                 $context['__cms_partial_params'] = [];
                 echo $this->env->getExtension('CMS')->partialFunction("notification"                , $context['__cms_partial_params']                );
                 unset($context['__cms_partial_params']);
-                // line 149
+                // line 109
                 echo "                      ";
             }
             echo "                          
                     </div>
                 ";
         }
-        // line 151
-        echo "                    
+        // line 111
+        echo "                       
+             </div>               
+        </div>
+
+        <div class=\"col-md-10 div_10\">  
+            <div class=\"row\">
+                <div class=\"col-md-9\">           
+                    <div class=\"row\">
+                    ";
+        // line 119
+        if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
+            echo "   
+                    <div id=\"page-wrapper\" class=\"div_central\">                
+                        <div class=\"container-fluid\">                       
+                            ";
+            // line 122
+            echo $this->env->getExtension('CMS')->pageFunction();
+            echo "                                                    
+                        </div>
+                    </div>
+                    ";
+        } else {
+            // line 126
+            echo "                    <div class=\"col-md-6 col-md-offset-3 div_login\">
+                        <div class=\"row\">
+                            ";
+            // line 128
+            $context['__cms_component_params'] = [];
+            echo $this->env->getExtension('CMS')->componentFunction("account"            , $context['__cms_component_params']            );
+            unset($context['__cms_component_params']);
+            // line 129
+            echo "                            <div class=\"col-md-12\">
+                                <img src=\"";
+            // line 130
+            echo $this->env->getExtension('Cms\Twig\Extension')->themeFilter("assets/images/october.png");
+            echo "\" class=\"img-responsive pull-right\"/>
+                            </div>    
+                        </div>                    
+                    </div>
+                    ";
+        }
+        // line 134
+        echo " 
+                    </div>                    
+                </div>                
+                <div class=\"col-md-3 div_derecho\">            
+                    <div class=\"row\">
+                        ";
+        // line 139
+        if ($this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array())) {
+            echo "                
+                            <div class=\"\"  id=\"div_calendar\">    
+                                <div class=\"panel panel-danger\"> 
+                                    <div class=\"panel-heading\" style=\"background-color:#222!important\"> <a href=\"ver_eventos\">
+                                        <h3 class=\"panel-title\" style=\"color: #ddd;text-align:center\"><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i> Calendario Eventos</h3></a>
+                                    </div> 
+                                    <div class=\"panel-body\" style=\"padding:0px !important\">
+                                      ";
+            // line 146
+            $context['__cms_component_params'] = [];
+            echo $this->env->getExtension('CMS')->componentFunction("ListEvents"            , $context['__cms_component_params']            );
+            unset($context['__cms_component_params']);
+            // line 147
+            echo "                                    </div>
+                                </div>                        
+                            </div>
+                        ";
+        }
+        // line 150
+        echo "         
+                        
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
     <!-- /#wrapper -->
 </div>
+
  <!-- jQuery --> 
 
   </body>
@@ -314,7 +314,7 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
 
     public function getDebugInfo()
     {
-        return array (  293 => 151,  286 => 149,  282 => 148,  277 => 147,  273 => 146,  269 => 145,  264 => 143,  261 => 142,  255 => 139,  251 => 138,  241 => 131,  234 => 126,  226 => 122,  223 => 121,  219 => 120,  215 => 118,  208 => 114,  202 => 111,  193 => 104,  186 => 103,  182 => 102,  166 => 90,  161 => 89,  150 => 81,  142 => 78,  139 => 77,  137 => 76,  127 => 71,  112 => 58,  108 => 56,  93 => 43,  89 => 41,  82 => 38,  80 => 37,  76 => 35,  73 => 34,  69 => 32,  67 => 26,  62 => 23,  58 => 22,  51 => 21,  47 => 19,  45 => 13,  38 => 9,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
+        return array (  289 => 150,  283 => 147,  279 => 146,  269 => 139,  262 => 134,  254 => 130,  251 => 129,  247 => 128,  243 => 126,  236 => 122,  230 => 119,  220 => 111,  213 => 109,  209 => 108,  204 => 107,  200 => 106,  196 => 105,  191 => 103,  187 => 101,  180 => 100,  176 => 99,  160 => 87,  155 => 86,  144 => 78,  135 => 75,  133 => 74,  125 => 69,  110 => 56,  106 => 54,  91 => 41,  87 => 39,  80 => 36,  78 => 35,  74 => 33,  71 => 32,  67 => 30,  65 => 24,  58 => 22,  51 => 21,  47 => 19,  45 => 13,  38 => 9,  33 => 7,  29 => 6,  25 => 5,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -348,9 +348,7 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
     ]|theme }}\"></script>
 
     {% framework extras %}
-    {% scripts %}
-
-    
+    {% scripts %}   
 
     <link href=\"{{ [
       'assets/css/bootstrap.css',
@@ -384,27 +382,26 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
 {% else %}
     <body>
 {% endif %}
-<div class=\"container-fluid\">
+<div class=\"container-fluid div_principal\">
     <div class=\"row\">
         <div class=\"col-md-12\">
             <!-- Navigation -->
             <nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class=\"navbar-header\">
+                <div class=\"navbar-header col-md-2\">
                     <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-ex1-collapse\">
                         <span class=\"sr-only\">Toggle navigation</span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
                         <span class=\"icon-bar\"></span>
                     </button>
-                    <a class=\"navbar-brand\" href=\"{{ 'home'|page }}\"><img src=\"{{ 'assets/images/logo_imp.png'|theme }}\" class=\"img-responsive\"/></a>                
+                    <a class=\"navbar-brand\" href=\"{{ 'home'|page }}\"><b>Redes</b> <span>Humanas</span></a>           
                 </div>
                 <!-- Top Menu Items -->
                 <ul class=\"nav navbar-right top-nav\">                
                     <li class=\"dropdown\">
                         {% if user %}
-
-                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\"></i> {{ user.name }} {{ user.surname }} <b class=\"caret\"></b></a>                    
+                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-fw fa-user\"></i> {{ user.name }} {{ user.surname }} <b class=\"caret\"></b></a>                    
                             <ul class=\"dropdown-menu\">
                                 <li>
                                     <a href=\"{{ 'account'|page }}\"><i class=\"fa fa-fw fa-user\"></i> Mi Cuenta</a>
@@ -423,66 +420,72 @@ class __TwigTemplate_4313573fc2d3886848a2c1dd2ee956872666226d4e72dbd3386992ca813
         </div>
     </div>
     
-    <div class=\"row\">
-        <div class=\"col-md-2\"> 
+    <div class=\"row div_principal\">
+        <div class=\"col-md-2 div_izquierdo\"> 
             <div class=\"row\">
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->            
                 <div class=\"collapse navbar-collapse navbar-ex1-collapse\">
                     {%if user.name %}                    
                         {% partial \"menus/menu_lateral\" %}                        
                     {% endif %}   
-                </div>   
-             </div>               
-        </div>
-
-        <div class=\"col-md-8\">                       
-            <div class=\"row\">           
-                {%if user.name %}   
-                <div id=\"page-wrapper\" class=\"div_central\">                
-                    <div class=\"container-fluid\">                       
-                        {% page %}                                                    
-                    </div>
                 </div>
-                {% else %}
-                <div class=\"col-md-6 col-md-offset-3 div_login\">
-                    <div class=\"row\">
-                        {% component 'account' %}
-                        <div class=\"col-md-12\">
-                            <img src=\"{{ 'assets/images/october.png'|theme }}\" class=\"img-responsive pull-right\"/>
-                        </div>    
-                    </div>                    
-                </div>
-                {% endif %} 
-            </div>
-        </div>
-        <div class=\"col-md-2\">            
-            <div class=\"row\">
-                {%if user.name %}                
-                    <div class=\"col-md-12\"  id=\"div_calendar\">    
-                        <div class=\"panel panel-danger\"> 
-                            <div class=\"panel-heading\"> 
-                                <h3 class=\"panel-title\" style=\"    color: #1E427C;text-align:center\">Calendario Eventos</h3>
-                            </div> 
-                            <div class=\"panel-body\" style=\"padding:0px 10px 10px 0px !important\">
-                              {% component 'ListEvents' %}
-                            </div>
-                        </div>                        
-                    </div>
-                {% endif %}         
                 {%if user.name %}                              
-                    <div class=\"col-md-12\">
+                    <div class=\"col-md-12\" id=\"div_notifica\">
                       {% if can('helpdesk') %}                                        
                           {% partial \"indicadores\"%}
                       {% else %}                            
                           {% partial 'notification' %}
                       {% endif %}                          
                     </div>
-                {% endif %}                    
+                {% endif %}                       
+             </div>               
+        </div>
+
+        <div class=\"col-md-10 div_10\">  
+            <div class=\"row\">
+                <div class=\"col-md-9\">           
+                    <div class=\"row\">
+                    {%if user.name %}   
+                    <div id=\"page-wrapper\" class=\"div_central\">                
+                        <div class=\"container-fluid\">                       
+                            {% page %}                                                    
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class=\"col-md-6 col-md-offset-3 div_login\">
+                        <div class=\"row\">
+                            {% component 'account' %}
+                            <div class=\"col-md-12\">
+                                <img src=\"{{ 'assets/images/october.png'|theme }}\" class=\"img-responsive pull-right\"/>
+                            </div>    
+                        </div>                    
+                    </div>
+                    {% endif %} 
+                    </div>                    
+                </div>                
+                <div class=\"col-md-3 div_derecho\">            
+                    <div class=\"row\">
+                        {%if user.name %}                
+                            <div class=\"\"  id=\"div_calendar\">    
+                                <div class=\"panel panel-danger\"> 
+                                    <div class=\"panel-heading\" style=\"background-color:#222!important\"> <a href=\"ver_eventos\">
+                                        <h3 class=\"panel-title\" style=\"color: #ddd;text-align:center\"><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i> Calendario Eventos</h3></a>
+                                    </div> 
+                                    <div class=\"panel-body\" style=\"padding:0px !important\">
+                                      {% component 'ListEvents' %}
+                                    </div>
+                                </div>                        
+                            </div>
+                        {% endif %}         
+                        
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
     <!-- /#wrapper -->
 </div>
+
  <!-- jQuery --> 
 
   </body>

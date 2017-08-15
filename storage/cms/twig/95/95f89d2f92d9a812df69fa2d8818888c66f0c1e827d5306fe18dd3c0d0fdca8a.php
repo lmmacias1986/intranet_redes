@@ -27,40 +27,40 @@ class __TwigTemplate_beaa8ce3f6febc3a93686f5d0cb1e35913fdd7ddf71183f4698b49cbb20
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["post"]) {
             // line 5
-            echo "    <div class=\"col-md-6\">
+            echo "    <div class=\"col-md-12 div_noticia\">
         <div class=\"media\">
-            <div class=\"media-left\">
-                <a href=\"";
+            <h4 class=\"media-heading\">
+                <p class=\"bg-info titulo_noticia\"><a href=\"";
             // line 8
-            echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "url", array()), "html", null, true);
-            echo "\">
-                    ";
-            // line 9
-            if (($this->getAttribute($this->getAttribute($context["post"], "featured_images", array()), "count", array()) > 0)) {
-                // line 10
-                echo "                        <img class=\"media-object\" src=\"";
-                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["post"], "featured_images", array()), "first", array()), "getThumb", array(0 => 100, 1 => "auto"), "method"), "html", null, true);
-                echo "\" />
-                    ";
-            } else {
-                // line 12
-                echo "                        <img class=\"media-object\" src=\"http://placehold.it/100x100\" />
-                    ";
-            }
-            // line 14
-            echo "                </a>
-            </div>
-
-            <div class=\"media-body\">
-                <h4 class=\"media-heading\">
-                    <p class=\"bg-info\" style=\" padding: 10px 10px 10px 10px;\"><a href=\"";
-            // line 19
             echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "url", array()), "html", null, true);
             echo "\">";
             echo twig_escape_filter($this->env, twig_upper_filter($this->env, $this->getAttribute($context["post"], "title", array())), "html", null, true);
             echo "</a></p>
-                </h4>
-                <p class=\"info\">
+            </h4>
+            <div class=\"media-body\">                
+                <div class=\"media-left\" style=\"float:left\">
+                    <a href=\"";
+            // line 12
+            echo twig_escape_filter($this->env, $this->getAttribute($context["post"], "url", array()), "html", null, true);
+            echo "\">
+                        ";
+            // line 13
+            if (($this->getAttribute($this->getAttribute($context["post"], "featured_images", array()), "count", array()) > 0)) {
+                // line 14
+                echo "                            <img class=\"media-object\" src=\"";
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["post"], "featured_images", array()), "first", array()), "getThumb", array(0 => 300, 1 => "auto"), "method"), "html", null, true);
+                echo "\" />
+                        ";
+            } else {
+                // line 16
+                echo "                            <img class=\"media-object\" src=\"http://placehold.it/150x100\" />
+                        ";
+            }
+            // line 18
+            echo "                    </a>
+                </div>
+
+                <p class=\"info coursiva\">
                     Posteado 
                     ";
             // line 23
@@ -218,7 +218,7 @@ class __TwigTemplate_beaa8ce3f6febc3a93686f5d0cb1e35913fdd7ddf71183f4698b49cbb20
 
     public function getDebugInfo()
     {
-        return array (  204 => 60,  198 => 58,  196 => 57,  193 => 56,  182 => 53,  177 => 52,  173 => 51,  170 => 50,  164 => 48,  162 => 47,  159 => 46,  157 => 45,  153 => 43,  144 => 40,  141 => 39,  133 => 35,  127 => 33,  121 => 31,  119 => 30,  112 => 27,  98 => 26,  89 => 25,  71 => 24,  67 => 23,  58 => 19,  51 => 14,  47 => 12,  41 => 10,  39 => 9,  35 => 8,  30 => 5,  25 => 4,  21 => 2,  19 => 1,);
+        return array (  204 => 60,  198 => 58,  196 => 57,  193 => 56,  182 => 53,  177 => 52,  173 => 51,  170 => 50,  164 => 48,  162 => 47,  159 => 46,  157 => 45,  153 => 43,  144 => 40,  141 => 39,  133 => 35,  127 => 33,  121 => 31,  119 => 30,  112 => 27,  98 => 26,  89 => 25,  71 => 24,  67 => 23,  60 => 18,  56 => 16,  50 => 14,  48 => 13,  44 => 12,  35 => 8,  30 => 5,  25 => 4,  21 => 2,  19 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -235,23 +235,23 @@ class __TwigTemplate_beaa8ce3f6febc3a93686f5d0cb1e35913fdd7ddf71183f4698b49cbb20
 
 <div class=\"post-list\">
     {% for post in posts %}
-    <div class=\"col-md-6\">
+    <div class=\"col-md-12 div_noticia\">
         <div class=\"media\">
-            <div class=\"media-left\">
-                <a href=\"{{ post.url }}\">
-                    {% if post.featured_images.count > 0 %}
-                        <img class=\"media-object\" src=\"{{ post.featured_images.first.getThumb(100, 'auto') }}\" />
-                    {% else %}
-                        <img class=\"media-object\" src=\"http://placehold.it/100x100\" />
-                    {% endif %}
-                </a>
-            </div>
+            <h4 class=\"media-heading\">
+                <p class=\"bg-info titulo_noticia\"><a href=\"{{ post.url }}\">{{ post.title|upper }}</a></p>
+            </h4>
+            <div class=\"media-body\">                
+                <div class=\"media-left\" style=\"float:left\">
+                    <a href=\"{{ post.url }}\">
+                        {% if post.featured_images.count > 0 %}
+                            <img class=\"media-object\" src=\"{{ post.featured_images.first.getThumb(300, 'auto') }}\" />
+                        {% else %}
+                            <img class=\"media-object\" src=\"http://placehold.it/150x100\" />
+                        {% endif %}
+                    </a>
+                </div>
 
-            <div class=\"media-body\">
-                <h4 class=\"media-heading\">
-                    <p class=\"bg-info\" style=\" padding: 10px 10px 10px 10px;\"><a href=\"{{ post.url }}\">{{ post.title|upper }}</a></p>
-                </h4>
-                <p class=\"info\">
+                <p class=\"info coursiva\">
                     Posteado 
                     {% if post.categories.count %} en {% endif %}
                     {% for category in post.categories %}
