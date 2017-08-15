@@ -1,12 +1,13 @@
 title = "Account"
 url = "/account/:code?"
-layout = "formularios"
+layout = "login"
 description = "Sign in, registration and account management."
-hidden = "0"
+is_hidden = 0
 
 [account]
 redirect = "home"
 paramCode = "code"
+forceSecure = 0
 ==
 {% component 'account' %}
 

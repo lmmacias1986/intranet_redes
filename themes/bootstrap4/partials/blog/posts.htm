@@ -11,7 +11,7 @@
                 <div class="media-left" style="float:left">
                     <a href="{{ post.url }}">
                         {% if post.featured_images.count > 0 %}
-                            <img class="media-object" src="{{ post.featured_images.first.getThumb(150, 'auto') }}" />
+                            <img class="media-object" src="{{ post.featured_images.first.getThumb(300, 'auto') }}" />
                         {% else %}
                             <img class="media-object" src="http://placehold.it/150x100" />
                         {% endif %}

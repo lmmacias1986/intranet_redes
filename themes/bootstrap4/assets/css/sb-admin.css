@@ -10,7 +10,6 @@ html{
 }
 body {
     margin-top: 100px;
-    background-color: #e7e7e7;
     height: 100%;
 }
 
@@ -27,7 +26,6 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #e7e7e7;
 }
 
 .huge {
