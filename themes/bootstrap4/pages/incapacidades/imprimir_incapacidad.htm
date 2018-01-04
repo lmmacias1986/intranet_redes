@@ -11,12 +11,13 @@ function onRedirect(){
 }
 function onStart()
 {
-    $incapacidad = DB::table('incapacidades')->where('id','=', $this->param('id'))->first();
+    //$incapacidad = DB::table('incapacidades')->where('id','=', $this->param('id'))->first();
+    //linea comentada por desconocimiento de su funcionalidad, ya que la siguiente linea consulta lo mismo
+
     $incapacidad = Db::table('incapacidades')
     ->join('colaboradores', 'incapacidades.cedula', '=', 'colaboradores.cedula')    
     ->join('registro_diagnostico', 'incapacidades.cod_dx', '=', 'registro_diagnostico.codigo')    
-    ->select('incapacidades.*', 'colaboradores.nombres', 'colaboradores.apellidos', 'colaboradores.empresa', 'registro_diagnostico.descripcion')
-    ->first();
+    ->select('incapacidades.*', 'colaboradores.nombres', 'colaboradores.apellidos', 'colaboradores.empresa', 'registro_diagnostico.descripcion')->where('incapacidades.id','=', $this->param('id'))->first();
 
     $this['incapacidad'] = $incapacidad;
 
@@ -83,7 +84,7 @@ function onStart()
                     <td style="border:solid 1px #000"><label>Nombres y Apellidos:</label> {{ incapacidad.nombres|upper }} {{ incapacidad.apellidos|upper }}</td>
                 </tr>
                 <tr>
-                    <td style="border:solid 1px #000"><label>Tipo de Incapacidad:</label> {{ incapacidad.tipo_incapacidad }}</td>
+                    <td style="border:solid 1px #000"><label>Tipo de Incapacidad:</label> {{ incapacidad.tipo_incapacidad|upper }}</td>
                     <td style="border:solid 1px #000"><label>Cod diagnóstico:</label> {{ incapacidad.cod_dx|upper }} - {{ incapacidad.descripcion }}</td>
                     <td style="border:solid 1px #000"><label>EPS:</label> {{ incapacidad.eps|upper }}</td>
                 </tr>
@@ -94,12 +95,12 @@ function onStart()
                 </tr>
                 <tr>
                     <td style="border:solid 1px #000"><label>Valor prestación:</label> {{ incapacidad.valor_prestacion }}</td>
-                    <td style="border:solid 1px #000"><label>Gestión:</label> {{ incapacidad.gestion }}</td>
+                    <td style="border:solid 1px #000"><label>Gestión:</label> {{ incapacidad.gestion|upper }}</td>
                     <td style="border:solid 1px #000"><label>Valor reconocido:</label> {{ incapacidad.valor_reconocido }}</td>
                 </tr>                    
                     <td style="border:solid 1px #000"><label>Días:</label> {{ incapacidad.dias }}</td>
                     <td style="border:solid 1px #000"><label>Ciudad:</label> {{ incapacidad.ciudad|upper }}</td>
-                    <td style="border:solid 1px #000"><label>Estado:</label> {{ incapacidad.estado }}</td>
+                    <td style="border:solid 1px #000"><label>Estado:</label> {{ incapacidad.estado|upper }}</td>
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -111,7 +112,7 @@ function onStart()
                     <td style="border:solid 1px #000" colspan="3"><label>Estados del caso:</label> 
                         {% for estado in estados %}                            
                                 <input name="chk_estado_{{ loop.index0 }}" value="{{ estado.id }}" {{ estado.estado }} type="checkbox" />
-                                <span>{{ estado.descripcion }}</span>  -- 
+                                <span>{{ estado.descripcion|upper }}</span>  -- 
                         {% endfor %}
                     </td>
                 </tr>

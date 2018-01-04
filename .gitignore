@@ -1,0 +1,8 @@
+storage/app/media/profesiogramas/*
+storage/app/uploads/public/*
+storage/cms/cache/*
+storage/cms/combiner/assets/*
+storage/cms/twig/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/logs/*
