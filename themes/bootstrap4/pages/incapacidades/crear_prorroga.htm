@@ -237,9 +237,10 @@ function calculo_dias(){
                     <div class="col-md-3">
                         <span for="ciudad">Ciudad:</span>
                         <select id="ciudad" name="ciudad" class="form-control">
+                            <option value="Barranquilla" {% if user.city=="Barranquilla" %} selected {% endif %}>Barranquilla</option>
                             <option value="Bogotá" {% if user.city=="Bogotá" %} selected {% endif %}>Bogotá</option>
-                            <option value="Medellín" {% if user.city=="Medellín" %} selected {% endif %}>Medellín</option>
                             <option value="Bucaramanga" {% if user.city=="Bucaramanga" %} selected {% endif %}>Bucaramanga</option>
+                            <option value="Medellín" {% if user.city=="Medellín" %} selected {% endif %}>Medellín</option>
                             <option value="Cali" {% if user.city=="Cali" %} selected {% endif %}>Cali</option>
                         </select>
                     </div>      
@@ -274,6 +275,7 @@ function calculo_dias(){
                             <option value="En tramite" {% if incapacidad.gestion =="En tramite" %}selected {% endif %}>En trámite</option>
                             <option value="Liquidada" {% if incapacidad.gestion =="Liquidada" %}selected {% endif %}>Liquidada</option>
                             <option value="Negada" {% if incapacidad.gestion =="Negada" %}selected {% endif %}>Negada</option>
+                            <option value="Incapacidad Menor" {% if incapacidad.gestion =="Incapacidad Menor" %}selected {% endif %}>Incapacidad Menor</option>
                         </select>
                         
                     </div>
